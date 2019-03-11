@@ -1,0 +1,10 @@
+version: '3'
+services:
+
+  python:
+    build: ./images/python
+    working_dir: /home/hovertaxi
+    volumes:
+      - ./..:/home/hovertaxi:delegated
+    ports:
+      - "8888:8888"
