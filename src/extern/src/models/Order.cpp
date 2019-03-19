@@ -2,10 +2,10 @@
 
 #include <chrono>
 
-#include "GeoPoint.h"
-#include "Vehicle.h"
+#include "GeoPoint.cpp"
+#include "Vehicle.cpp"
 
-namespace model {
+namespace models {
 
 struct Order {
   GeoPoint from{}, to{};

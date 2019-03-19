@@ -4,6 +4,8 @@ project(hovertaxi)
 
 set(CMAKE_CXX_STANDARD 11)
 
+include_directories(src)
+
 # Download and unpack googletest at configure time
 configure_file(libs/CMakeLists.txt libs/googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
@@ -30,6 +32,7 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
         EXCLUDE_FROM_ALL)
 
 add_executable(hovertaxi src/hovertaxi.cpp)
+add_subdirectory(src)
 
 add_executable(hovertaxi_test src/test/test.cpp)
 target_link_libraries(hovertaxi_test gtest_main)

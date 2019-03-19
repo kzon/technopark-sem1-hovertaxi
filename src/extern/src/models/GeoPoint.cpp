@@ -1,6 +1,6 @@
 #pragma once
 
-namespace model {
+namespace models {
 
 struct GeoPoint {
   double latitude;

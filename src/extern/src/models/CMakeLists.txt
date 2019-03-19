@@ -1,0 +1,5 @@
+include(../../cmake/glob_sources.cmake)
+add_sources_only(hovertaxi_models .)
+add_library(hovertaxi_models ${hovertaxi_models_sources})
+target_include_directories(hovertaxi_models PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(hovertaxi hovertaxi_models)
