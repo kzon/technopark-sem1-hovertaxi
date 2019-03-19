@@ -9,8 +9,8 @@ namespace components {
 
 class Order {
  public:
-  std::vector<models::Order> LoadOrders();
-  models::Order CreateOrder(models::GeoPoint &from, models::GeoPoint &to);
+  static std::vector<models::Order> LoadOrders();
+  static models::Order CreateOrder(models::GeoPoint &from, models::GeoPoint &to);
 };
 
 }

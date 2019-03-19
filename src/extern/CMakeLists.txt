@@ -32,8 +32,9 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
         EXCLUDE_FROM_ALL)
 
 add_executable(hovertaxi src/hovertaxi.cpp)
-add_subdirectory(src)
 
 add_executable(hovertaxi_test src/test/test.cpp)
 target_link_libraries(hovertaxi_test gtest_main)
 add_test(NAME hovertaxi_test COMMAND hovertaxi_test)
+
+add_subdirectory(src)

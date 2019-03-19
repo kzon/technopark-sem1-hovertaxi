@@ -8,7 +8,7 @@ namespace components {
 
 class Vehicle {
  public:
-  std::vector<models::Vehicle> LoadVehicles();
+  static std::vector<models::Vehicle> LoadVehicles();
 };
 
 }
