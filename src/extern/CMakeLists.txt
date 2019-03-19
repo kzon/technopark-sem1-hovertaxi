@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.13)
 
 project(hovertaxi)
 
+set(CMAKE_CXX_STANDARD 11)
+
 # Download and unpack googletest at configure time
 configure_file(libs/CMakeLists.txt libs/googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
@@ -27,14 +29,8 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
         ${CMAKE_CURRENT_BINARY_DIR}/googletest-build
         EXCLUDE_FROM_ALL)
 
-# The gtest/gtest_main targets carry header search path
-# dependencies automatically when using CMake 2.8.11 or
-# later. Otherwise we have to add them here ourselves.
-if (CMAKE_VERSION VERSION_LESS 2.8.11)
-    include_directories("${gtest_SOURCE_DIR}/include")
-endif()
+add_executable(hovertaxi src/hovertaxi.cpp)
 
-# Now simply link against gtest or gtest_main as needed. Eg
-add_executable(hovertaxi src/hovertaxi_extern.cpp)
-target_link_libraries(hovertaxi gtest_main)
-add_test(NAME hovertaxi_test COMMAND hovertaxi)
+add_executable(hovertaxi_test src/test/test.cpp)
+target_link_libraries(hovertaxi_test gtest_main)
+add_test(NAME hovertaxi_test COMMAND hovertaxi_test)
