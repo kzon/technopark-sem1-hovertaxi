@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include "components/order/Order.h"
 
 unsigned user_id = 2;
@@ -21,5 +20,3 @@ TEST(CreateOrderTest, CreatedOrderSaved) {
   ASSERT_EQ(order.id, created_order_id);
   ASSERT_EQ(order.user_id, user_id);
 }
-=======
->>>>>>> b71a227436914cf049dbd2ab210f3e8c01989e87
