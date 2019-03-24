@@ -9,8 +9,9 @@ namespace components {
 
 class Order {
  public:
-  static std::vector<models::Order> LoadOrders();
-  static models::Order CreateOrder(models::GeoPoint &from, models::GeoPoint &to);
+  static bool LoadOrderById(unsigned order_id, models::Order &order);
+  static models::Order CreateOrder(unsigned user_id, models::GeoPoint &from, models::GeoPoint &to);
+  static models::Order ProcessOrder(unsigned order_id);
 };
 
 }
