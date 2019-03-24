@@ -1,7 +1,11 @@
-cd /home/hovertaxi
+# Compile Cython modules
+cd /home/hovertaxi/src/extern/wrappers
 
-cd src/extern
+cd controllers/vehicle
 python setup.py build_ext --inplace
-cd ../..
+cd -
 
+
+# Start server
+cd /home/hovertaxi
 python src/app.py

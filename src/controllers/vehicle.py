@@ -1,9 +1,8 @@
 import tornado.web
 
-from extern.wrappers.controllers.vehicle import vehicle
-
+from extern import hovertaxi_extern
 
 class DemoController:
     class IndexHandler(tornado.web.RequestHandler):
         def get(self):
-            self.write(vehicle.loadVehicles())
+            self.write(hovertaxi_extern.demo())
