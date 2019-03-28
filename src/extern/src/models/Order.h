@@ -3,14 +3,14 @@
 #include <memory>
 #include <chrono>
 
-#include "GeoPoint.cpp"
-#include "Vehicle.cpp"
+#include "GeoPoint2D.h"
+#include "Aircraft.h"
 
 namespace models {
 
 struct Order {
-  GeoPoint from, to;
-  std::unique_ptr<Vehicle> assigned_vehicle;
+  GeoPoint2D from, to;
+  std::unique_ptr<Aircraft> assigned_vehicle;
   std::chrono::system_clock::time_point created_date;
 };
 

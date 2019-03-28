@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "unit/component/Order.cpp"
+#include "unit/component/Order.h"
 
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);

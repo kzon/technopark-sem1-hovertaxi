@@ -7,7 +7,3 @@ macro(add_headers_and_sources prefix common_path)
     add_glob(${prefix}_headers RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${common_path}/**/*.h)
     add_glob(${prefix}_sources ${common_path}/**/*.cpp ${common_path}/**/*.h)
 endmacro()
-
-macro(add_sources_only prefix common_path)
-    add_glob(${prefix}_sources RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${common_path}/*.cpp)
-endmacro()

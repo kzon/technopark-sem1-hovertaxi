@@ -1,13 +1,13 @@
 #pragma once
 
 #include <string>
-#include "GeoPoint.cpp"
+#include "GeoPoint2D.h"
 
 namespace models {
 
-struct Vehicle {
+struct Aircraft {
   std::string model;
-  models::GeoPoint position;
+  models::GeoPoint2D position;
 };
 
 }
