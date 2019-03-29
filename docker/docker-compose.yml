@@ -8,3 +8,12 @@ services:
       - ./..:/home/hovertaxi
     ports:
       - "8888:8888"
+
+  db:
+    image: mongo:4
+    restart: always
+    volumes:
+      - ./images/db/data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: hovertaxi
+      MONGO_INITDB_ROOT_PASSWORD: hovertaxi
