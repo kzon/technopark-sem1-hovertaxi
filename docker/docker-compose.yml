@@ -5,6 +5,6 @@ services:
     build: ./images/python
     working_dir: /home/hovertaxi
     volumes:
-      - ./..:/home/hovertaxi:delegated
+      - ./..:/home/hovertaxi
     ports:
       - "8888:8888"
