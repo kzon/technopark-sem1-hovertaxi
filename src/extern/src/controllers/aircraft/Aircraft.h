@@ -6,7 +6,7 @@ namespace controllers {
 
 class Aircraft {
  public:
-  static std::string LoadAircraftInCircle(models::GeoPoint2D center, int radius);
+  static std::string LoadAircraftInCircle();
 };
 
 }

@@ -1,6 +1,8 @@
-include(../../cmake/glob_sources.cmake)
+include(glob_sources)
 add_headers_and_sources(hovertaxi_controllers .)
 add_library(hovertaxi_controllers ${hovertaxi_controllers_headers} ${hovertaxi_controllers_sources})
 target_include_directories(hovertaxi_controllers PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(hovertaxi hovertaxi_controllers)
 target_link_libraries(hovertaxi_test hovertaxi_controllers)
+
+add_subdirectory(aircraft)
+add_subdirectory(demo)

@@ -1,9 +1,8 @@
 import tornado.web
 
-from extern.wrappers.controllers.vehicle import vehicle
-
+from extern import aircraft
 
 class AircraftController:
     class LoadInCircleHandler(tornado.web.RequestHandler):
         def get(self):
-            self.write(vehicle.loadVehicles())
+            self.write(aircraft.load_aircraft_in_circle())
