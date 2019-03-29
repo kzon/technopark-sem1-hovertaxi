@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.7)
 
 project(hovertaxi)
 
@@ -10,7 +10,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
 include(UseCython)
 set(CYTHON_FLAGS ${CYTHON_FLAGS} -3)
-
 
 # Download and unpack googletest at configure time
 configure_file(libs/CMakeLists.txt libs/googletest-download/CMakeLists.txt)
@@ -37,9 +36,12 @@ add_subdirectory(${CMAKE_CURRENT_BINARY_DIR}/googletest-src
         ${CMAKE_CURRENT_BINARY_DIR}/googletest-build
         EXCLUDE_FROM_ALL)
 
+add_subdirectory(src/components)
+add_subdirectory(src/controllers)
 
 add_executable(hovertaxi_test src/test/test.cpp)
 target_link_libraries(hovertaxi_test gtest_main)
-add_test(NAME hovertaxi_test COMMAND hovertaxi_test)
+target_link_libraries(hovertaxi_test hovertaxi_components)
+target_link_libraries(hovertaxi_test hovertaxi_controllers)
 
-add_subdirectory(src)
+add_test(NAME hovertaxi_test COMMAND hovertaxi_test)
