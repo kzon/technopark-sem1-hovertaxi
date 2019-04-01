@@ -37,13 +37,6 @@
 #  CYTHON_NO_DOCSTRINGS
 #  CYTHON_FLAGS
 #
-# Source file properties that effect the build process are
-#
-#  CYTHON_IS_CXX
-#
-# If this is set of a *.pyx file with CMake set_source_files_properties()
-# command, the file will be compiled as a C++ file.
-#
 # See also FindCython.cmake
 
 #=============================================================================
@@ -85,7 +78,6 @@ function(compile_pyx _name generated_file)
     set(cxx_arg "")
     set(extension ${CYTHON_C_EXTENSION})
     set(pyx_lang "C")
-    set(comment "Compiling Cython C source for ${_name}...")
 
     set(cython_include_directories "")
     set(pxd_dependencies "")
@@ -96,14 +88,10 @@ function(compile_pyx _name generated_file)
     foreach (pyx_file ${ARGN})
         get_filename_component(pyx_file_basename "${pyx_file}" NAME_WE)
 
-        # Determine if it is a C or C++ file.
-        get_source_file_property(property_is_cxx ${pyx_file} CYTHON_IS_CXX)
-        if (${property_is_cxx})
-            set(cxx_arg "--cplus")
-            set(extension ${CYTHON_CXX_EXTENSION})
-            set(pyx_lang "CXX")
-            set(comment "Compiling Cython CXX source for ${_name}...")
-        endif ()
+        set(cxx_arg "--cplus")
+        set(extension ${CYTHON_CXX_EXTENSION})
+        set(pyx_lang "CXX")
+        set(comment "Compiling Cython CXX source for ${_name}...")
 
         # Get the include directories.
         get_source_file_property(pyx_location ${pyx_file} LOCATION)

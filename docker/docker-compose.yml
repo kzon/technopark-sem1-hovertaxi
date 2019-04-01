@@ -9,11 +9,12 @@ services:
     ports:
       - "8888:8888"
 
-  db:
-    image: mongo:4
+  mongo:
+    build: ./images/mongo
     restart: always
-    volumes:
-      - ./images/db/data:/data/db
+    ports:
+      - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: hovertaxi
       MONGO_INITDB_ROOT_PASSWORD: hovertaxi
+      MONGO_INITDB_DATABASE: hovertaxi

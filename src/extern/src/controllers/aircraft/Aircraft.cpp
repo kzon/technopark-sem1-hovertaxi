@@ -1,18 +1,15 @@
 #include "Aircraft.h"
-#include "components/aircraft/Aircraft.h"
+#include "services/servicelocator/ServiceLocator.h"
 
 namespace controllers {
 
 std::string Aircraft::LoadAircraftInCircle() {
-  auto aircrafts = components::Aircraft::LoadAircraftInCircle(models::GeoPoint2D{54.124234, 43.4234}, 5);
-  std::string result;
-  for (const auto &aircraft : aircrafts) {
-    result += aircraft.model + " on ";
-    result += std::to_string(aircraft.position.longitude) + ", "
-        + std::to_string(aircraft.position.latitude);
-    result += '\n';
+  optional<models::Aircraft> aircraft =
+      services::ServiceLocator::GetDataManager().LoadAircraftById("5ca1f2c9a65e10c9e0a798a2");
+  if (aircraft) {
+    return aircraft.value().model;
   }
-  return result;
+  return "not found";
 }
 
 }
