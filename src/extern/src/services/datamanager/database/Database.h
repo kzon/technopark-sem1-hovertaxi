@@ -1,5 +1,6 @@
 #pragma once
 
+#include <vector>
 #include <bsoncxx/json.hpp>
 #include <bsoncxx/builder/stream/document.hpp>
 #include <mongocxx/instance.hpp>
@@ -8,6 +9,7 @@
 #include <mongocxx/uri.hpp>
 
 #include "models/Aircraft.h"
+#include "models/AircraftClass.h"
 
 namespace services {
 
@@ -23,9 +25,11 @@ class Database {
       db_(client_[DB_NAME]) {}
 
   optional<bsoncxx::document::value> LoadObjectById(const std::string &collection, const std::string &id) const;
-  std::string ToJSON(const bsoncxx::document::value &object) const;
+  std::vector<bsoncxx::document::view> LoadObjects(const std::string &collection) const;
+  std::string ToJSON(const bsoncxx::document::view &view) const;
 
-  models::Aircraft ConvertAircraftToModel(bsoncxx::document::value &document) const;
+  models::Aircraft ConvertAircraftToModel(const bsoncxx::document::view &view) const;
+  models::AircraftClass ConvertAircraftClassToModel(const bsoncxx::document::view &view) const;
 
  private:
   mongocxx::collection GetCollection(const std::string &name) const;

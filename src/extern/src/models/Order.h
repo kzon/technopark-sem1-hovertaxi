@@ -3,15 +3,28 @@
 #include <memory>
 #include <chrono>
 
-#include "GeoPoint2D.h"
+#include "GeoPoint.h"
 #include "Aircraft.h"
+#include "Pad.h"
 
 namespace models {
 
+enum OrderStatus {
+  NEW,
+  PROCESSING,
+  AIRCRAFT_ASSIGNED,
+  ON_FLY,
+  FINISHED,
+  CANCELED
+};
+
 struct Order {
-  GeoPoint2D from, to;
-  std::unique_ptr<Aircraft> assigned_vehicle;
-  std::chrono::system_clock::time_point created_date;
+  std::string user_id;
+  OrderStatus status;
+  GeoPoint from, to;
+  Pad from_pad, to_pad;
+  std::string aircraft_class_id;
+  std::string assigned_aircraft_id;
 };
 
 }

@@ -1,2 +1,2 @@
 add_subdirectory(aircraft)
-add_subdirectory(demo)
+add_subdirectory(order)

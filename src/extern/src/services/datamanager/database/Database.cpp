@@ -13,20 +13,34 @@ optional<bsoncxx::document::value> Database::LoadObjectById(
   return result;
 }
 
+std::vector<bsoncxx::document::view> Database::LoadObjects(const std::string &collection) const {
+  mongocxx::cursor cursor = GetCollection(collection).find({});
+  std::vector<bsoncxx::document::view> result(cursor.begin(), cursor.end());
+  return result;
+}
+
 mongocxx::collection Database::GetCollection(const std::string &name) const {
   return db_[name];
 }
 
-std::string Database::ToJSON(const bsoncxx::document::value &object) const {
-  return bsoncxx::to_json(object.view());
+std::string Database::ToJSON(const bsoncxx::document::view &view) const {
+  return bsoncxx::to_json(view);
 }
 
-models::Aircraft Database::ConvertAircraftToModel(bsoncxx::document::value &document) const {
-  auto view = document.view();
+models::Aircraft Database::ConvertAircraftToModel(const bsoncxx::document::view &view) const {
   models::Aircraft aircraft;
   aircraft.id = view["_id"].get_oid().value.to_string();
-  aircraft.model = view["model"].get_utf8().value.to_string();
+  aircraft.model_id = view["model_id"].get_oid().value.to_string();
   return aircraft;
+}
+
+models::AircraftClass Database::ConvertAircraftClassToModel(const bsoncxx::document::view &view) const {
+  models::AircraftClass aircraft_class;
+  aircraft_class.id = view["_id"].get_oid().value.to_string();
+  aircraft_class.name = view["name"].get_utf8().value.to_string();
+  aircraft_class.max_range = view["max_range"].get_int32().value;
+  aircraft_class.min_range = view["min_range"].get_int32().value;
+  return aircraft_class;
 }
 
 }

@@ -2,11 +2,11 @@
 
 namespace models {
 
-struct GeoPoint2D {
+struct GeoPoint {
   double latitude;
   double longitude;
 
-  bool operator==(const GeoPoint2D other) {
+  bool operator==(const GeoPoint other) {
     return latitude == other.latitude && longitude == other.longitude;
   }
 };

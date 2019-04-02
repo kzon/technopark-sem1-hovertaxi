@@ -8,8 +8,8 @@ cmake -DCMAKE_BUILD_TYPE=Debug /home/hovertaxi/src/extern
 make aircraft
 mv src/controllers/aircraft/aircraft.so /home/hovertaxi/src/extern/aircraft.so
 
-make demo
-mv src/controllers/demo/demo.so /home/hovertaxi/src/extern/demo.so
+make order
+mv src/controllers/order/order.so /home/hovertaxi/src/extern/order.so
 
 
 # Start server
