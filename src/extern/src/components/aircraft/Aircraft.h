@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "models/Aircraft.h"
+#include "models/GeoPoint2D.h"
 
 namespace components {
 

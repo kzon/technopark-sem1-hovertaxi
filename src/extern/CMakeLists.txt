@@ -46,7 +46,7 @@ add_headers_and_sources(hovertaxi src/controllers)
 add_headers_and_sources(hovertaxi src/services)
 
 # Test target
-add_executable(hovertaxi_test ${hovertaxi_headers} ${hovertaxi_sources})
+add_executable(hovertaxi_test ${hovertaxi_sources})
 target_link_libraries(hovertaxi_test gtest_main)
 add_test(NAME hovertaxi_test COMMAND hovertaxi_test)
 
