@@ -2,7 +2,7 @@
 
 namespace components {
 
-std::string Order::GetOrderInfo(models::GeoPoint from, models::GeoPoint to, models::AircraftClass aircraft_class) {
+std::string Order::PreOrder(models::GeoPoint from, models::GeoPoint to, models::AircraftClass aircraft_class) {
   return "order info";
 }
 
