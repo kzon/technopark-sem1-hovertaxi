@@ -3,8 +3,8 @@
 
 namespace controllers {
 
-std::string Order::GetOrderInfo(std::string order_id) {
-  return "testik order id = " + order_id;
+std::string Order::PreOrder() {
+  return "pre ordered";
 }
 
 }
