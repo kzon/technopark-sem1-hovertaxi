@@ -8,10 +8,10 @@
 #include <mongocxx/stdx.hpp>
 #include <mongocxx/uri.hpp>
 
-#include "models/Aircraft.h"
-#include "models/AircraftClass.h"
+#include "models/aircraft.h"
+#include "models/aircraft_class.h"
 
-namespace services {
+namespace hovertaxi {
 
 template<class T>
 using optional = bsoncxx::stdx::optional<T>;

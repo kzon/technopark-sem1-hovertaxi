@@ -4,11 +4,11 @@
 #include <iostream>
 #include <sstream>
 
-#include "services/datamanager/database/Database.h"
-#include "models/Aircraft.h"
-#include "models/AircraftClass.h"
+#include "services/data_manager/database/database.h"
+#include "models/aicraft.h"
+#include "models/aircraft_class.h"
 
-namespace services {
+namespace hovertaxi {
 
 class DataManager {
  public:

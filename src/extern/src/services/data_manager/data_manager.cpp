@@ -1,17 +1,17 @@
-#include "DataManager.h"
+#include "data_manager.h"
 
-namespace services {
+namespace hovertaxi {
 
 DataManager &DataManager::GetInstance(const std::string &uri) {
   static DataManager instance(uri);
   return instance;
 }
 
-optional<models::Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
+optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
   auto result = db_.LoadObjectById(AIRCRAFT_COLLECTION_NAME, id);
   if (result) {
-    models::Aircraft aircraft = db_.ConvertAircraftToModel(result.value().view());
-    return optional<models::Aircraft>(aircraft);
+    Aircraft aircraft = db_.ConvertAircraftToModel(result.value().view());
+    return optional<Aircraft>(aircraft);
   }
   return {};
 }
@@ -21,9 +21,9 @@ std::string DataManager::LoadAircraftByIdAsJSON(const std::string &id) const {
   return result ? db_.ToJSON(result.value().view()) : "null";
 }
 
-std::vector<models::AircraftClass> DataManager::LoadAircraftClasses() const {
+std::vector<AircraftClass> DataManager::LoadAircraftClasses() const {
   auto objects = db_.LoadObjects(AIRCRAFT_CLASS_COLLECTION_NAME);
-  std::vector<models::AircraftClass> result(objects.size());
+  std::vector<AircraftClass> result(objects.size());
   for (const auto &object : objects)
     result.push_back(db_.ConvertAircraftClassToModel(object));
   return result;

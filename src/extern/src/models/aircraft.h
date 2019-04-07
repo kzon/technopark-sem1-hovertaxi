@@ -2,9 +2,9 @@
 
 #include <string>
 
-#include "GeoPoint.h"
+#include "geo_point.h"
 
-namespace models {
+namespace hovertaxi {
 
 struct Aircraft {
   std::string id;

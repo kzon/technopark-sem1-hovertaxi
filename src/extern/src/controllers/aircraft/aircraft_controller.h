@@ -1,10 +1,10 @@
 #include <string>
 
-#include "models/GeoPoint.h"
+#include "models/geo_point.h"
 
-namespace controllers {
+namespace hovertaxi {
 
-class Aircraft {
+class AircraftController {
  public:
   static std::string LoadAircraftInCircle();
   static std::string LoadAircraftClasses();

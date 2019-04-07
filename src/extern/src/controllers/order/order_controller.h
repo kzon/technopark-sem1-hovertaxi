@@ -1,8 +1,8 @@
 #include <string>
 
-namespace controllers {
+namespace hovertaxi {
 
-class Order {
+class OrderController {
  public:
   static std::string PreOrder();
 };

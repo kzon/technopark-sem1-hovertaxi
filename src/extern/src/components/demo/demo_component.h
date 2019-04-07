@@ -2,9 +2,9 @@
 
 #include <string>
 
-namespace components {
+namespace hovertaxi {
 
-class Demo {
+class DemoComponent {
  public:
   static std::string TestDemo();
 };

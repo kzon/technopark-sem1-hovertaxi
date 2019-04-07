@@ -1,6 +1,6 @@
 #pragma once
 
-namespace models {
+namespace hovertaxi {
 
 struct AircraftModel {
   std::string class_id;

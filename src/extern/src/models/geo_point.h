@@ -1,6 +1,6 @@
 #pragma once
 
-namespace models {
+namespace hovertaxi {
 
 struct GeoPoint {
   double latitude;

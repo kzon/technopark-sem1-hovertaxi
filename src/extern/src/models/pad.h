@@ -1,8 +1,8 @@
 #pragma once
 
-#include "GeoPoint.h"
+#include "geo_point.h"
 
-namespace models {
+namespace hovertaxi {
 
 struct Pad {
   GeoPoint position;

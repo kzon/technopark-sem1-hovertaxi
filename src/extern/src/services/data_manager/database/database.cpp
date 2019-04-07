@@ -1,6 +1,6 @@
-#include "Database.h"
+#include "database.h"
 
-namespace services {
+namespace hovertaxi {
 
 optional<bsoncxx::document::value> Database::LoadObjectById(
     const std::string &collection,

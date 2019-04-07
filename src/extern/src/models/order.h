@@ -3,11 +3,11 @@
 #include <memory>
 #include <chrono>
 
-#include "GeoPoint.h"
-#include "Aircraft.h"
-#include "Pad.h"
+#include "geo_point.h"
+#include "aircraft.h"
+#include "pad.h"
 
-namespace models {
+namespace hovertaxi {
 
 enum OrderStatus {
   NEW,
