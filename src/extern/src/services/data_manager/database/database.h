@@ -28,8 +28,8 @@ class Database {
   std::vector<bsoncxx::document::view> LoadObjects(const std::string &collection) const;
   std::string ToJSON(const bsoncxx::document::view &view) const;
 
-  models::Aircraft ConvertAircraftToModel(const bsoncxx::document::view &view) const;
-  models::AircraftClass ConvertAircraftClassToModel(const bsoncxx::document::view &view) const;
+  Aircraft ConvertAircraftToModel(const bsoncxx::document::view &view) const;
+  AircraftClass ConvertAircraftClassToModel(const bsoncxx::document::view &view) const;
 
  private:
   mongocxx::collection GetCollection(const std::string &name) const;

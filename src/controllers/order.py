@@ -1,9 +1,9 @@
 import tornado.web
 
-from extern import order
+from extern import order_controller
 
 
 class OrderController:
     class PreOrderHandler(tornado.web.RequestHandler):
         def get(self):
-            self.write(order.pre_order())
+            self.write(order_controller.pre_order())

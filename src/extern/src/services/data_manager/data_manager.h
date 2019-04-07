@@ -17,10 +17,10 @@ class DataManager {
 
   static DataManager &GetInstance(const std::string &uri);
 
-  optional<models::Aircraft> LoadAircraftById(const std::string &id) const;
+  optional<Aircraft> LoadAircraftById(const std::string &id) const;
   std::string LoadAircraftByIdAsJSON(const std::string &id) const;
 
-  std::vector<models::AircraftClass> LoadAircraftClasses() const;
+  std::vector<AircraftClass> LoadAircraftClasses() const;
   std::string LoadAircraftClassesAsJSON() const;
  private:
   explicit DataManager(const std::string &uri) : db_(uri) {}

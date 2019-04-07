@@ -27,15 +27,15 @@ std::string Database::ToJSON(const bsoncxx::document::view &view) const {
   return bsoncxx::to_json(view);
 }
 
-models::Aircraft Database::ConvertAircraftToModel(const bsoncxx::document::view &view) const {
-  models::Aircraft aircraft;
+Aircraft Database::ConvertAircraftToModel(const bsoncxx::document::view &view) const {
+  Aircraft aircraft;
   aircraft.id = view["_id"].get_oid().value.to_string();
   aircraft.model_id = view["model_id"].get_oid().value.to_string();
   return aircraft;
 }
 
-models::AircraftClass Database::ConvertAircraftClassToModel(const bsoncxx::document::view &view) const {
-  models::AircraftClass aircraft_class;
+AircraftClass Database::ConvertAircraftClassToModel(const bsoncxx::document::view &view) const {
+  AircraftClass aircraft_class;
   aircraft_class.id = view["_id"].get_oid().value.to_string();
   aircraft_class.name = view["name"].get_utf8().value.to_string();
   aircraft_class.max_range = view["max_range"].get_int32().value;

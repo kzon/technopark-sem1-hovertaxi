@@ -1,1 +1,1 @@
-__all__ = ['aircraft', 'order']
+__all__ = ['aircraft_controller', 'order_controller']
