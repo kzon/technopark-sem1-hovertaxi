@@ -2,18 +2,24 @@
 
 namespace hovertaxi {
 
-std::string OrderComponent::PreOrder(GeoPoint from, GeoPoint to, AircraftClass aircraft_class) {
-  return "order info";
+PreOrder OrderComponent::MakePreOrder(const Pad &from, const Pad &to, const std::string &aircraft_class_id) {
+  return {};
 }
 
-Order OrderComponent::CreateOrder(std::string user_id, GeoPoint &from, GeoPoint &to) {
-  Order order{};
-  return order;
+Order OrderComponent::CreateOrder(const Pad &from, const Pad &to, const std::string &aircraft_class_id) {
+  return {};
 }
 
-Order OrderComponent::ProcessOrder(std::string order_id) {
-  Order order{};
-  return order;
+Order OrderComponent::GetOrderInfo(const std::string &order_id) {
+  return {};
+}
+
+Order OrderComponent::ProcessOrdersFromQueue() {
+  return {};
+}
+
+CancelOrderResult OrderComponent::CancelOrder(const std::string &order_id) {
+  return {};
 }
 
 }

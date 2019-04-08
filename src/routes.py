@@ -1,10 +1,15 @@
-from controllers import *
+from handlers import *
 
 routes = [
-    (r"/", main.MainController.IndexHandler),
+    (r"/", main.IndexHandler),
 
-    (r"/api/order/preOrder", order.OrderController.PreOrderHandler),
+    (r"/api/order/preOrder", order.PreOrderHandler),
+    (r"/api/order/createOrder", order.CreateOrderHandler),
+    (r"/api/order/getOrderInfo", order.GetOrderInfoHandler),
+    (r"/api/order/cancelOrder", order.CancelOrderHandler),
 
-    (r"/api/aircraft/loadInCircle", aircraft.AircraftController.LoadInCircleHandler),
-    (r"/api/aircraft/loadAircraftClasses", aircraft.AircraftController.LoadAircraftClassesHandler),
+    (r"/api/aircraft/loadInCircle", aircraft.LoadInCircleHandler),
+    (r"/api/aircraft/loadCurrentOrderAircraft", aircraft.LoadCurrentOrderAircraftHandler),
+    (r"/api/aircraft/loadAircraftClasses", aircraft.LoadAircraftClassesHandler),
+    (r"/api/aircraft/loadNearestPads", aircraft.LoadNearestPadsHandler),
 ]

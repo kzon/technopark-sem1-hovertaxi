@@ -2,12 +2,12 @@
 
 #include <string>
 
+#include "data_mapper.h"
 #include "geo_point.h"
 
 namespace hovertaxi {
 
-struct Aircraft {
-  std::string id;
+struct Aircraft : public DataMapper {
   std::string model_id;
   std::string number;
   GeoPoint position;

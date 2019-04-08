@@ -6,7 +6,9 @@ namespace hovertaxi {
 
 class DemoComponent {
  public:
-  static std::string TestDemo();
+  static void CreateAircraftsRoutes();
+  static void UpdateAircraftsPositions();
+  static void AssignMoveToNearestPadRoute(const std::string &aircraft_id);
 };
 
 }

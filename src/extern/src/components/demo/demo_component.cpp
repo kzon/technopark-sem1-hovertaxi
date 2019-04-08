@@ -2,8 +2,16 @@
 
 namespace hovertaxi {
 
-std::string DemoComponent::TestDemo() {
-    return "Hello, this is Demo";
-};
+void DemoComponent::CreateAircraftsRoutes() {
+
+}
+
+void DemoComponent::UpdateAircraftsPositions() {
+
+}
+
+void DemoComponent::AssignMoveToNearestPadRoute(const std::string &aircraft_id) {
+
+}
 
 }

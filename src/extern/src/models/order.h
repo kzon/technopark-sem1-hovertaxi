@@ -1,11 +1,6 @@
 #pragma once
 
-#include <memory>
-#include <chrono>
-
-#include "geo_point.h"
-#include "aircraft.h"
-#include "pad.h"
+#include "data_mapper.h"
 
 namespace hovertaxi {
 
@@ -15,16 +10,18 @@ enum OrderStatus {
   AIRCRAFT_ASSIGNED,
   ON_FLY,
   FINISHED,
-  CANCELED
+  CANCELED,
+  PROCESS_TIMEOUT,
 };
 
-struct Order {
+struct Order : public DataMapper {
   std::string user_id;
   OrderStatus status;
-  GeoPoint from, to;
-  Pad from_pad, to_pad;
+  std::string from_pad_id, to_pad_id;
   std::string aircraft_class_id;
   std::string assigned_aircraft_id;
+  std::string route_id;
+  int price;
 };
 
 }

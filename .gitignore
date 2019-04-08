@@ -1,7 +1,7 @@
 .idea
 .DS_Store
 __pycache__
-src/extern/build/
+src/extern/cmake-build*
 src/extern/hovertaxi_extern.cpp
 *.so
 src/extern/src/test/unit/main
