@@ -1,8 +1,6 @@
 #pragma once
 
-#include <memory>
-#include <chrono>
-
+#include "DataMapper.h"
 #include "GeoPoint.h"
 #include "Aircraft.h"
 #include "Pad.h"
@@ -18,7 +16,7 @@ enum OrderStatus {
   CANCELED
 };
 
-struct Order {
+struct Order : public DataMapper {
   std::string user_id;
   OrderStatus status;
   GeoPoint from, to;

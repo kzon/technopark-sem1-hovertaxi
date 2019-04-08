@@ -2,12 +2,12 @@
 
 #include <string>
 
+#include "DataMapper.h"
 #include "GeoPoint.h"
 
 namespace models {
 
-struct Aircraft {
-  std::string id;
+struct Aircraft : public DataMapper {
   std::string model_id;
   std::string number;
   GeoPoint position;
