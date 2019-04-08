@@ -9,6 +9,7 @@ namespace models {
 
 struct Route : public DataMapper {
   std::vector<GeoPoint> points;
+  int altitude;
   std::chrono::duration<int> time;
 };
 
