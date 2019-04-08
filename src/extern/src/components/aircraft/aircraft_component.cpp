@@ -1,7 +1,7 @@
-#include "Aircraft.h"
+#include "aircraft_component.h"
 
-#include "models/aircraft_component.h"
-#include "services/servicelocator/service_locator.h"
+#include "models/aircraft.h"
+#include "services/service_locator/service_locator.h"
 
 namespace hovertaxi {
 

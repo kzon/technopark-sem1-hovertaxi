@@ -1,8 +1,8 @@
 #pragma once
 
-#include "services/datamanager/DataManager.h"
+#include "services/data_manager/data_manager.h"
 
-namespace services {
+namespace hovertaxi {
 
 class ServiceLocator {
  public:

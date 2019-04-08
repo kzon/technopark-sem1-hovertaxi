@@ -1,6 +1,6 @@
-#include "ServiceLocator.h"
+#include "service_locator.h"
 
-namespace services {
+namespace hovertaxi {
 
 DataManager &ServiceLocator::GetDataManager() {
   return DataManager::GetInstance(db_uri_);

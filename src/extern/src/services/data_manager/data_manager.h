@@ -5,7 +5,7 @@
 #include <sstream>
 
 #include "services/data_manager/database/database.h"
-#include "models/aicraft.h"
+#include "models/aircraft.h"
 #include "models/aircraft_class.h"
 
 namespace hovertaxi {

@@ -3,7 +3,7 @@
 #include <string>
 
 #include "models/order.h"
-#include "models/geo_ppoint.h"
+#include "models/geo_point.h"
 #include "models/aircraft_class.h"
 
 namespace hovertaxi {
