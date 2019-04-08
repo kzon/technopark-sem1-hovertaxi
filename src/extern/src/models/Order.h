@@ -1,9 +1,6 @@
 #pragma once
 
 #include "DataMapper.h"
-#include "GeoPoint.h"
-#include "Aircraft.h"
-#include "Pad.h"
 
 namespace models {
 
@@ -13,16 +10,18 @@ enum OrderStatus {
   AIRCRAFT_ASSIGNED,
   ON_FLY,
   FINISHED,
-  CANCELED
+  CANCELED,
+  PROCESS_TIMEOUT,
 };
 
 struct Order : public DataMapper {
   std::string user_id;
   OrderStatus status;
-  GeoPoint from, to;
-  Pad from_pad, to_pad;
+  std::string from_pad_id, to_pad_id;
   std::string aircraft_class_id;
   std::string assigned_aircraft_id;
+  std::string route_id;
+  int price;
 };
 
 }

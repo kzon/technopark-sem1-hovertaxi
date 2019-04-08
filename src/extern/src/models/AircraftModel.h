@@ -5,8 +5,8 @@
 namespace models {
 
 struct AircraftModel : public DataMapper {
-  std::string class_id;
   std::string name;
+  std::string class_id;
   int cruise_speed;
 };
 

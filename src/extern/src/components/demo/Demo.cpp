@@ -2,8 +2,16 @@
 
 namespace components {
 
-std::string Demo::TestDemo() {
-    return "Hello, this is Demo";
-};
+void Demo::CreateAircraftsRoutes() {
+
+}
+
+void Demo::UpdateAircraftsPositions() {
+
+}
+
+void Demo::AssignMoveToNearestPadRoute(const std::string &aircraft_id) {
+
+}
 
 }

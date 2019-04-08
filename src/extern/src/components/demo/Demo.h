@@ -1,12 +1,14 @@
 #pragma once
 
-#include <string>
+#include "models/DataMapper.h"
 
 namespace components {
 
 class Demo {
  public:
-  static std::string TestDemo();
+  static void CreateAircraftsRoutes();
+  static void UpdateAircraftsPositions();
+  static void AssignMoveToNearestPadRoute(const std::string &aircraft_id);
 };
 
 }

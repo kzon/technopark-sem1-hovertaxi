@@ -5,15 +5,20 @@
 
 namespace components {
 
-std::vector<models::Aircraft> Aircraft::LoadAircraftInCircle(models::GeoPoint center, int radius) {
-  std::vector<models::Aircraft> aircraft;
-  models::Aircraft a1{"213wq", "Boeing TDA"};
-  aircraft.push_back(a1);
-  return aircraft;
+std::vector<models::Aircraft> Aircraft::LoadAircraftInCircle(const models::GeoPoint &center, int radius) {
+  return std::vector<models::Aircraft>();
+}
+
+std::vector<models::Aircraft> Aircraft::LoadCurrentOrderAircraft() {
+  return std::vector<models::Aircraft>();
 }
 
 std::vector<models::AircraftClass> Aircraft::LoadAircraftClasses() {
   return services::ServiceLocator::GetDataManager().LoadAircraftClasses();
+}
+
+std::vector<models::Pad> Aircraft::LoadNearestPads(const models::GeoPoint &position) {
+  return std::vector<models::Pad>();
 }
 
 }

@@ -2,18 +2,24 @@
 
 namespace components {
 
-std::string Order::PreOrder(models::GeoPoint from, models::GeoPoint to, models::AircraftClass aircraft_class) {
-  return "order info";
+models::PreOrder Order::PreOrder(const models::Pad &from, const models::Pad &to, const std::string &aircraft_class_id) {
+  return {};
 }
 
-models::Order Order::CreateOrder(std::string user_id, models::GeoPoint &from, models::GeoPoint &to) {
-  models::Order order{};
-  return order;
+models::Order Order::CreateOrder(const models::Pad &from, const models::Pad &to, const std::string &aircraft_class_id) {
+  return {};
 }
 
-models::Order Order::ProcessOrder(std::string order_id) {
-  models::Order order{};
-  return order;
+models::Order Order::GetOrderInfo(const std::string &order_id) {
+  return {};
+}
+
+models::Order Order::ProcessOrdersFromQueue() {
+  return {};
+}
+
+CancelOrderResult Order::CancelOrder(const std::string &order_id) {
+  return {};
 }
 
 }

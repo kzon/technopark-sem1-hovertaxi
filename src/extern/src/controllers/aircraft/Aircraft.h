@@ -1,13 +1,18 @@
 #include <string>
 
+#include "controllers/base/BaseController.h"
 #include "models/GeoPoint.h"
 
 namespace controllers {
 
-class Aircraft {
+class Aircraft : public BaseController {
  public:
-  static std::string LoadAircraftInCircle();
-  static std::string LoadAircraftClasses();
+  explicit Aircraft(const models::Context &context) : BaseController(context) {}
+
+  std::string LoadAircraftInCircle(const std::pair<double, double> &center, int radius);
+  std::string LoadCurrentOrderAircraft();
+  std::string LoadAircraftClasses();
+  std::string LoadNearestPads(const std::pair<double, double> &position);
 };
 
 }
