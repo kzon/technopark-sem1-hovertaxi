@@ -10,6 +10,7 @@ namespace hovertaxi {
 struct Route : public DataMapper {
   std::vector<GeoPoint> points;
   std::chrono::duration<int> time;
+  double altitude;
 };
 
 }
