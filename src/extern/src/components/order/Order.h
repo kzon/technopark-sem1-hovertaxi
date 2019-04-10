@@ -2,6 +2,7 @@
 
 #include <string>
 
+#include "core/context_keeper.h"
 #include "models/PreOrder.h"
 #include "models/Order.h"
 #include "models/Pad.h"
@@ -12,7 +13,7 @@
 
 namespace components {
 
-class Order {
+class Order : public ContextKeeper {
  public:
   static models::PreOrder PreOrder(const models::Pad &from, const models::Pad &to, const std::string &aircraft_class_id);
   static models::Order CreateOrder(const models::Pad &from, const models::Pad &to, const std::string &aircraft_class_id);

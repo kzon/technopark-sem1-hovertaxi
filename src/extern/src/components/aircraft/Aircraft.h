@@ -2,6 +2,7 @@
 
 #include <vector>
 
+#include "core/context_keeper.h"
 #include "models/Aircraft.h"
 #include "models/AircraftClass.h"
 #include "models/GeoPoint.h"
@@ -9,7 +10,7 @@
 
 namespace components {
 
-class Aircraft {
+class Aircraft : public ContextKeeper {
  public:
   static std::vector<models::Aircraft> LoadAircraftInCircle(const models::GeoPoint &center, int radius);
   static std::vector<models::Aircraft> LoadCurrentOrderAircraft();

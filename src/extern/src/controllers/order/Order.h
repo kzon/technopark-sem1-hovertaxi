@@ -1,14 +1,14 @@
 #pragma once
 
 #include <string>
-#include "controllers/base/BaseController.h"
+#include "core/context_keeper.h"
 #include "models/DataMapper.h"
 
 namespace controllers {
 
-class Order : public BaseController {
+class Order : public ContextKeeper {
  public:
-  explicit Order(const models::Context &context) : BaseController(context) {}
+  explicit Order(const models::Context &context) : ContextKeeper(context) {}
 
   std::string PreOrder(const std::string &from_pad_id,
                        const std::string &to_pad_id,

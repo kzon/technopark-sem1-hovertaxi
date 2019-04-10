@@ -1,10 +1,11 @@
 #pragma once
 
 #include "models/DataMapper.h"
+#include "core/context_keeper.h"
 
 namespace components {
 
-class Demo {
+class Demo : public ContextKeeper {
  public:
   static void CreateAircraftsRoutes();
   static void UpdateAircraftsPositions();
