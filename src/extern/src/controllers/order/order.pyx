@@ -2,19 +2,19 @@ import web
 from libcpp.string cimport string
 
 
-cdef extern from "../base/BaseController.h" namespace "models":
+cdef extern from "../base/base_controller.h" namespace "hovertaxi":
     cdef cppclass Context:
         string user_id
 
 
-cdef extern from "../base/BaseController.h" namespace "controllers":
+cdef extern from "../base/base_controller.h" namespace "hovertaxi":
     cdef cppclass BaseController:
         pass
 
 
-cdef extern from "Order.h" namespace "controllers":
-    cdef cppclass Order:
-        Order(Context & context) except +
+cdef extern from "order_controller.h" namespace "hovertaxi":
+    cdef cppclass OrderController:
+        OrderController(Context & context) except +
         string PreOrder(string & from_pad_id, string & to_pad_id, string & aircraft_class_id)
         string CreateOrder(string & from_pad_id, string & to_pad_id, string & aircraft_class_id)
         string GetOrderInfo()
@@ -22,12 +22,12 @@ cdef extern from "Order.h" namespace "controllers":
 
 
 cdef class OrderControllerWrapper:
-    cdef Order *controller
+    cdef OrderController *controller
 
     def __cinit__(self, string user_id):
         cdef Context context
         context.user_id = user_id
-        self.controller = new Order(context)
+        self.controller = new OrderController(context)
 
     def __dealloc__(self):
         del self.controller

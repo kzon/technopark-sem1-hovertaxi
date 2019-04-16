@@ -1,9 +1,15 @@
 #pragma once
-#include "models/Context.h"
+
+#include "models/context.h"
+
+namespace hovertaxi {
 
 class ContextKeeper {
- public:
-  explicit ContextKeeper(const models::Context &context): context(context) {}
- protected:
-  models::Context context;
+public:
+    explicit ContextKeeper(const Context &context) : context(context) {}
+
+protected:
+    Context context;
 };
+
+}

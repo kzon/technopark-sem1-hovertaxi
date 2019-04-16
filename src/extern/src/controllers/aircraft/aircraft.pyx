@@ -3,19 +3,19 @@ from libcpp.string cimport string
 from libcpp.pair cimport pair
 
 
-cdef extern from "../base/BaseController.h" namespace "models":
+cdef extern from "../base/base_controller.h" namespace "hovertaxi":
     cdef cppclass Context:
         string user_id
 
 
-cdef extern from "../base/BaseController.h" namespace "controllers":
+cdef extern from "../base/base_controller.h" namespace "hovertaxi":
     cdef cppclass BaseController:
         pass
 
 
-cdef extern from "Aircraft.h" namespace "controllers":
-    cdef cppclass Aircraft:
-        Aircraft(Context & context) except +
+cdef extern from "aircraft_controller.h" namespace "hovertaxi":
+    cdef cppclass AircraftController:
+        AircraftController(Context & context) except +
         string LoadAircraftInCircle(pair[double, double] & center, int radius)
         string LoadAircraftClasses()
         string LoadCurrentOrderAircraft()
@@ -23,12 +23,12 @@ cdef extern from "Aircraft.h" namespace "controllers":
 
 
 cdef class AircraftControllerWrapper:
-    cdef Aircraft *controller
+    cdef AircraftController *controller
 
     def __cinit__(self, string user_id):
         cdef Context context
         context.user_id = user_id
-        self.controller = new Aircraft(context)
+        self.controller = new AircraftController(context)
 
     def __dealloc__(self):
         del self.controller

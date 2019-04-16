@@ -1,11 +1,12 @@
 import web
-from extern import aircraft
+#from extern import aircraft_controller
 from helpers import comma_separated_to_float_tuple
 
 
 class BaseAircraftHandler(web.BaseHandlerWithExternModule):
     def get_extern_module(self):
-        return aircraft
+        pass
+        #return aircraft_controller
 
 
 class LoadInCircleHandler(BaseAircraftHandler):
