@@ -3,14 +3,9 @@ from libcpp.string cimport string
 from libcpp.pair cimport pair
 
 
-cdef extern from "../base/base_controller.h" namespace "hovertaxi":
+cdef extern from "aircraft_controller.h" namespace "hovertaxi":
     cdef cppclass Context:
         string user_id
-
-
-cdef extern from "../base/base_controller.h" namespace "hovertaxi":
-    cdef cppclass BaseController:
-        pass
 
 
 cdef extern from "aircraft_controller.h" namespace "hovertaxi":

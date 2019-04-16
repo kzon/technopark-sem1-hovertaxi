@@ -1,11 +1,10 @@
 import web
-#from extern import order_controller
+from extern import order
 
 
 class BaseOrderHandler(web.BaseHandlerWithExternModule):
     def get_extern_module(self):
-        pass
-        #return order_controller
+        return order
 
 
 class PreOrderHandler(BaseOrderHandler):

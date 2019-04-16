@@ -2,14 +2,9 @@ import web
 from libcpp.string cimport string
 
 
-cdef extern from "../base/base_controller.h" namespace "hovertaxi":
+cdef extern from "order_controller.h" namespace "hovertaxi":
     cdef cppclass Context:
         string user_id
-
-
-cdef extern from "../base/base_controller.h" namespace "hovertaxi":
-    cdef cppclass BaseController:
-        pass
 
 
 cdef extern from "order_controller.h" namespace "hovertaxi":
