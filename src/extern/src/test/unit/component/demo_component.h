@@ -7,21 +7,21 @@
 
 using namespace hovertaxi;
 
-class DemoComponentTest: public ::testing::Test {
-protected:
-    virtual void SetUp(){}
-    virtual void TearDown(){}
+class DemoComponentTest : public ::testing::Test {
+ protected:
+  virtual void SetUp() {}
+  virtual void TearDown() {}
 };
 
-TEST_F(DemoComponentTest, CreateAircraftsRoutes){
-    DemoComponent::CreateAircraftsRoutes();
-    //check if routes haven't join points
+TEST_F(DemoComponentTest, CreateAircraftsRoutes) {
+  DemoComponent::CreateAircraftsRoutes();
+  //check if routes haven't join points
 }
 
-TEST_F(DemoComponentTest, UpdateAircraftsPositions){
-    int countOfCalls = 5;
-    for(int i = 0; i < countOfCalls; i++){
-        DemoComponent::UpdateAircraftsPositions();
-    }
+TEST_F(DemoComponentTest, UpdateAircraftsPositions) {
+  int countOfCalls = 5;
+  for (int i = 0; i < countOfCalls; i++) {
+    DemoComponent::UpdateAircraftsPositions();
+  }
 }
 

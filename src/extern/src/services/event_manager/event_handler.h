@@ -1,27 +1,27 @@
 #pragma once
 
-namespace hovertaxi{
+namespace hovertaxi {
 
-class IEventHandler{
-public:
-    virtual void Notify() = 0;
+class IEventHandler {
+ public:
+  virtual void Notify() = 0;
 };
 
-template <typename Class>
-class EventHandler: public IEventHandler {
+template<typename Class>
+class EventHandler : public IEventHandler {
 
-    typedef void (Class::*Func)();
+  typedef void (Class::*Func)();
 
-public:
-    Class *obj;
-    Func func;
+ public:
+  Class *obj;
+  Func func;
 
-    EventHandler(Class *obj_, Func func_) : obj(obj_), func(func_) {}
-    ~EventHandler(){}
+  EventHandler(Class *obj_, Func func_) : obj(obj_), func(func_) {}
+  ~EventHandler() {}
 
-    void Notify() override {
-        (obj->*func)();
-    }
+  void Notify() override {
+    (obj->*func)();
+  }
 
 };
 

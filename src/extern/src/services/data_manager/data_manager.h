@@ -27,8 +27,8 @@ class DataManager {
 
   Database db_;
 
-  const char* AIRCRAFT_COLLECTION_NAME = "aircraft";
-  const char* AIRCRAFT_CLASS_COLLECTION_NAME = "aircraft_class";
+  const char *AIRCRAFT_COLLECTION_NAME = "aircraft";
+  const char *AIRCRAFT_CLASS_COLLECTION_NAME = "aircraft_class";
 };
 
 }
