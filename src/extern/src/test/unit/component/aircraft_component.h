@@ -1,14 +1,13 @@
-#ifndef HOVERTAXI_TEST_AIRCRAFT_COMPONENT_H
-#define HOVERTAXI_TEST_AIRCRAFT_COMPONENT_H
+#pragma once
 
 #include <gtest/gtest.h>
 #include <cmath>
 #include <vector>
 
-#include "../../../services/data_manager/data_manager.h"
-#include "../../../components/aircraft/aircraft_component.h"
-#include "../../../models/aircraft.h"
-#include "../../../models/geo_point.h"
+#include "services/data_manager/data_manager.h"
+#include "components/aircraft/aircraft_component.h"
+#include "models/aircraft.h"
+#include "models/geo_point.h"
 
 using namespace hovertaxi;
 
@@ -36,4 +35,3 @@ TEST_F(AircraftComponentTest, LoadAircraftInCircle){
     EXPECT_EQ(0,  vec2.size());
 }
 
-#endif //HOVERTAXI_TEST_AIRCRAFT_COMPONENT_H

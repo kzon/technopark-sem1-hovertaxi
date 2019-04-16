@@ -4,5 +4,3 @@ __pycache__
 src/extern/cmake-build*
 src/extern/hovertaxi_extern.cpp
 *.so
-src/extern/src/test/unit/main
-src/extern/src/test/unit/tests.cpp

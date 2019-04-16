@@ -1,11 +1,10 @@
-#ifndef HOVERTAXI_TEST_ORDER_COMPONENT_H
-#define HOVERTAXI_TEST_ORDER_COMPONENT_H
+#pragma once
 
 #include <gtest/gtest.h>
-#include "../../../services/data_manager/data_manager.h"
-#include "../../../components/order/order_component.h"
-#include "../../../models/aircraft.h"
-#include "../../../models/geo_point.h"
+#include "services/data_manager/data_manager.h"
+#include "components/order/order_component.h"
+#include "models/aircraft.h"
+#include "models/geo_point.h"
 
 using namespace hovertaxi;
 
@@ -31,6 +30,3 @@ TEST_F(OrderComponentTest, ProcessOrdersFromQueue){
 TEST_F(OrderComponentTest, CancelOrder){
 
 }
-
-
-#endif //HOVERTAXI_TEST_AIRCRAFT_COMPONENT_H

@@ -1,11 +1,9 @@
-
-#ifndef HOVERTAXI_TEST_DEMO_COMPONENT_H
-#define HOVERTAXI_TEST_DEMO_COMPONENT_H
+#pragma once
 
 #include <gtest/gtest.h>
-#include "../../../services/data_manager/data_manager.h"
-#include "../../../components/demo/demo_component.h"
-#include "../../../models/route.h"
+#include "services/data_manager/data_manager.h"
+#include "components/demo/demo_component.h"
+#include "models/route.h"
 
 using namespace hovertaxi;
 
@@ -27,4 +25,3 @@ TEST_F(DemoComponentTest, UpdateAircraftsPositions){
     }
 }
 
-#endif //HOVERTAXI_TEST_DEMO_COMPONENT_H
