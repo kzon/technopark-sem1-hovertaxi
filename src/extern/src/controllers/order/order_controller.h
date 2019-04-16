@@ -1,14 +1,15 @@
 #pragma once
 
 #include <string>
-#include "controllers/base/base_controller.h"
+
+#include "core/context_keeper.h"
 #include "models/data_mapper.h"
 
 namespace hovertaxi {
 
-class OrderController : public BaseController {
+class OrderController : public ContextKeeper {
  public:
-  explicit OrderController(const Context &context) : BaseController(context) {}
+  explicit OrderController(const Context &context) : ContextKeeper(context) {}
 
   std::string PreOrder(const std::string &from_pad_id,
                        const std::string &to_pad_id,
