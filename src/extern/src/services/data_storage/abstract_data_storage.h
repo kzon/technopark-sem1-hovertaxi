@@ -12,8 +12,6 @@ public:
     virtual core::optional<Value> LoadObjectById(const std::string &collection, const std::string &id) const = 0;
 
     virtual std::vector<View> LoadObjects(const std::string &collection)  const = 0;
-
-    const std::string COLLECTION_NAME;
 };
 
 }
