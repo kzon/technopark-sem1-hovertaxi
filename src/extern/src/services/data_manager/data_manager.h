@@ -5,11 +5,11 @@
 
 namespace hovertaxi {
 
-class StorageManager{
+class DataManager{
 
  public:
 
-  static StorageManager &GetInstance(const std::string &uri);
+  static DataManager &GetInstance(const std::string &uri);
 
   core::optional<Aircraft> LoadAircraftById(const std::string &id) const;
   std::vector<AircraftClass> LoadAircraftClasses() const;
@@ -18,7 +18,7 @@ class StorageManager{
   std::string LoadAircraftByIdAsJSON(const std::string &id) const;
 
 private:
-  explicit StorageManager(const std::string &uri) : db_(uri) {}
+  explicit DataManager(const std::string &uri) : db_(uri) {}
 
   MongoDataStorage db_;
   MongoDataConverter db_converter;

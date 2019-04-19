@@ -18,7 +18,7 @@ core::optional<Value> MongoDataStorage::LoadObjectById(const std::string &collec
 }
 
 mongocxx::collection MongoDataStorage::GetCollection(const std::string &name) const {
-  return mongocxx::collection();
+  return db_[name];
 }
 
 }

@@ -2,8 +2,8 @@
 
 namespace hovertaxi {
 
-StorageManager &ServiceLocator::GetDataManager() {
-  return StorageManager::GetInstance(db_uri_);
+DataManager &ServiceLocator::GetDataManager() {
+  return DataManager::GetInstance(db_uri_);
 }
 
 }
