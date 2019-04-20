@@ -5,11 +5,11 @@
 namespace hovertaxi {
 
 class ContextKeeper {
-public:
-    explicit ContextKeeper(const Context &context) : context(context) {}
+ public:
+  explicit ContextKeeper(const Context &context) : context(context) {}
 
-protected:
-    Context context;
+ protected:
+  Context context;
 };
 
 }

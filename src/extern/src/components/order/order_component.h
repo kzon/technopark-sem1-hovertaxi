@@ -12,7 +12,7 @@
 
 namespace hovertaxi {
 
-class OrderComponent: public ContextKeeper {
+class OrderComponent : public ContextKeeper {
  public:
   static PreOrder MakePreOrder(const Pad &from, const Pad &to, const std::string &aircraft_class_id);
   static Order CreateOrder(const Pad &from, const Pad &to, const std::string &aircraft_class_id);

@@ -8,17 +8,16 @@
 #include <mongocxx/stdx.hpp>
 #include <mongocxx/uri.hpp>
 
-
 #include "abstract_data_storage.h"
 
-namespace hovertaxi{
+namespace hovertaxi {
 
 typedef bsoncxx::document::view View;
 typedef bsoncxx::document::value Value;
 
-class MongoDataStorage : public AbstractDataStorage<Value, View>{
+class MongoDataStorage : public AbstractDataStorage<Value, View> {
 
-public:
+ public:
 
   explicit MongoDataStorage(const std::string &uri) :
       instance_(),
@@ -26,8 +25,8 @@ public:
       client_(uri_),
       db_(client_[DB_NAME]) {}
 
-    core::optional<Value> LoadObjectById(const std::string &collection, const std::string &id) const override;
-    std::vector<View> LoadObjects(const std::string &collection) const override;
+  core::optional<Value> LoadObjectById(const std::string &collection, const std::string &id) const override;
+  std::vector<View> LoadObjects(const std::string &collection) const override;
 
  private:
   mongocxx::collection GetCollection(const std::string &name) const;

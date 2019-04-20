@@ -10,7 +10,7 @@
 
 namespace hovertaxi {
 
-class AircraftComponent: public ContextKeeper {
+class AircraftComponent : public ContextKeeper {
  public:
   static std::vector<Aircraft> LoadAircraftInCircle(const GeoPoint &center, int radius);
   static std::vector<Aircraft> LoadCurrentOrderAircraft();
