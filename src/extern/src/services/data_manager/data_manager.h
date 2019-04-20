@@ -1,34 +1,30 @@
 #pragma once
 
-#include <vector>
-#include <iostream>
-#include <sstream>
-
-#include "services/data_manager/database/database.h"
-#include "models/aircraft.h"
-#include "models/aircraft_class.h"
+#include "../data_storage/mongo_data_storage.h"
+#include "../data_converter/mongo_data_converter.h"
 
 namespace hovertaxi {
 
-class DataManager {
+class DataManager{
+
  public:
-  DataManager(const DataManager &) = delete;
-  DataManager &operator=(DataManager &) = delete;
 
   static DataManager &GetInstance(const std::string &uri);
 
-  optional<Aircraft> LoadAircraftById(const std::string &id) const;
+  core::optional<Aircraft> LoadAircraftById(const std::string &id) const;
+  std::vector<AircraftClass> LoadAircraftClasses() const;
+
+  std::string LoadAircraftClassesAsJSON() const;
   std::string LoadAircraftByIdAsJSON(const std::string &id) const;
 
-  std::vector<AircraftClass> LoadAircraftClasses() const;
-  std::string LoadAircraftClassesAsJSON() const;
- private:
+private:
   explicit DataManager(const std::string &uri) : db_(uri) {}
 
-  Database db_;
+  MongoDataStorage db_;
+  MongoDataConverter db_converter;
 
-  const char *AIRCRAFT_COLLECTION_NAME = "aircraft";
-  const char *AIRCRAFT_CLASS_COLLECTION_NAME = "aircraft_class";
+  const std::string AIRCRAFT_COLLECTION_NAME = "aircraft";
+  const std::string AIRCRAFT_CLASS_COLLECTION_NAME = "aircraft_class";
 };
 
 }
