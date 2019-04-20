@@ -8,25 +8,24 @@
 
 using namespace hovertaxi;
 
-class OrderComponentTest: public ::testing::Test {
-protected:
-    virtual void SetUp(){}
-    virtual void TearDown(){}
+class OrderComponentTest : public ::testing::Test {
+ protected:
+  virtual void SetUp() {}
+  virtual void TearDown() {}
 };
 
-
-TEST_F(OrderComponentTest, CreateOrder){
-
-}
-
-TEST_F(OrderComponentTest, GetOrderInfo){
+TEST_F(OrderComponentTest, CreateOrder) {
 
 }
 
-TEST_F(OrderComponentTest, ProcessOrdersFromQueue){
+TEST_F(OrderComponentTest, GetOrderInfo) {
 
 }
 
-TEST_F(OrderComponentTest, CancelOrder){
+TEST_F(OrderComponentTest, ProcessOrdersFromQueue) {
+
+}
+
+TEST_F(OrderComponentTest, CancelOrder) {
 
 }

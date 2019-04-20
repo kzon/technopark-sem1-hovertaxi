@@ -25,7 +25,6 @@ private:
 
   const std::string AIRCRAFT_COLLECTION_NAME = "aircraft";
   const std::string AIRCRAFT_CLASS_COLLECTION_NAME = "aircraft_class";
-
 };
 
 }

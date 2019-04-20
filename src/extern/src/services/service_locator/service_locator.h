@@ -9,7 +9,7 @@ class ServiceLocator {
   static DataManager &GetDataManager();
 
  private:
-  static constexpr const char* db_uri_ = "mongodb://hovertaxi:hovertaxi@mongo:27017";
+  static constexpr const char *db_uri_ = "mongodb://hovertaxi:hovertaxi@mongo:27017";
 };
 
 }

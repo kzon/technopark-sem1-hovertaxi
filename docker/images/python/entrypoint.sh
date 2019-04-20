@@ -5,11 +5,11 @@ git config --global user.name "Anton Kobzev"
 git config --global user.email "anton.cobzew@yandex.ru"
 cmake -DCMAKE_BUILD_TYPE=Debug /home/hovertaxi/src/extern
 
-make aircraft_controller
-mv src/controllers/aircraft/aircraft_controller.so /home/hovertaxi/src/extern/aircraft_controller.so
+make aircraft
+mv src/controllers/aircraft/aircraft.so /home/hovertaxi/src/extern/aircraft.so
 
-make order_controller
-mv src/controllers/order/order_controller.so /home/hovertaxi/src/extern/order_controller.so
+make order
+mv src/controllers/order/order.so /home/hovertaxi/src/extern/order.so
 
 
 # Start server
