@@ -1,11 +1,11 @@
 #pragma once
 
-#include <bsoncxx/json.hpp>
-#include <bsoncxx/builder/stream/document.hpp>
-#include <mongocxx/instance.hpp>
-#include <mongocxx/client.hpp>
-#include <mongocxx/stdx.hpp>
-#include <mongocxx/uri.hpp>
+#include <bsoncxx/v_noabi/bsoncxx/json.hpp>
+#include <bsoncxx/v_noabi/bsoncxx/builder/stream/document.hpp>
+#include <mongocxx/v_noabi/mongocxx/instance.hpp>
+#include <mongocxx/v_noabi/mongocxx/client.hpp>
+#include <mongocxx/v_noabi/mongocxx/stdx.hpp>
+#include <mongocxx/v_noabi/mongocxx/uri.hpp>
 #include <sstream>
 
 #include "abstract_data_converter.h"

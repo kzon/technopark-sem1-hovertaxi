@@ -21,7 +21,7 @@ class DataManager {
   explicit DataManager(const std::string &uri) : db_(uri) {}
 
   MongoDataStorage db_;
-  MongoDataConverter db_converter;
+  MongoDataConverter db_converter_;
 
   const std::string AIRCRAFT_COLLECTION_NAME = "aircraft";
   const std::string AIRCRAFT_CLASS_COLLECTION_NAME = "aircraft_class";
