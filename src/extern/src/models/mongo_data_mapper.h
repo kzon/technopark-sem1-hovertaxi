@@ -18,6 +18,8 @@ class MongoDataMapper {
     auto data = object.data;
     this->id = data["_id"].get_oid().value.to_string();
   };
+
+  static std::string GetSource() { };
 };
 
 }

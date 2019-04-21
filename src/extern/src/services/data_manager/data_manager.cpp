@@ -8,7 +8,7 @@ DataManager &hovertaxi::DataManager::GetInstance(const std::string &uri) {
 }
 
 core::optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
-  Optional<MongoDataObject> result = db_.LoadObjectById(AIRCRAFT_COLLECTION_NAME, id);
+  Optional<MongoDataObject> result = db_.LoadObjectById(Aircraft::GetSource(), id);
   if (result) {
     Aircraft aircraft(result.value());
     return core::optional<Aircraft>(aircraft);
@@ -17,7 +17,7 @@ core::optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) co
 }
 
 std::vector<AircraftClass> DataManager::LoadAircraftClasses() const {
-  auto objects = db_.LoadObjects(AIRCRAFT_CLASS_COLLECTION_NAME);
+  auto objects = db_.LoadObjects(AircraftClass::GetSource());
   std::vector<AircraftClass> result(objects.size());
   for (const auto &object : objects)
     result.emplace_back(object);
@@ -25,13 +25,11 @@ std::vector<AircraftClass> DataManager::LoadAircraftClasses() const {
 }
 
 std::string DataManager::LoadAircraftByIdAsJSON(const std::string &id) const {
-  auto result = db_.LoadObjectById(AIRCRAFT_COLLECTION_NAME, id);
-  return result ? db_converter_.ToJSON(MongoDataObject(result.value())) : "null";
+  return db_.LoadObjectByIdAsJSON(Aircraft::GetSource(), id);
 }
 
 std::string DataManager::LoadAircraftClassesAsJSON() const {
-  auto objects = db_.LoadObjects(AIRCRAFT_CLASS_COLLECTION_NAME);
-  return db_converter_.ToJSON(objects);
+  return db_.LoadObjectsAsJSON(AircraftClass::GetSource());
 }
 
 }

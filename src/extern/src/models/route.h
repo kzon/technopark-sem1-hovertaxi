@@ -13,6 +13,16 @@ class Route : public MongoDataMapper {
   std::vector<GeoPoint> points;
   int altitude;
   std::chrono::duration<int> time;
+
+  Route() {}
+  explicit Route(const MongoDataObject &object) : MongoDataMapper(object) {
+    auto data = object.data;
+    //this->points = ...
+    this->altitude = data["altitude"].get_int64().value;
+    //this->time = ...
+  };
+
+  static std::string GetSource() { return "route"; }
 };
 
 }

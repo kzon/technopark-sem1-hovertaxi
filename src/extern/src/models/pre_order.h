@@ -5,7 +5,7 @@
 
 namespace hovertaxi {
 
-class PreOrder : public MongoDataMapper {
+class PreOrder {
  public:
   Route route;
   int price;

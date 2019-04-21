@@ -25,6 +25,8 @@ class Aircraft : public MongoDataMapper {
     this->direction = data["direction"].get_int64().value;
     this->is_assigned = data["is_assigned"].get_bool().value;
   }
+
+  static std::string GetSource() { return "aircraft"; }
 };
 
 }

@@ -17,6 +17,8 @@ class AircraftClass : public MongoDataMapper {
     this->min_range = data["min_range"].get_int64().value;
     this->max_range = data["max_range"].get_int64().value;
   }
+
+  static std::string GetSource() { return "aircraft_class"; }
 };
 
 }

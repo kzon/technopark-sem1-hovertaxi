@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <sstream>
 #include <vector>
 #include <bsoncxx/json.hpp>
 #include <bsoncxx/builder/stream/document.hpp>
@@ -25,8 +26,14 @@ class MongoDataStorage {
   Optional<MongoDataObject> LoadObjectById(const std::string &collection, const std::string &id) const;
   std::vector<MongoDataObject> LoadObjects(const std::string &collection) const;
 
+  std::string LoadObjectByIdAsJSON(const std::string &collection, const std::string &id) const;
+  std::string LoadObjectsAsJSON(const std::string &collection) const;
+
  private:
   mongocxx::collection GetCollection(const std::string &name) const;
+
+  std::string ToJSON(const MongoDataObject &object) const;
+  std::string ToJSON(const std::vector<MongoDataObject> &objects) const;
 
   mongocxx::instance instance_;
   mongocxx::uri uri_;
