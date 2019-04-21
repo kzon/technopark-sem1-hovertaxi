@@ -12,5 +12,5 @@ node {
 
 def runTestsStage(){
     stage 'Tests'
-    sh 'sh ../docker/bin/tests.sh'
+    sh 'sh docker/bin/tests.sh'
 }
