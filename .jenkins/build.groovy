@@ -12,5 +12,5 @@ node {
 
 def runTestsStage(){
     stage 'Tests'
-    sh 'pwd'
+    sh 'ls'
 }
