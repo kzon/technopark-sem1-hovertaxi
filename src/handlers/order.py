@@ -7,9 +7,9 @@ class BaseOrderHandler(web.BaseHandlerWithExternModule):
         return order
 
 
-class PreOrderHandler(BaseOrderHandler):
+class GetPreOrderInfoHandler(BaseOrderHandler):
     def get(self):
-        self.write(self.extern_wrapper.pre_order(
+        self.write(self.extern_wrapper.get_pre_order_info(
             self.get_query_argument('from_pad_id'),
             self.get_query_argument('to_pad_id'),
             self.get_query_argument('aircraft_class_id'),

@@ -14,7 +14,7 @@ std::vector<Aircraft> AircraftComponent::LoadCurrentOrderAircraft() {
 }
 
 std::vector<AircraftClass> AircraftComponent::LoadAircraftClasses() {
-  return ServiceLocator::GetDataManager().LoadAircraftClasses();
+  return std::vector<AircraftClass>();
 }
 
 std::vector<Pad> AircraftComponent::LoadNearestPads(const GeoPoint &position) {

@@ -25,9 +25,9 @@ class MongoDataStorage {
 
   Optional<MongoDataObject> LoadObjectById(const std::string &collection, const std::string &id) const;
   std::vector<MongoDataObject> LoadObjects(const std::string &collection) const;
-
   std::string LoadObjectByIdAsJSON(const std::string &collection, const std::string &id) const;
   std::string LoadObjectsAsJSON(const std::string &collection) const;
+  void StoreObject(const MongoDataObject &object) const;
 
  private:
   mongocxx::collection GetCollection(const std::string &name) const;

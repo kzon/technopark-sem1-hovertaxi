@@ -2,7 +2,7 @@
 
 namespace hovertaxi {
 
-PreOrder OrderComponent::MakePreOrder(const Pad &from, const Pad &to, const std::string &aircraft_class_id) {
+PreOrder OrderComponent::GetPreOrderInfo(const Pad &from, const Pad &to, const std::string &aircraft_class_id) {
   return {};
 }
 
