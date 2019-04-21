@@ -2,15 +2,32 @@
 
 node {
 
-    try{
-        runTestsStage()
-        currentBuild.result = 'SUCCESS'
-    } catch(err){
-        currentBuild.result = 'FAILED'
-    }
+  properties([[
+      $class: 'BuildDiscarderProperty',
+      strategy: [
+        $class: 'LogRotator',
+        artifactDaysToKeepStr: '',
+        artifactNumToKeepStr: '',
+        daysToKeepStr: '',
+        numToKeepStr: '5'
+      ]
+  ]]);
+
+  runCheckoutStage()
+  try {
+    runTestStage()
+    currentBuild.result = 'SUCCESS'
+  } catch(err) {
+    currentBuild.result = 'FAILED'
+  }
 }
 
-def runTestsStage(){
+def runCheckoutStage() {
+  stage 'Checkout'
+  checkout scm
+}
+
+def runTestStage(){
     stage 'Tests'
-    sh 'tree ~'
+    sh 'sh docker/bin/tests.sh'
 }
