@@ -2,17 +2,16 @@
 
 namespace hovertaxi {
 
-std::vector<AbstractDataObject> MongoDataStorage::LoadObjects(const std::string &collection) const {
+std::vector<MongoDataObject> MongoDataStorage::LoadObjects(const std::string &collection) const {
   mongocxx::cursor cursor = GetCollection(collection).find({});
-  std::vector<AbstractDataObject> result;
-  std::transform(cursor.begin(), cursor.end(), result.begin(), [](bsoncxx::document::value value) {
-    return MongoDataObject(value);
-  });
+  std::vector<MongoDataObject> result;
+  for (const auto &view : cursor)
+    result.emplace_back(view);
   return result;
 }
 
-Optional<AbstractDataObject> MongoDataStorage::LoadObjectById(const std::string &collection,
-                                                                 const std::string &id) const {
+Optional<MongoDataObject> MongoDataStorage::LoadObjectById(const std::string &collection,
+                                                           const std::string &id) const {
   bsoncxx::document::view_or_value filter = bsoncxx::builder::stream::document{}
       << "_id" << bsoncxx::oid(id)
       << bsoncxx::builder::stream::finalize;

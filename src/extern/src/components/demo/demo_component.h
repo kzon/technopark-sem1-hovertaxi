@@ -1,6 +1,6 @@
 #pragma once
 
-#include "models/data_mapper.h"
+#include "models/mongo_data_mapper.h"
 #include "core/context_keeper.h"
 
 namespace hovertaxi {

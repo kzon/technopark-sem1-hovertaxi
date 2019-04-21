@@ -1,14 +1,14 @@
 #pragma once
 
-#include "../data_storage/mongo_data_storage.h"
-#include "../data_converter/mongo_data_converter.h"
+#include "models/aircraft.h"
+#include "models/aircraft_class.h"
+#include "services/data_manager/data_storage/mongo_data_storage.h"
+#include "services/data_manager/data_converter/mongo_data_converter.h"
 
 namespace hovertaxi {
 
 class DataManager {
-
  public:
-
   static DataManager &GetInstance(const std::string &uri);
 
   core::optional<Aircraft> LoadAircraftById(const std::string &id) const;

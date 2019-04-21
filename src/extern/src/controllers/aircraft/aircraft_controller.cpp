@@ -8,8 +8,7 @@ std::string AircraftController::LoadAircraftInCircle(const std::pair<double, dou
 }
 
 std::string AircraftController::LoadAircraftClasses() {
-  std::string result = ServiceLocator::GetDataManager().LoadAircraftClassesAsJSON();
-  return result;
+  return ServiceLocator::GetDataManager().LoadAircraftClassesAsJSON();
 }
 
 std::string AircraftController::LoadCurrentOrderAircraft() {

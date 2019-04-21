@@ -1,11 +1,12 @@
 #pragma once
 
-#include "data_mapper.h"
+#include "mongo_data_mapper.h"
 #include "route.h"
 
 namespace hovertaxi {
 
-struct PreOrder : public DataMapper {
+class PreOrder : public MongoDataMapper {
+ public:
   Route route;
   int price;
 };

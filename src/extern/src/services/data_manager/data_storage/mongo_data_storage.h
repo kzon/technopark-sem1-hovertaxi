@@ -11,23 +11,19 @@
 
 #include "mongo_data_object.h"
 #include "core/optional.h"
-#include "services/data_manager/data_storage/abstract/abstract_data_storage.h"
-
 
 namespace hovertaxi {
 
-class MongoDataStorage : public AbstractDataStorage {
-
+class MongoDataStorage {
  public:
-
   explicit MongoDataStorage(const std::string &uri) :
       instance_(),
       uri_(uri),
       client_(uri_),
       db_(client_[DB_NAME]) {}
 
-  Optional<AbstractDataObject> LoadObjectById(const std::string &collection, const std::string &id) const override;
-  std::vector<AbstractDataObject> LoadObjects(const std::string &collection) const override;
+  Optional<MongoDataObject> LoadObjectById(const std::string &collection, const std::string &id) const;
+  std::vector<MongoDataObject> LoadObjects(const std::string &collection) const;
 
  private:
   mongocxx::collection GetCollection(const std::string &name) const;
@@ -38,7 +34,6 @@ class MongoDataStorage : public AbstractDataStorage {
   mongocxx::database db_;
 
   static constexpr const char *DB_NAME = "hovertaxi";
-
 };
 
 }

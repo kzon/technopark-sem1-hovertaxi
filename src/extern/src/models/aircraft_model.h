@@ -1,10 +1,11 @@
 #pragma once
 
-#include "data_mapper.h"
+#include "mongo_data_mapper.h"
 
 namespace hovertaxi {
 
-struct AircraftModel : public DataMapper {
+class AircraftModel : public DataMapper {
+ public:
   std::string name;
   std::string class_id;
   int cruise_speed;

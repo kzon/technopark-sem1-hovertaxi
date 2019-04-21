@@ -3,7 +3,7 @@
 #include <string>
 
 #include "core/context_keeper.h"
-#include "models/data_mapper.h"
+#include "models/mongo_data_mapper.h"
 
 namespace hovertaxi {
 

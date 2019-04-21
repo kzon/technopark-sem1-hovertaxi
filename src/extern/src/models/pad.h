@@ -1,11 +1,12 @@
 #pragma once
 
-#include "data_mapper.h"
+#include "mongo_data_mapper.h"
 #include "geo_point.h"
 
 namespace hovertaxi {
 
-struct Pad : public DataMapper {
+class Pad : public MongoDataMapper {
+ public:
   std::string name;
   GeoPoint position;
 };

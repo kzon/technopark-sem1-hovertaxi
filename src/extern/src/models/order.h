@@ -1,6 +1,6 @@
 #pragma once
 
-#include "data_mapper.h"
+#include "mongo_data_mapper.h"
 
 namespace hovertaxi {
 
@@ -14,7 +14,8 @@ enum OrderStatus {
   PROCESS_TIMEOUT,
 };
 
-struct Order : public DataMapper {
+class Order : public MongoDataMapper {
+ public:
   std::string user_id;
   OrderStatus status;
   std::string from_pad_id, to_pad_id;
