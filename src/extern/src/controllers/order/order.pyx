@@ -28,7 +28,7 @@ cdef class OrderControllerWrapper:
         del self.controller
 
     def get_pre_order_info(self, from_pad_id: str, to_pad_id: str, aircraft_class_id: str) -> str:
-        return self.controller.PreOrder(from_pad_id.encode(), to_pad_id.encode(), aircraft_class_id.encode()).decode()
+        return self.controller.GetPreOrderInfo(from_pad_id.encode(), to_pad_id.encode(), aircraft_class_id.encode()).decode()
 
     def create_order(self, from_pad_id: str, to_pad_id: str, aircraft_class_id: str) -> str:
         return self.controller.CreateOrder(from_pad_id.encode(), to_pad_id.encode(), aircraft_class_id.encode()).decode()
