@@ -2,7 +2,6 @@
 
 #include <gtest/gtest.h>
 #include <bsoncxx/json.hpp>
-#include <bsoncxx/builder/stream/document.hpp>
 
 #include "services/data_manager/data_manager.h"
 #include "services/service_locator/service_locator.h"
@@ -16,17 +15,8 @@ class DataManagerTest : public ::testing::Test {
   virtual void TearDown() {}
 };
 
-TEST_F(DataManagerTest, LoadAircraftClasses) {
-  auto vec = ServiceLocator::GetDataManager().LoadAircraftClasses();
-
-  ASSERT_EQ(0, vec.size());
-}
-
 TEST_F(DataManagerTest, LoadAircraftById) {
 
-  auto aircraft1 = ServiceLocator::GetDataManager().LoadAircraftById("1");
-  ASSERT_TRUE(aircraft1);
-
-  auto aircraft2 = ServiceLocator::GetDataManager().LoadAircraftById("-1");
-  ASSERT_TRUE(aircraft2);
+  auto aircrafts = ServiceLocator::GetDataManager().LoadAircraftClassesAsJSON();
+  ASSERT_TRUE(aircrafts == "[]");
 }
