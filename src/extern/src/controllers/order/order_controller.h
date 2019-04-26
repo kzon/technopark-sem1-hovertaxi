@@ -4,6 +4,8 @@
 
 #include "core/context_keeper.h"
 #include "models/mongo_data_mapper.h"
+#include "models/pre_order.h"
+#include "services/json_converter/json_converter.h"
 
 namespace hovertaxi {
 
