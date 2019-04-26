@@ -7,10 +7,10 @@ namespace hovertaxi {
 class AircraftClass : public MongoDataMapper {
  public:
   std::string name;
-  int min_range;
-  int max_range;
+  int min_range{};
+  int max_range{};
 
-  AircraftClass() {}
+  AircraftClass() = default;
   explicit AircraftClass(const MongoDataObject &object) {
     auto data = object.data;
     this->name = data["name"].get_utf8().value.to_string();
@@ -19,6 +19,14 @@ class AircraftClass : public MongoDataMapper {
   }
 
   static std::string GetSource() { return "aircraft_class"; }
+
+  std::map<std::string, std::string> GetJsonFields() const override {
+    auto fields = MongoDataMapper::GetJsonFields();
+    fields["name"] = name;
+    fields["min_range"] = std::to_string(min_range);
+    fields["max_range"] = std::to_string(max_range);
+    return fields;
+  }
 };
 
 }

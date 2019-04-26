@@ -19,6 +19,14 @@ class AircraftModel : public MongoDataMapper {
   }
 
   static std::string GetSource() { return "aircraft_model"; }
+
+  std::map<std::string, std::string> GetJsonFields() const override {
+    auto fields = MongoDataMapper::GetJsonFields();
+    fields["name"] = name;
+    fields["class_id"] = class_id;
+    fields["cruise_speed"] = std::to_string(cruise_speed);
+    return fields;
+  }
 };
 
 }

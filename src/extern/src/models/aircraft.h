@@ -12,11 +12,11 @@ class Aircraft : public MongoDataMapper {
   std::string model_id;
   std::string number;
   GeoPoint position;
-  int speed;
-  int direction;
-  bool is_assigned;
+  int speed{};
+  int direction{};
+  bool is_assigned{};
 
-  Aircraft() {}
+  Aircraft() = default;
   explicit Aircraft(const MongoDataObject &object) : MongoDataMapper(object) {
     auto data = object.data;
     this->model_id = data["model_id"].get_oid().value.to_string();
@@ -27,6 +27,17 @@ class Aircraft : public MongoDataMapper {
   }
 
   static std::string GetSource() { return "aircraft"; }
+
+  std::map<std::string, std::string> GetJsonFields() const override {
+    std::map<std::string, std::string> fields;
+    fields["model_id"] = model_id;
+    fields["number"] = number;
+    fields["position"] = JsonConverter::ToJSON(position);
+    fields["speed"] = std::to_string(speed);
+    fields["direction"] = std::to_string(direction);
+    fields["is_assigned"] = std::to_string(is_assigned);
+    return fields;
+  }
 };
 
 }

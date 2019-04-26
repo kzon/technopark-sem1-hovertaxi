@@ -6,10 +6,12 @@
 #include <mongocxx/stdx.hpp>
 
 #include "services/data_manager/data_storage/mongo_data_object.h"
+#include "services/json_converter/json_converter.h"
+#include "i_json_convertable.h"
 
 namespace hovertaxi {
 
-class MongoDataMapper {
+class MongoDataMapper : public IJsonConvertable {
  public:
   std::string id;
 
@@ -19,7 +21,13 @@ class MongoDataMapper {
     this->id = data["_id"].get_oid().value.to_string();
   };
 
-  static std::string GetSource() { };
+  static std::string GetSource() { return ""; };
+
+  std::map<std::string, std::string> GetJsonFields() const override {
+    std::map<std::string, std::string> fields;
+    fields["id"] = id;
+    return fields;
+  }
 };
 
 }
