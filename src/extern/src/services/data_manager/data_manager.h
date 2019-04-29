@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "models/aircraft.h"
 #include "models/aircraft_class.h"
 #include "models/pad.h"
@@ -14,7 +15,7 @@ class DataManager {
 
   core::optional<Aircraft> LoadAircraftById(const std::string &id) const;
   std::vector<Aircraft> LoadAircraftsInRadius(const GeoPoint &center, int radius) const;
-  std::string LoadAircraftClassesAsJSON() const;
+  std::vector<std::unique_ptr<AircraftClass>> LoadAircraftClasses() const;
   void StoreAircraft(const Aircraft &aircraft) const;
   std::vector<Pad> LoadPadsInRadius(const GeoPoint &center, int radius) const;
   core::optional<Order> LoadOrderByUser(std::string user_id) const;

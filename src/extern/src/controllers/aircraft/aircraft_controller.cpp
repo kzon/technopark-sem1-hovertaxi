@@ -1,5 +1,4 @@
 #include "aircraft_controller.h"
-#include "services/service_locator/service_locator.h"
 
 namespace hovertaxi {
 
@@ -8,7 +7,8 @@ std::string AircraftController::LoadAircraftInCircle(const std::pair<double, dou
 }
 
 std::string AircraftController::LoadAircraftClasses() {
-  return ServiceLocator::GetDataManager().LoadAircraftClassesAsJSON();
+  auto aircraft_classes = AircraftComponent::LoadAircraftClasses();
+  return JSONConverter::ToJSON(aircraft_classes);
 }
 
 std::string AircraftController::LoadCurrentOrderAircraft() {
