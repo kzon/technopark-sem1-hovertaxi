@@ -1,3 +1,3 @@
 FROM mongo:4.0
 
-COPY init /docker-entrypoint-initdb.d
+COPY initdb /docker-entrypoint-initdb.d
