@@ -3,7 +3,7 @@ from handlers import *
 routes = [
     (r"/", main.IndexHandler),
 
-    (r"/api/order/preOrder", order.GetPreOrderInfoHandler),
+    (r"/api/order/getPreOrderInfo", order.GetPreOrderInfoHandler),
     (r"/api/order/createOrder", order.CreateOrderHandler),
     (r"/api/order/getOrderInfo", order.GetOrderInfoHandler),
     (r"/api/order/cancelOrder", order.CancelOrderHandler),

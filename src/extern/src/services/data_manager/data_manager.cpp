@@ -16,8 +16,13 @@ core::optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) co
   return {};
 }
 
-std::string DataManager::LoadAircraftClassesAsJSON() const {
-  return db_.LoadObjectsAsJSON(AircraftClass::GetSource());
+std::vector<std::unique_ptr<AircraftClass>> DataManager::LoadAircraftClasses() const {
+  std::vector<std::unique_ptr<MongoDataObject>> objects = db_.LoadObjects(AircraftClass::GetSource());
+  std::vector<std::unique_ptr<AircraftClass>> result;
+  result.reserve(objects.size());
+  for (const auto &object : objects)
+    result.push_back(std::unique_ptr<AircraftClass>(new AircraftClass(*object)));
+  return result;
 }
 
 }

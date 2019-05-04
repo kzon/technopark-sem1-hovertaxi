@@ -14,7 +14,7 @@ class AircraftComponent : public ContextKeeper {
  public:
   static std::vector<Aircraft> LoadAircraftInCircle(const GeoPoint &center, int radius);
   static std::vector<Aircraft> LoadCurrentOrderAircraft();
-  static std::vector<AircraftClass> LoadAircraftClasses();
+  static std::vector<std::unique_ptr<AircraftClass>> LoadAircraftClasses();
   static std::vector<Pad> LoadNearestPads(const GeoPoint &position);
 };
 

@@ -11,10 +11,10 @@ namespace hovertaxi {
 class Route : public MongoDataMapper {
  public:
   std::vector<GeoPoint> points;
-  int altitude;
-  std::chrono::duration<int> time;
+  int altitude{};
+  std::chrono::duration<int> time{};
 
-  Route() {}
+  Route() = default;
   explicit Route(const MongoDataObject &object) : MongoDataMapper(object) {
     auto data = object.data;
     //this->points = ...
@@ -23,6 +23,12 @@ class Route : public MongoDataMapper {
   };
 
   static std::string GetSource() { return "route"; }
+
+  std::map<std::string, std::string> GetJsonFields() const override {
+    auto fields = MongoDataMapper::GetJsonFields();
+    fields["altitude"] = std::to_string(altitude);
+    return fields;
+  }
 };
 
 }
