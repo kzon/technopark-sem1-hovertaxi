@@ -17,11 +17,9 @@ class BaseJSONHandler(tornado.web.RequestHandler):
     def set_default_headers(self, *args, **kwargs):
         self.set_header("Content-Type", "application/json")
         # @todo extract frontend url to config
-        self.set_header('Access-Control-Allow-Origin', 'http://localhost:8080')
-        self.set_header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-        self.set_header('Access-Control-Allow-Headers', 'Content-Type')
-        self.set_header('Access-Control-Allow-Credentials', 'true')
-
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE")
+        self.set_header("Access-Control-Allow-Headers", "*")
 
 class BaseHandlerWithExternModule(BaseJSONHandler, ABC):
     def __init__(self, application, request: tornado.httputil.HTTPServerRequest, **kwargs):
