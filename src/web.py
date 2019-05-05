@@ -7,7 +7,10 @@ import tornado.httputil
 
 class Context:
     def __init__(self, cookies: Dict[str, http.cookies.Morsel]):
-        self.user_id = cookies['user_id'].value
+        if 'user_id' in cookies:
+            self.user_id = cookies['user_id'].value
+        else:
+            self.user_id = None
 
 
 class BaseJSONHandler(tornado.web.RequestHandler):
