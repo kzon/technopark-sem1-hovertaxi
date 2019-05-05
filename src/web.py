@@ -10,7 +10,7 @@ class Context:
         if 'user_id' in cookies:
             self.user_id = cookies['user_id'].value
         else:
-            self.user_id = None
+            self.user_id = ''
 
 
 class BaseJSONHandler(tornado.web.RequestHandler):
