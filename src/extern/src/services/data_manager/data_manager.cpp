@@ -7,11 +7,20 @@ DataManager &hovertaxi::DataManager::GetInstance(const std::string &uri) {
   return instance;
 }
 
-core::optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
+Optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
   Optional<MongoDataObject> result = db_.LoadObjectById(Aircraft::GetSource(), id);
   if (result) {
     Aircraft aircraft(result.value());
-    return core::optional<Aircraft>(aircraft);
+    return Optional<Aircraft>(aircraft);
+  }
+  return {};
+}
+
+Optional<AircraftModel> DataManager::LoadAircraftModelById(const std::string &id) const {
+  Optional<MongoDataObject> result = db_.LoadObjectById(AircraftModel::GetSource(), id);
+  if (result) {
+    AircraftModel aircraft_model(result.value());
+    return Optional<AircraftModel>(aircraft_model);
   }
   return {};
 }

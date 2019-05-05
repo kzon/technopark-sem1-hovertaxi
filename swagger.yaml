@@ -1,0 +1,354 @@
+swagger: "2.0"
+info:
+  description: "Скорость измеряется в км/ч. Расстояние в метрах. Стоимость в рублях"
+  version: "1.0.0"
+  title: "Hovertaxi API"
+basePath: "/api"
+tags:
+- name: "order"
+- name: "aircraft"
+schemes:
+- "https"
+- "http"
+- "wss"
+paths:
+  /order/preOrder:
+    get:
+      tags:
+      - "order"
+      summary: "Получение предварительной информации о возможном заказе"
+      description: "Позволяет показать пользователю цену, маршрут и примерное время в пути."
+      operationId: "preOrder"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "from_pad_id"
+        in: "path"
+        type: string
+        required: true
+        description: "ID ВПП отправления"
+      - in: path
+        name: to_pad_id
+        type: string
+        required: true
+        description: "ID ВПП назначения"
+      - in: path
+        name: aircraft_class_id
+        type: string
+        required: true
+        description: "ID типа ЛА, выбранного пользователем"
+      responses:
+        200:
+          description: Предварительная информация о заказе
+          schema:
+            $ref: '#/definitions/PreOrder'
+  /order/createOrder:
+    get:
+      tags:
+      - "order"
+      summary: "Осуществление заказа"
+      description: "Ставит заказ в очередь на обработку"
+      operationId: "createOrder"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: path
+        name: from_pad_id
+        type: string
+        description: "ID ВПП отправления"
+        required: true
+      - in: path
+        name: to_pad_id
+        type: string
+        description: "ID ВПП назначения"
+        required: true
+      - in: path
+        name: aircraft_class_id
+        type: string
+        description: "ID типа ЛА, выбранного пользователем"
+        required: true
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: '#/definitions/ApiResponse'
+  /order/getOrderInfo:
+    get:
+      tags:
+      - "order"
+      summary: "Получение информации о текущем заказе пользователя"
+      description: "[Websocket] Ожидает, пока заказ не обработается или не будет превышен таймаут обработки, и возвращает информацию о заказе."
+      operationId: "getOrderInfo"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Информация о заказе. В случае таймаута обработки, содержит одно поле status = PROCESS_TIMEOUT"
+          schema:
+            $ref: "#/definitions/Order"
+  /order/cancelOrder:
+    post:
+      tags:
+      - "order"
+      summary: "Отмена заказа"
+      description: "Отменяет заказ и возвращает стоимость отмены"
+      operationId: "cancelOrder"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Информация об отмене заказа"
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                example: "success"
+                enum:
+                - "success"
+                - "error"
+              cancel_price:
+                type: integer
+                description: "Стоимость отмены заказа"
+                example: 0
+  /aircraft/loadInCircle:
+    get:
+      tags:
+      - "aircraft"
+      summary: "Получение ближайших ЛА"
+      description: "Получение ЛА, находящихся в определенном радиусе от некоторой точки"
+      operationId: "loadInCircle"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+        - in: path
+          name: center
+          type: number
+          format: double
+          required: true
+          description: "Координаты центра окружности"
+        - in: path
+          name: radius
+          type: integer
+          required: true
+          description: "Радиус окружности"
+      responses:
+        200:
+          description: "ЛА в указанном радиусе от некоторой точки"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Aircraft"
+  /aircraft/loadCurrentOrderAircraft:
+    get:
+      tags:
+      - "aircraft"
+      summary: "Получение текущего ЛА"
+      description: "[Websocket] Получение ЛА, назначенного на текущий заказ"
+      operationId: "loadCurrentOrderAircraft"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "ЛА, назначенный на текущий заказ"
+          schema:
+            $ref: "#/definitions/Aircraft"
+  /aircraft/loadAircraftClasses:
+    get:
+      tags:
+      - "aircraft"
+      summary: "Получение классов ЛА"
+      description: "Получение всех классов ЛА в системе. Используется для выбора класса ЛА при заказе."
+      operationId: "loadAircraftClasses"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Все классы ЛА в системе"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/AircraftClass"
+  /aircraft/loadNearestPads:
+    get:
+      tags:
+      - "aircraft"
+      summary: "Получение ближайших ВПП"
+      description: "Получение ближайших к некоторой точке взлетно-посадочных площадок"
+      operationId: "loadNearestPads"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "position"
+        in: "path"
+        description: "Координаты точки. Например, [58.324234, 32.432432]"
+        required: true
+        type: array
+        items:
+          type: number
+          format: double
+      responses:
+        200:
+          description: "Ближайшие ВПП"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Pad"
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Order:
+    type: "object"
+    properties:
+      id:
+        type: string
+        example: "507f191e810c19729de860ea"
+      status:
+        type: string
+        example: "AIRCRAFT_ASSIGNED"
+        enum: 
+        - "NEW"
+        - "PROCESSING"
+        - "AIRCRAFT_ASSIGNED"
+        - "ON_FLY"
+        - "FINISHED"
+        - "CANCELED"
+        - "PROCESS_TIMEOUT"
+      from_pad_id:
+        type: integer
+        description: "ID ВПП отправления"
+        example: "507f191e810c19729de860ea"
+      to_pad_id:
+        type: integer
+        description: "ID ВПП назначения"
+        example: "507f191e810c19729de860ea"
+      aircraft_class_id:
+        type: integer
+        description: "ID типа ЛА, выбранного пользователем"
+        example: "507f191e810c19729de860ea"
+      assigned_aircraft_id:
+        type: integer
+        description: "ID ЛА, назначенного на заказ"
+        example: "507f191e810c19729de860ea"
+      route_id:
+        type: integer
+        description: "ID маршрута"
+        example: "507f191e810c19729de860ea"
+      price:
+        type: integer
+        description: "Стоимость заказа"
+        example: 755
+    xml:
+      name: "Order"
+  PreOrder:
+    type: object
+    properties:
+      route:
+        $ref: "#/definitions/Route"
+      price:
+        type: integer
+        example: 755
+        description: "Стоимость"
+  Route:
+    type: object
+    properties:
+      points:
+        type: array
+        description: "Координаты точек, описывающих маршрут"
+        example: [[58.1243, 32.42134], [58.1243, 32.42134], [58.1243, 32.42134]]
+        items:
+          type: number
+          format: double
+      time:
+        type: integer
+        description: "Время движения по маршруту в минутах"
+        example: 8
+  Aircraft:
+    type: object
+    properties:
+      id:
+        type: string
+        example: "507f191e810c19729de860ea"
+      model_id:
+        type: integer
+        description: "ID модели"
+        example: "507f191e810c19729de860ea"
+      number:
+        type: string
+        description: "Регистрационный номер"
+        example: "76t8bhui8976"
+      position:
+        type: array
+        description: "Текущее местоположение"
+        example: [58.1243, 32.42134]
+        items:
+          type: number
+          format: double
+      speed:
+        type: integer
+        description: "Текущая скорость"
+        example: 180
+      direction:
+        type: integer
+        description: "Текущий курс в градусах"
+        example: 263
+      is_assigned:
+        type: boolean
+        description: "Назанчен ли ЛА на заказ"
+  AircraftClass:
+    type: object
+    properties:
+      id:
+        type: string
+        example: "507f191e810c19729de860ea"
+      name:
+        type: string
+        example: "Мультикоптер"
+      min_range:
+        type: integer
+        example: 1000
+      max_range:
+        type: integer
+        example: 20000
+  Pad:
+    description: "Взлетно-посадочная площадка (ВПП)"
+    type: object
+    properties:
+      id:
+        type: string
+        example: "507f191e810c19729de860ea"
+      name:
+        type: string
+        example: "Башня Федерация Восток"
+      position:
+        type: array
+        items:
+          type: number
+          format: double
+        example: [58.23423, 32.324234]
+  ApiResponse:
+    type: object
+    properties:
+      result:
+        type: string
+        example: "success"
+        enum:
+        - "success"
+        - "error"
+      message:
+        type: string
+        example: ""
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
