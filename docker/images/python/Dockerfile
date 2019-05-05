@@ -19,12 +19,6 @@ RUN curl -OL https://github.com/mongodb/mongo-cxx-driver/archive/r3.4.0.tar.gz &
 	cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local .. && \
 	make && make install
 
-## Install mangrove
-#RUN git clone -b master https://github.com/mongodb-labs/mangrove && \
-#	cd mangrove/build && \
-#	PKG_CONFIG_PATH=/usr/local/lib/pkgconfig cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local .. && \
-#	make && make install
-
 # Install Python packages
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt

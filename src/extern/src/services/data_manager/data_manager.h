@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "models/aircraft.h"
+#include "models/aircraft_model.h"
 #include "models/aircraft_class.h"
 #include "models/pad.h"
 #include "models/order.h"
@@ -13,12 +14,13 @@ class DataManager {
  public:
   static DataManager &GetInstance(const std::string &uri);
 
-  core::optional<Aircraft> LoadAircraftById(const std::string &id) const;
+  Optional<Aircraft> LoadAircraftById(const std::string &id) const;
   std::vector<Aircraft> LoadAircraftsInRadius(const GeoPoint &center, int radius) const;
+  Optional<AircraftModel> LoadAircraftModelById(const std::string &id) const;
   std::vector<std::unique_ptr<AircraftClass>> LoadAircraftClasses() const;
   void StoreAircraft(const Aircraft &aircraft) const;
   std::vector<Pad> LoadPadsInRadius(const GeoPoint &center, int radius) const;
-  core::optional<Order> LoadOrderByUser(std::string user_id) const;
+  Optional<Order> LoadOrderByUser(std::string user_id) const;
   void StoreOrder(const Order &order) const;
   size_t CountOrdersInRadius(const GeoPoint &center, int radius) const;
 
