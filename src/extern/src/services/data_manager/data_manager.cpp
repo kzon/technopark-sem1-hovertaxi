@@ -25,6 +25,12 @@ std::vector<std::unique_ptr<Aircraft>> DataManager::LoadAircraftsInRadius(const 
   return LoadObjects<Aircraft>(filter);
 }
 
+std::vector<std::unique_ptr<Pad>> DataManager::LoadPadsInRadius(const GeoPoint &center, int radius) const {
+  DataFilter filter;
+  DataFilterCondition::GeoPointInRadius(filter, "position", center, radius);
+  return LoadObjects<Pad>(filter);
+}
+
 template<typename T>
 Optional<T> DataManager::LoadObjectById(const std::string &id) const {
   Optional<MongoDataObject> result = db_.LoadObjectById(T::GetSource(), id);

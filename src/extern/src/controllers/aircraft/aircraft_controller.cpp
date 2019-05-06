@@ -20,7 +20,8 @@ std::string AircraftController::LoadCurrentOrderAircraft() {
 }
 
 std::string AircraftController::LoadNearestPads(const std::pair<double, double> &position) {
-  return {};
+  auto pads = AircraftComponent::LoadNearestPads(GeoPoint{position.first, position.second});
+  return JSONConverter::ToJSON(pads);
 }
 
 }

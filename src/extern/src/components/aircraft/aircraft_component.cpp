@@ -6,16 +6,16 @@ std::vector<std::unique_ptr<Aircraft>> AircraftComponent::LoadAircraftInCircle(c
   return ServiceLocator::GetDataManager().LoadAircraftsInRadius(center, radius);
 }
 
-std::vector<Aircraft> AircraftComponent::LoadCurrentOrderAircraft() {
-  return std::vector<Aircraft>();
+Aircraft AircraftComponent::LoadCurrentOrderAircraft() {
+  return {};
 }
 
 std::vector<std::unique_ptr<AircraftClass>> AircraftComponent::LoadAircraftClasses() {
   return ServiceLocator::GetDataManager().LoadAircraftClasses();
 }
 
-std::vector<Pad> AircraftComponent::LoadNearestPads(const GeoPoint &position) {
-  return std::vector<Pad>();
+std::vector<std::unique_ptr<Pad>> AircraftComponent::LoadNearestPads(const GeoPoint &position) {
+  return ServiceLocator::GetDataManager().LoadPadsInRadius(position, 1000);
 }
 
 }
