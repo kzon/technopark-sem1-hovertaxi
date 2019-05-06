@@ -12,6 +12,7 @@
 
 #include "mongo_data_object.h"
 #include "core/optional.h"
+#include "data_filter.h"
 
 namespace hovertaxi {
 
@@ -24,7 +25,8 @@ class MongoDataStorage {
       db_(client_[DB_NAME]) {}
 
   Optional<MongoDataObject> LoadObjectById(const std::string &collection, const std::string &id) const;
-  std::vector<std::unique_ptr<MongoDataObject>> LoadObjects(const std::string &collection) const;
+  std::vector<std::unique_ptr<MongoDataObject>> LoadObjects(const std::string &collection,
+                                                            DataFilter &filter) const;
   void StoreObject(const MongoDataObject &object) const;
 
  private:

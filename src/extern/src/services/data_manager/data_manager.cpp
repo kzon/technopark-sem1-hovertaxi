@@ -20,7 +20,9 @@ std::vector<std::unique_ptr<AircraftClass>> DataManager::LoadAircraftClasses() c
 }
 
 std::vector<std::unique_ptr<Aircraft>> DataManager::LoadAircraftsInRadius(const GeoPoint &center, int radius) const {
-  return LoadObjects<Aircraft>();
+  DataFilter filter;
+  DataFilterCondition::GeoPointInRadius(filter, "position", center, radius);
+  return LoadObjects<Aircraft>(filter);
 }
 
 template<typename T>
@@ -35,8 +37,13 @@ Optional<T> DataManager::LoadObjectById(const std::string &id) const {
 
 template<typename T>
 std::vector<std::unique_ptr<T>> DataManager::LoadObjects() const {
-  // @todo wtf
-  std::vector<std::unique_ptr<MongoDataObject>> objects = db_.LoadObjects(T::GetSource());
+  DataFilter empty_filter;
+  return LoadObjects<T>(empty_filter);
+}
+
+template<typename T>
+std::vector<std::unique_ptr<T>> DataManager::LoadObjects(DataFilter &filter) const {
+  std::vector<std::unique_ptr<MongoDataObject>> objects = db_.LoadObjects(T::GetSource(), filter);
   std::vector<std::unique_ptr<T>> result;
   result.reserve(objects.size());
   for (const auto &object : objects)
