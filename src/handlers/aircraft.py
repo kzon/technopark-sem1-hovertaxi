@@ -18,7 +18,7 @@ class LoadInCircleHandler(BaseAircraftHandler):
             radius = int(data.get("radius"))
             self.write(self.extern_wrapper.load_aircraft_in_circle(center, radius))
         except Exception:
-            sys.stderr.write(Exception)
+            sys.stderr.write(str(Exception))
     def options(self):
         pass
     def get(self):
@@ -35,6 +35,15 @@ class LoadAircraftClassesHandler(BaseAircraftHandler):
 
 
 class LoadNearestPadsHandler(BaseAircraftHandler):
+    def post(self):
+        try:
+            data = json.loads(self.request.body)
+            position = tuple(data.get("position"))
+            self.write(self.extern_wrapper.load_nearest_pads(position))
+        except Exception:
+            sys.stderr.write(str(Exception))
+
+    def options(self):
+            pass
     def get(self):
-        position = comma_separated_to_float_tuple(self.get_query_argument('position'))
-        self.write(self.extern_wrapper.load_nearest_pads(position))
+        pass
