@@ -12,8 +12,7 @@ class Pad : public MongoDataMapper {
 
   Pad() {}
   explicit Pad(const MongoDataObject &object) : MongoDataMapper(object) {
-    auto data = object.data;
-    this->name = data["name"].get_utf8().value.to_string();
+    this->name = object.view()["name"].get_utf8().value.to_string();
     // this->position = ...
   }
 

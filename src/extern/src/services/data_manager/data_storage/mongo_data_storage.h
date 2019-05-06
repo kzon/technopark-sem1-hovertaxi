@@ -30,9 +30,6 @@ class MongoDataStorage {
  private:
   mongocxx::collection GetCollection(const std::string &name) const;
 
-  std::string ToJSON(const MongoDataObject &object) const;
-  std::string ToJSON(const std::vector<MongoDataObject> &objects) const;
-
   mongocxx::instance instance_;
   mongocxx::uri uri_;
   mongocxx::client client_;

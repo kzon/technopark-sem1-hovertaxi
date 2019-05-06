@@ -12,11 +12,12 @@ std::vector<std::unique_ptr<MongoDataObject>> MongoDataStorage::LoadObjects(cons
 
 Optional<MongoDataObject> MongoDataStorage::LoadObjectById(const std::string &collection,
                                                            const std::string &id) const {
-  bsoncxx::document::view_or_value filter = bsoncxx::builder::stream::document{}
-      << "_id" << bsoncxx::oid(id)
-      << bsoncxx::builder::stream::finalize;
-  auto result = GetCollection(collection).find_one(filter);
-  return {MongoDataObject(result.value())};
+  bsoncxx::stdx::optional<bsoncxx::document::value> result = GetCollection(collection).find_one(
+      bsoncxx::builder::stream::document{} << "_id" << bsoncxx::oid(id) << bsoncxx::builder::stream::finalize
+  );
+  if (result)
+    return {MongoDataObject(std::move(result.value()))};
+  return {};
 }
 
 mongocxx::collection MongoDataStorage::GetCollection(const std::string &name) const {

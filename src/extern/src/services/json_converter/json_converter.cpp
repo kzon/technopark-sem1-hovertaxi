@@ -17,4 +17,14 @@ std::string JSONConverter::ToJSON(const IJsonConvertable &object) {
   return result.str();
 }
 
+std::string JSONConverter::ToJSON(GeoPoint point) {
+  std::stringstream result;
+  result << "[" << point.latitude << "," << point.longitude << "]";
+  return result.str();
+}
+
+std::string JSONConverter::ToJSON(bool value) {
+  return value ? "true" : "false";
+}
+
 }
