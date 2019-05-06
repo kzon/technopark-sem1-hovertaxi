@@ -15,7 +15,7 @@ std::vector<std::unique_ptr<AircraftClass>> AircraftComponent::LoadAircraftClass
 }
 
 std::vector<std::unique_ptr<Pad>> AircraftComponent::LoadNearestPads(const GeoPoint &position) {
-  return ServiceLocator::GetDataManager().LoadPadsInRadius(position, 1000);
+  return ServiceLocator::GetDataManager().LoadPadsInRadius(position, 50000);
 }
 
 }
