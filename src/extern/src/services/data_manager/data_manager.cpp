@@ -8,30 +8,31 @@ DataManager &hovertaxi::DataManager::GetInstance(const std::string &uri) {
 }
 
 Optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
-  Optional<MongoDataObject> result = db_.LoadObjectById(Aircraft::GetSource(), id);
-  if (result) {
-    Aircraft aircraft(result.value());
-    return Optional<Aircraft>(aircraft);
-  }
-  return {};
+  return LoadObjectById<Aircraft>(id);
 }
 
 Optional<AircraftModel> DataManager::LoadAircraftModelById(const std::string &id) const {
-  Optional<MongoDataObject> result = db_.LoadObjectById(AircraftModel::GetSource(), id);
-  if (result) {
-    AircraftModel aircraft_model(result.value());
-    return Optional<AircraftModel>(aircraft_model);
-  }
-  return {};
+  return LoadObjectById<AircraftModel>(id);
 }
 
 std::vector<std::unique_ptr<AircraftClass>> DataManager::LoadAircraftClasses() const {
+  // @todo wtf
   std::vector<std::unique_ptr<MongoDataObject>> objects = db_.LoadObjects(AircraftClass::GetSource());
   std::vector<std::unique_ptr<AircraftClass>> result;
   result.reserve(objects.size());
   for (const auto &object : objects)
     result.push_back(std::unique_ptr<AircraftClass>(new AircraftClass(*object)));
   return result;
+}
+
+template<typename T>
+Optional<T> DataManager::LoadObjectById(const std::string &id) const {
+  Optional<MongoDataObject> result = db_.LoadObjectById(T::GetSource(), id);
+  if (result) {
+    T model(result.value());
+    return Optional<T>(model);
+  }
+  return {};
 }
 
 }

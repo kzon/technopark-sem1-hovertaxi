@@ -15,8 +15,8 @@ class DataManager {
   static DataManager &GetInstance(const std::string &uri);
 
   Optional<Aircraft> LoadAircraftById(const std::string &id) const;
-  std::vector<Aircraft> LoadAircraftsInRadius(const GeoPoint &center, int radius) const;
   Optional<AircraftModel> LoadAircraftModelById(const std::string &id) const;
+  std::vector<Aircraft> LoadAircraftsInRadius(const GeoPoint &center, int radius) const;
   std::vector<std::unique_ptr<AircraftClass>> LoadAircraftClasses() const;
   void StoreAircraft(const Aircraft &aircraft) const;
   std::vector<Pad> LoadPadsInRadius(const GeoPoint &center, int radius) const;
@@ -28,6 +28,9 @@ class DataManager {
   explicit DataManager(const std::string &uri) : db_(uri) {}
 
   MongoDataStorage db_;
+
+  template<typename T>
+  Optional<T> LoadObjectById(const std::string &id) const;
 };
 
 }

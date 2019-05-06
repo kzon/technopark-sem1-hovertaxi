@@ -12,12 +12,10 @@ std::string AircraftController::LoadAircraftClasses() {
 }
 
 std::string AircraftController::LoadCurrentOrderAircraft() {
-  auto response = ServiceLocator::GetDataManager().LoadAircraftModelById("5063114bd386d8fadbd6b007");
-  if (response) {
-    auto aircraft = response.value();
-    return "id = " + aircraft.id + ", name = " + aircraft.name;
-  }
-  return "{}";
+  auto result = ServiceLocator::GetDataManager().LoadAircraftById("5ccffc86a8ef5bdef367710f");
+  if (result)
+    return JSONConverter::ToJSON(result.value());
+  return "null";
 }
 
 std::string AircraftController::LoadNearestPads(const std::pair<double, double> &position) {

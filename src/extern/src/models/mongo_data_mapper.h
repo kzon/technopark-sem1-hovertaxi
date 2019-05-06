@@ -16,8 +16,7 @@ class MongoDataMapper : public IJsonConvertable {
 
   MongoDataMapper() = default;
   explicit MongoDataMapper(const MongoDataObject &object) {
-    auto data = object.data;
-    this->id = data["_id"].get_oid().value.to_string();
+    this->id = object.view()["_id"].get_oid().value.to_string();
   };
 
   static std::string GetSource() { return ""; };
