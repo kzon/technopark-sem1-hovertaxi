@@ -14,9 +14,9 @@ namespace hovertaxi {
 class AircraftComponent : public ContextKeeper {
  public:
   static std::vector<std::unique_ptr<Aircraft>> LoadAircraftInCircle(const GeoPoint &center, int radius);
-  static std::vector<Aircraft> LoadCurrentOrderAircraft();
+  static Aircraft LoadCurrentOrderAircraft();
   static std::vector<std::unique_ptr<AircraftClass>> LoadAircraftClasses();
-  static std::vector<Pad> LoadNearestPads(const GeoPoint &position);
+  static std::vector<std::unique_ptr<Pad>> LoadNearestPads(const GeoPoint &position);
 };
 
 }
