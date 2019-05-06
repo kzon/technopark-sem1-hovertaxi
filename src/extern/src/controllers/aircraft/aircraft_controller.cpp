@@ -3,7 +3,8 @@
 namespace hovertaxi {
 
 std::string AircraftController::LoadAircraftInCircle(const std::pair<double, double> &center, int radius) {
-  return "user_id=" + context.user_id;
+  auto aircraft_classes = AircraftComponent::LoadAircraftInCircle(GeoPoint{center.first, center.second}, radius);
+  return JSONConverter::ToJSON(aircraft_classes);
 }
 
 std::string AircraftController::LoadAircraftClasses() {

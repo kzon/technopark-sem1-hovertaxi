@@ -16,7 +16,7 @@ class DataManager {
 
   Optional<Aircraft> LoadAircraftById(const std::string &id) const;
   Optional<AircraftModel> LoadAircraftModelById(const std::string &id) const;
-  std::vector<Aircraft> LoadAircraftsInRadius(const GeoPoint &center, int radius) const;
+  std::vector<std::unique_ptr<Aircraft>> LoadAircraftsInRadius(const GeoPoint &center, int radius) const;
   std::vector<std::unique_ptr<AircraftClass>> LoadAircraftClasses() const;
   void StoreAircraft(const Aircraft &aircraft) const;
   std::vector<Pad> LoadPadsInRadius(const GeoPoint &center, int radius) const;
@@ -31,6 +31,9 @@ class DataManager {
 
   template<typename T>
   Optional<T> LoadObjectById(const std::string &id) const;
+
+  template<typename T>
+  std::vector<std::unique_ptr<T>> LoadObjects() const;
 };
 
 }
