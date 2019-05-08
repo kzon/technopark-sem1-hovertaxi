@@ -25,6 +25,7 @@ class MongoDataStorage {
       db_(client_[DB_NAME]) {}
 
   Optional<MongoDataObject> LoadObjectById(const std::string &collection, const std::string &id) const;
+  Optional<MongoDataObject> LoadObject(const std::string &collection, DataFilter &filter) const;
   std::vector<std::unique_ptr<MongoDataObject>> LoadObjects(const std::string &collection,
                                                             DataFilter &filter) const;
   void StoreObject(const MongoDataObject &object) const;

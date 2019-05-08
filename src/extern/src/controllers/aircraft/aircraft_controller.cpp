@@ -13,10 +13,8 @@ std::string AircraftController::LoadAircraftClasses() {
 }
 
 std::string AircraftController::LoadCurrentOrderAircraft() {
-  auto result = ServiceLocator::GetDataManager().LoadAircraftById("5ccffc86a8ef5bdef367710f");
-  if (result)
-    return JSONConverter::ToJSON(result.value());
-  return "null";
+  auto aircraft = AircraftComponent::LoadCurrentOrderAircraft();
+  return JSONConverter::ToJSON(aircraft);
 }
 
 std::string AircraftController::LoadNearestPads(const std::pair<double, double> &position) {

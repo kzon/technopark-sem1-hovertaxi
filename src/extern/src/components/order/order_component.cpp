@@ -10,8 +10,8 @@ Order OrderComponent::CreateOrder(const Pad &from, const Pad &to, const std::str
   return {};
 }
 
-Order OrderComponent::GetOrderInfo(const std::string &order_id) {
-  return {};
+Optional<Order> OrderComponent::LoadCurrentOrder() {
+  return ServiceLocator::GetDataManager().LoadOrderByUser(context.user_id);
 }
 
 Order OrderComponent::ProcessOrdersFromQueue() {

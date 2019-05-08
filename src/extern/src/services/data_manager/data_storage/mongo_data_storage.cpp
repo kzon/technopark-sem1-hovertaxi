@@ -4,9 +4,16 @@ namespace hovertaxi {
 
 Optional<MongoDataObject> MongoDataStorage::LoadObjectById(const std::string &collection,
                                                            const std::string &id) const {
-  bsoncxx::stdx::optional<bsoncxx::document::value> result = GetCollection(collection).find_one(
+  auto result = GetCollection(collection).find_one(
       bsoncxx::builder::stream::document{} << "_id" << bsoncxx::oid(id) << bsoncxx::builder::stream::finalize
   );
+  if (result)
+    return {MongoDataObject(std::move(result.value()))};
+  return {};
+}
+
+Optional<MongoDataObject> MongoDataStorage::LoadObject(const std::string &collection, DataFilter &filter) const {
+  auto result = GetCollection(collection).find_one(filter << bsoncxx::builder::stream::finalize);
   if (result)
     return {MongoDataObject(std::move(result.value()))};
   return {};

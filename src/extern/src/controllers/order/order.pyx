@@ -12,7 +12,7 @@ cdef extern from "order_controller.h" namespace "hovertaxi":
         OrderController(Context & context) except +
         string GetPreOrderInfo(string & from_pad_id, string & to_pad_id, string & aircraft_class_id)
         string CreateOrder(string & from_pad_id, string & to_pad_id, string & aircraft_class_id)
-        string GetOrderInfo()
+        string LoadCurrentOrder()
         string CancelOrder()
 
 
@@ -33,8 +33,8 @@ cdef class OrderControllerWrapper:
     def create_order(self, from_pad_id: str, to_pad_id: str, aircraft_class_id: str) -> str:
         return self.controller.CreateOrder(from_pad_id.encode(), to_pad_id.encode(), aircraft_class_id.encode()).decode()
 
-    def get_order_info(self) -> str:
-        return self.controller.GetOrderInfo().decode()
+    def load_current_order(self) -> str:
+        return self.controller.LoadCurrentOrder().decode()
 
     def cancel_order(self) -> str:
         return self.controller.CancelOrder().decode()

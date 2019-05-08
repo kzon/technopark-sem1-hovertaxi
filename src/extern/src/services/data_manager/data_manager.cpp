@@ -31,9 +31,25 @@ std::vector<std::unique_ptr<Pad>> DataManager::LoadPadsInRadius(const GeoPoint &
   return LoadObjects<Pad>(filter);
 }
 
+Optional<Order> DataManager::LoadOrderByUser(const std::string &user_id) const {
+  DataFilter filter;
+  DataFilterCondition::StringEquals(filter, "user_id", user_id);
+  return LoadObject<Order>(filter);
+}
+
 template<typename T>
 Optional<T> DataManager::LoadObjectById(const std::string &id) const {
   Optional<MongoDataObject> result = db_.LoadObjectById(T::GetSource(), id);
+  if (result) {
+    T model(result.value());
+    return Optional<T>(model);
+  }
+  return {};
+}
+
+template<typename T>
+Optional<T> DataManager::LoadObject(DataFilter &filter) const {
+  Optional<MongoDataObject> result = db_.LoadObject(T::GetSource(), filter);
   if (result) {
     T model(result.value());
     return Optional<T>(model);

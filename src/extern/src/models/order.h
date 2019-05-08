@@ -37,6 +37,19 @@ class Order : public MongoDataMapper {
   }
 
   static std::string GetSource() { return "order"; }
+
+  std::map<std::string, std::string> GetJsonFields() const override {
+    auto fields = MongoDataMapper::GetJsonFields();
+    fields["user_id"] = user_id;
+    //fields["status"] = status;
+    fields["from_pad_id"] = from_pad_id;
+    fields["to_pad_id"] = to_pad_id;
+    fields["aircraft_class_id"] = aircraft_class_id;
+    fields["assigned_aircraft_id"] = assigned_aircraft_id;
+    fields["route_id"] = route_id;
+    fields["price"] = std::to_string(price);
+    return fields;
+  }
 };
 
 }

@@ -25,9 +25,9 @@ class CreateOrderHandler(BaseOrderHandler):
         ))
 
 
-class GetOrderInfoHandler(BaseOrderHandler):
+class LoadCurrentOrderHandler(BaseOrderHandler):
     def get(self):
-        self.write(self.extern_wrapper.get_order_info())
+        self.write(self.extern_wrapper.load_current_order())
 
 
 class CancelOrderHandler(BaseOrderHandler):

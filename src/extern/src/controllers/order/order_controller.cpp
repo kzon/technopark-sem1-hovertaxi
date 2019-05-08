@@ -16,8 +16,9 @@ std::string OrderController::CreateOrder(const std::string &from_pad_id,
   return std::string();
 }
 
-std::string OrderController::GetOrderInfo() {
-  return "Searching for order for user id = " + context.user_id;
+std::string OrderController::LoadCurrentOrder() {
+  Optional<Order> order = order_component_.LoadCurrentOrder();
+  return order ? JSONConverter::ToJSON(order.value()) : JSONConverter::Empty();
 }
 
 std::string OrderController::CancelOrder() {

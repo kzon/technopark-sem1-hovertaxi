@@ -5,7 +5,7 @@ routes = [
 
     (r"/api/order/getPreOrderInfo", order.GetPreOrderInfoHandler),
     (r"/api/order/createOrder", order.CreateOrderHandler),
-    (r"/api/order/getOrderInfo", order.GetOrderInfoHandler),
+    (r"/api/order/loadCurrentOrder", order.LoadCurrentOrderHandler),
     (r"/api/order/cancelOrder", order.CancelOrderHandler),
 
     (r"/api/aircraft/loadInCircle", aircraft.LoadInCircleHandler),

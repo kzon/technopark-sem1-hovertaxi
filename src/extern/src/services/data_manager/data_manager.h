@@ -22,7 +22,7 @@ class DataManager {
   std::vector<std::unique_ptr<AircraftClass>> LoadAircraftClasses() const;
   void StoreAircraft(const Aircraft &aircraft) const;
   std::vector<std::unique_ptr<Pad>> LoadPadsInRadius(const GeoPoint &center, int radius) const;
-  Optional<Order> LoadOrderByUser(std::string user_id) const;
+  Optional<Order> LoadOrderByUser(const std::string &user_id) const;
   void StoreOrder(const Order &order) const;
   size_t CountOrdersInRadius(const GeoPoint &center, int radius) const;
 
@@ -31,6 +31,9 @@ class DataManager {
 
   template<typename T>
   Optional<T> LoadObjectById(const std::string &id) const;
+
+  template<typename T>
+  Optional<T> LoadObject(DataFilter &filter) const;
 
   template<typename T>
   std::vector<std::unique_ptr<T>> LoadObjects() const;
