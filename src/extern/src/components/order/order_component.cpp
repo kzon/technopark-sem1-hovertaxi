@@ -8,7 +8,7 @@ PreOrder OrderComponent::GetPreOrderInfo(const std::string &from_pad_id,
   return {};
 }
 
-Order OrderComponent::CreateOrder(const std::string &from_pad_id,
+Optional<Order> OrderComponent::CreateOrder(const std::string &from_pad_id,
                                   const std::string &to_pad_id,
                                   const std::string &aircraft_class_id) {
   Order order;
@@ -16,7 +16,9 @@ Order OrderComponent::CreateOrder(const std::string &from_pad_id,
   order.from_pad_id = from_pad_id;
   order.to_pad_id = to_pad_id;
   order.aircraft_class_id = aircraft_class_id;
-  return order;
+  if (data_manager_.StoreOrder(order))
+    return {order};
+  return {};
 }
 
 Optional<Order> OrderComponent::LoadCurrentOrder() {

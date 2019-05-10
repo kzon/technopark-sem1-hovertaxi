@@ -32,4 +32,10 @@ mongocxx::collection MongoDataStorage::GetCollection(const std::string &name) co
   return db_[name];
 }
 
+bool MongoDataStorage::StoreObject(const std::string &collection, const MongoDataObject &object) const {
+  bsoncxx::stdx::optional<mongocxx::result::insert_one>
+      insert_result = GetCollection(collection).insert_one(object.view());
+  return insert_result && insert_result.value().result().inserted_count() == 1;
+}
+
 }

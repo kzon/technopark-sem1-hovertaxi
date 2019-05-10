@@ -21,9 +21,9 @@ class OrderComponent : public ContextKeeper {
   PreOrder GetPreOrderInfo(const std::string &from_pad_id,
                            const std::string &to_pad_id,
                            const std::string &aircraft_class_id);
-  Order CreateOrder(const std::string &from_pad_id,
-                    const std::string &to_pad_id,
-                    const std::string &aircraft_class_id);
+  Optional<Order> CreateOrder(const std::string &from_pad_id,
+                              const std::string &to_pad_id,
+                              const std::string &aircraft_class_id);
   Optional<Order> LoadCurrentOrder();
   Order ProcessOrdersFromQueue();
   CancelOrderResult CancelOrder(const std::string &order_id);

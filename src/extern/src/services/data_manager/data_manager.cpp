@@ -2,40 +2,10 @@
 
 namespace hovertaxi {
 
-DataManager &hovertaxi::DataManager::GetInstance() {
+DataManager &DataManager::GetInstance() {
   // @todo move db url to secret location
   static DataManager instance("mongodb://hovertaxi:hovertaxi@mongo:27017");
   return instance;
-}
-
-Optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
-  return LoadObjectById<Aircraft>(id);
-}
-
-Optional<AircraftModel> DataManager::LoadAircraftModelById(const std::string &id) const {
-  return LoadObjectById<AircraftModel>(id);
-}
-
-std::vector<std::unique_ptr<AircraftClass>> DataManager::LoadAircraftClasses() const {
-  return LoadObjects<AircraftClass>();
-}
-
-std::vector<std::unique_ptr<Aircraft>> DataManager::LoadAircraftsInRadius(const GeoPoint &center, int radius) const {
-  DataFilter filter;
-  DataFilterCondition::GeoPointInRadius(filter, "position", center, radius);
-  return LoadObjects<Aircraft>(filter);
-}
-
-std::vector<std::unique_ptr<Pad>> DataManager::LoadPadsInRadius(const GeoPoint &center, int radius) const {
-  DataFilter filter;
-  DataFilterCondition::GeoPointInRadius(filter, "position", center, radius);
-  return LoadObjects<Pad>(filter);
-}
-
-Optional<Order> DataManager::LoadOrderByUser(const std::string &user_id) const {
-  DataFilter filter;
-  DataFilterCondition::StringEquals(filter, "user_id", user_id);
-  return LoadObject<Order>(filter);
 }
 
 template<typename T>
@@ -72,6 +42,45 @@ std::vector<std::unique_ptr<T>> DataManager::LoadObjects(DataFilter &filter) con
   for (const auto &object : objects)
     result.push_back(std::unique_ptr<T>(new T(*object)));
   return result;
+}
+
+template<typename T>
+bool DataManager::StoreObject(const T &object) const {
+  return db_.StoreObject(T::GetSource(), object.GetStorageObject());
+}
+
+Optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
+  return LoadObjectById<Aircraft>(id);
+}
+
+Optional<AircraftModel> DataManager::LoadAircraftModelById(const std::string &id) const {
+  return LoadObjectById<AircraftModel>(id);
+}
+
+std::vector<std::unique_ptr<AircraftClass>> DataManager::LoadAircraftClasses() const {
+  return LoadObjects<AircraftClass>();
+}
+
+std::vector<std::unique_ptr<Aircraft>> DataManager::LoadAircraftsInRadius(const GeoPoint &center, int radius) const {
+  DataFilter filter;
+  DataFilterCondition::GeoPointInRadius(filter, "position", center, radius);
+  return LoadObjects<Aircraft>(filter);
+}
+
+std::vector<std::unique_ptr<Pad>> DataManager::LoadPadsInRadius(const GeoPoint &center, int radius) const {
+  DataFilter filter;
+  DataFilterCondition::GeoPointInRadius(filter, "position", center, radius);
+  return LoadObjects<Pad>(filter);
+}
+
+Optional<Order> DataManager::LoadOrderByUser(const std::string &user_id) const {
+  DataFilter filter;
+  DataFilterCondition::StringEquals(filter, "user_id", user_id);
+  return LoadObject<Order>(filter);
+}
+
+bool DataManager::StoreOrder(const Order &order) const {
+  return StoreObject(order);
 }
 
 }

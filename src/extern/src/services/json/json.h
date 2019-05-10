@@ -11,7 +11,7 @@
 
 namespace hovertaxi {
 
-class JSONConverter {
+class JSON {
  public:
   static std::string ToJSON(bool value);
 
@@ -30,7 +30,7 @@ class JSONConverter {
 
 // @todo definitions of static methods with templates can not be placed in separate cpp file
 template<typename T>
-std::string JSONConverter::ToJSON(std::vector<T> &objects) {
+std::string JSON::ToJSON(std::vector<T> &objects) {
   std::stringstream result;
   result << '[';
   bool is_first = true;
@@ -45,7 +45,7 @@ std::string JSONConverter::ToJSON(std::vector<T> &objects) {
 }
 
 template<typename T>
-std::string JSONConverter::ToJSON(const std::unique_ptr<T> &object) {
+std::string JSON::ToJSON(const std::unique_ptr<T> &object) {
   return ToJSON(*object);
 }
 

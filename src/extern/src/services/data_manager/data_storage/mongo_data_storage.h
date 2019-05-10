@@ -28,7 +28,7 @@ class MongoDataStorage {
   Optional<MongoDataObject> LoadObject(const std::string &collection, DataFilter &filter) const;
   std::vector<std::unique_ptr<MongoDataObject>> LoadObjects(const std::string &collection,
                                                             DataFilter &filter) const;
-  void StoreObject(const MongoDataObject &object) const;
+  bool StoreObject(const std::string &collection, const MongoDataObject &object) const;
 
  private:
   mongocxx::collection GetCollection(const std::string &name) const;

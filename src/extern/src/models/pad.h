@@ -23,7 +23,7 @@ class Pad : public MongoDataMapper {
   std::map<std::string, std::string> GetJsonFields() const override {
     auto fields = MongoDataMapper::GetJsonFields();
     fields["name"] = name;
-    fields["position"] = JSONConverter::ToJSON(position);
+    fields["position"] = JSON::ToJSON(position);
     return fields;
   }
 };

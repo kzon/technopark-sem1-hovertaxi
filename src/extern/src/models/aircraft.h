@@ -4,7 +4,7 @@
 
 #include "mongo_data_mapper.h"
 #include "geo_point.h"
-#include "services/json_converter/json_converter.h"
+#include "services/json/json.h"
 
 namespace hovertaxi {
 
@@ -37,10 +37,10 @@ class Aircraft : public MongoDataMapper {
     auto fields = MongoDataMapper::GetJsonFields();
     fields["model_id"] = model_id;
     fields["number"] = number;
-    fields["position"] = JSONConverter::ToJSON(position);
+    fields["position"] = JSON::ToJSON(position);
     fields["speed"] = std::to_string(speed);
     fields["direction"] = std::to_string(direction);
-    fields["is_assigned"] = JSONConverter::ToJSON(is_assigned);
+    fields["is_assigned"] = JSON::ToJSON(is_assigned);
     return fields;
   }
 };

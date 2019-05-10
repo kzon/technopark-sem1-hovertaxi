@@ -3,7 +3,7 @@
 #include "mongo_data_mapper.h"
 #include "route.h"
 #include "i_json_convertable.h"
-#include "services/json_converter/json_converter.h"
+#include "services/json/json.h"
 
 namespace hovertaxi {
 
@@ -14,7 +14,7 @@ class PreOrder : public IJsonConvertable {
 
   std::map<std::string, std::string> GetJsonFields() const override {
     std::map<std::string, std::string> fields;
-    fields["route"] = JSONConverter::ToJSON(route);
+    fields["route"] = JSON::ToJSON(route);
     fields["price"] = std::to_string(price);
     return fields;
   }

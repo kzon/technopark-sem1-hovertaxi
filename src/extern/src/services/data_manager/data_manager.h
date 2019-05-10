@@ -23,7 +23,7 @@ class DataManager {
   void StoreAircraft(const Aircraft &aircraft) const;
   std::vector<std::unique_ptr<Pad>> LoadPadsInRadius(const GeoPoint &center, int radius) const;
   Optional<Order> LoadOrderByUser(const std::string &user_id) const;
-  void StoreOrder(const Order &order) const;
+  bool StoreOrder(const Order &order) const;
   size_t CountOrdersInRadius(const GeoPoint &center, int radius) const;
 
  private:
@@ -37,8 +37,12 @@ class DataManager {
 
   template<typename T>
   std::vector<std::unique_ptr<T>> LoadObjects() const;
+
   template<typename T>
   std::vector<std::unique_ptr<T>> LoadObjects(DataFilter &filter) const;
+
+  template<typename T>
+  bool StoreObject(const T &object) const;
 
   MongoDataStorage db_;
 };

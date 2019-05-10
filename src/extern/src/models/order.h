@@ -26,14 +26,14 @@ class Order : public MongoDataMapper {
 
   Order() = default;
   explicit Order(const MongoDataObject &object) : MongoDataMapper(object) {
-    this->user_id = object.view()["user_id"].get_utf8().value.to_string();
-    // this->status = ...
-    this->from_pad_id = object.view()["from_pad_id"].get_utf8().value.to_string();
-    this->to_pad_id = object.view()["to_pad_id"].get_utf8().value.to_string();
-    this->aircraft_class_id = object.view()["aircraft_class_id"].get_utf8().value.to_string();
-    this->assigned_aircraft_id = object.view()["assigned_aircraft_id"].get_utf8().value.to_string();
-    this->route_id = object.view()["route_id"].get_utf8().value.to_string();
-    this->price = object.view()["price"].get_int32().value;
+    user_id = object.view()["user_id"].get_utf8().value.to_string();
+    // status = ...
+    from_pad_id = object.view()["from_pad_id"].get_utf8().value.to_string();
+    to_pad_id = object.view()["to_pad_id"].get_utf8().value.to_string();
+    aircraft_class_id = object.view()["aircraft_class_id"].get_utf8().value.to_string();
+    assigned_aircraft_id = object.view()["assigned_aircraft_id"].get_utf8().value.to_string();
+    route_id = object.view()["route_id"].get_utf8().value.to_string();
+    price = object.view()["price"].get_int32().value;
   }
 
   static std::string GetSource() { return "order"; }
@@ -49,6 +49,19 @@ class Order : public MongoDataMapper {
     fields["route_id"] = route_id;
     fields["price"] = std::to_string(price);
     return fields;
+  }
+
+  MongoDataObject GetStorageObject() const override {
+    auto object = bsoncxx::builder::stream::document{}
+        << "user_id" << user_id
+        << "from_pad_id" << from_pad_id
+        << "to_pad_id" << to_pad_id
+        << "aircraft_class_id" << aircraft_class_id
+        << "assigned_aircraft_id" << assigned_aircraft_id
+        << "route_id" << route_id
+        << "price" << price
+        << bsoncxx::builder::stream::finalize;
+    return object;
   }
 };
 

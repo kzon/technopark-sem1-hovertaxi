@@ -6,7 +6,7 @@
 #include "models/mongo_data_mapper.h"
 #include "models/pre_order.h"
 #include "components/order/order_component.h"
-#include "services/json_converter/json_converter.h"
+#include "services/json/json.h"
 
 namespace hovertaxi {
 
