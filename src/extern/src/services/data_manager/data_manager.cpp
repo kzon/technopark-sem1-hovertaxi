@@ -3,8 +3,7 @@
 namespace hovertaxi {
 
 DataManager &DataManager::GetInstance() {
-  // @todo move db url to secret location
-  static DataManager instance("mongodb://hovertaxi:hovertaxi@mongo:27017");
+  static DataManager instance;
   return instance;
 }
 

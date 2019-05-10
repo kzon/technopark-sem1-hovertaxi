@@ -2,6 +2,11 @@
 
 namespace hovertaxi {
 
+MongoDataStorage &MongoDataStorage::GetInstance() {
+  static MongoDataStorage instance("mongodb://hovertaxi:hovertaxi@mongo:27017");
+  return instance;
+}
+
 Optional<MongoDataObject> MongoDataStorage::LoadObjectById(const std::string &collection,
                                                            const std::string &id) const {
   auto result = GetCollection(collection).find_one(

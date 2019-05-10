@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include "core/macros.h"
 #include "models/aircraft.h"
 #include "models/aircraft_model.h"
 #include "models/aircraft_class.h"
@@ -14,6 +15,8 @@ namespace hovertaxi {
 
 class DataManager {
  public:
+  DISALLOW_COPY_AND_ASSIGN(DataManager);
+
   static DataManager &GetInstance();
 
   Optional<Aircraft> LoadAircraftById(const std::string &id) const;
@@ -27,7 +30,7 @@ class DataManager {
   size_t CountOrdersInRadius(const GeoPoint &center, int radius) const;
 
  private:
-  explicit DataManager(const std::string &uri) : db_(uri) {}
+  explicit DataManager() : db_(MongoDataStorage::GetInstance()) {}
 
   template<typename T>
   Optional<T> LoadObjectById(const std::string &id) const;
@@ -44,7 +47,7 @@ class DataManager {
   template<typename T>
   bool StoreObject(const T &object) const;
 
-  MongoDataStorage db_;
+  MongoDataStorage &db_;
 };
 
 }
