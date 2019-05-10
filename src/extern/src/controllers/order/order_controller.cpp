@@ -13,7 +13,8 @@ std::string OrderController::GetPreOrderInfo(const std::string &from_pad_id,
 std::string OrderController::CreateOrder(const std::string &from_pad_id,
                                          const std::string &to_pad_id,
                                          const std::string &aircraft_class_id) {
-  return std::string();
+  auto order = order_component_.CreateOrder(from_pad_id, to_pad_id, aircraft_class_id);
+  return JSONConverter::ToJSON(order);
 }
 
 std::string OrderController::LoadCurrentOrder() {

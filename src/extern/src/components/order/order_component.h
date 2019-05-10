@@ -9,13 +9,14 @@
 #include "models/pad.h"
 #include "models/geo_point.h"
 #include "models/aircraft_class.h"
-#include "services/service_locator/service_locator.h"
+#include "services/data_manager/data_manager.h"
 
 namespace hovertaxi {
 
 class OrderComponent : public ContextKeeper {
  public:
-  explicit OrderComponent(const Context &context) : ContextKeeper(context) {}
+  explicit OrderComponent(const Context &context)
+      : ContextKeeper(context), data_manager_(DataManager::GetInstance()) {}
 
   PreOrder GetPreOrderInfo(const std::string &from_pad_id,
                            const std::string &to_pad_id,
@@ -26,6 +27,9 @@ class OrderComponent : public ContextKeeper {
   Optional<Order> LoadCurrentOrder();
   Order ProcessOrdersFromQueue();
   CancelOrderResult CancelOrder(const std::string &order_id);
+
+ private:
+  DataManager &data_manager_;
 };
 
 }

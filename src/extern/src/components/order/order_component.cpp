@@ -20,7 +20,7 @@ Order OrderComponent::CreateOrder(const std::string &from_pad_id,
 }
 
 Optional<Order> OrderComponent::LoadCurrentOrder() {
-  return ServiceLocator::GetDataManager().LoadOrderByUser(context.user_id);
+  return data_manager_.LoadOrderByUser(context.user_id);
 }
 
 Order OrderComponent::ProcessOrdersFromQueue() {

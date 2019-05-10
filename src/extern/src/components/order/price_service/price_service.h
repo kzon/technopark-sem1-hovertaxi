@@ -6,8 +6,8 @@ namespace hovertaxi {
 
 class PriceService {
  public:
-  static int GetPrice(const Order &order);
-  static int GetCancelPrice(const Order &order);
+  int GetPrice(const Order &order);
+  int GetCancelPrice(const Order &order);
 };
 
 }

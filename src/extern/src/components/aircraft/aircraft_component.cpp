@@ -3,7 +3,7 @@
 namespace hovertaxi {
 
 std::vector<std::unique_ptr<Aircraft>> AircraftComponent::LoadAircraftInCircle(const GeoPoint &center, int radius) {
-  return ServiceLocator::GetDataManager().LoadAircraftsInRadius(center, radius);
+  return data_manager_.LoadAircraftsInRadius(center, radius);
 }
 
 Aircraft AircraftComponent::LoadCurrentOrderAircraft() {
@@ -11,11 +11,11 @@ Aircraft AircraftComponent::LoadCurrentOrderAircraft() {
 }
 
 std::vector<std::unique_ptr<AircraftClass>> AircraftComponent::LoadAircraftClasses() {
-  return ServiceLocator::GetDataManager().LoadAircraftClasses();
+  return data_manager_.LoadAircraftClasses();
 }
 
 std::vector<std::unique_ptr<Pad>> AircraftComponent::LoadNearestPads(const GeoPoint &position) {
-  return ServiceLocator::GetDataManager().LoadPadsInRadius(position, 50000);
+  return data_manager_.LoadPadsInRadius(position, 50000);
 }
 
 }

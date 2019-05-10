@@ -2,8 +2,9 @@
 
 namespace hovertaxi {
 
-DataManager &hovertaxi::DataManager::GetInstance(const std::string &uri) {
-  static DataManager instance(uri);
+DataManager &hovertaxi::DataManager::GetInstance() {
+  // @todo move db url to secret location
+  static DataManager instance("mongodb://hovertaxi:hovertaxi@mongo:27017");
   return instance;
 }
 

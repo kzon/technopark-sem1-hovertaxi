@@ -14,7 +14,7 @@ namespace hovertaxi {
 
 class DataManager {
  public:
-  static DataManager &GetInstance(const std::string &uri);
+  static DataManager &GetInstance();
 
   Optional<Aircraft> LoadAircraftById(const std::string &id) const;
   Optional<AircraftModel> LoadAircraftModelById(const std::string &id) const;
