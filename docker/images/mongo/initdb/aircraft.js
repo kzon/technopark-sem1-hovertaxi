@@ -1,7 +1,7 @@
 db.aircraft_class.insert([
-    {_id: ObjectId("5063114bd386d8fadbd6b004"), name: "Helicopter", max_range: NumberInt(100), min_range: NumberInt(2)},
-    {_id: ObjectId("5063114bd386d8fadbd6b005"), name: "Multicopter", max_range: NumberInt(50), min_range: NumberInt(1)},
-    {_id: ObjectId("5063114bd386d8fadbd6b006"), name: "Hoverbike", max_range: NumberInt(20), min_range: NumberInt(0)},
+    {_id: ObjectId("5063114bd386d8fadbd6b004"), name: "Вертолет", max_range: NumberInt(100), min_range: NumberInt(2)},
+    {_id: ObjectId("5063114bd386d8fadbd6b005"), name: "Мультикоптер", max_range: NumberInt(50), min_range: NumberInt(1)},
+    {_id: ObjectId("5063114bd386d8fadbd6b006"), name: "Хавербайк", max_range: NumberInt(20), min_range: NumberInt(0)},
 ]);
 
 db.aircraft_model.insert([
