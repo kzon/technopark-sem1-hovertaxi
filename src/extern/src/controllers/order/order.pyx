@@ -10,10 +10,10 @@ cdef extern from "order_controller.h" namespace "hovertaxi":
 cdef extern from "order_controller.h" namespace "hovertaxi":
     cdef cppclass OrderController:
         OrderController(Context & context) except +
-        string GetPreOrderInfo(string & from_pad_id, string & to_pad_id, string & aircraft_class_id)
-        string CreateOrder(string & from_pad_id, string & to_pad_id, string & aircraft_class_id)
-        string LoadCurrentOrder()
-        string CancelOrder()
+        string GetPreOrderInfo(string & from_pad_id, string & to_pad_id, string & aircraft_class_id) except +
+        string CreateOrder(string & from_pad_id, string & to_pad_id, string & aircraft_class_id) except +
+        string LoadCurrentOrder() except +
+        string CancelOrder() except +
 
 
 cdef class OrderControllerWrapper:

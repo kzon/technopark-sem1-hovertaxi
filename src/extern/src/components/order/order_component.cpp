@@ -11,6 +11,8 @@ PreOrder OrderComponent::GetPreOrderInfo(const std::string &from_pad_id,
 Optional<Order> OrderComponent::CreateOrder(const std::string &from_pad_id,
                                   const std::string &to_pad_id,
                                   const std::string &aircraft_class_id) {
+  if (context.user_id.empty())
+    return {};
   Order order;
   order.user_id = context.user_id;
   order.from_pad_id = from_pad_id;

@@ -1,9 +1,8 @@
+import sys
+import json
 import web
 from extern import aircraft
 from helpers import comma_separated_to_float_tuple
-
-import sys
-import json
 
 
 class BaseAircraftHandler(web.BaseHandlerWithExternModule):
