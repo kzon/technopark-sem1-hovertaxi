@@ -1,5 +1,5 @@
+import uuid
 from abc import ABC, abstractmethod
-import http.cookies
 from typing import Dict, Optional, Awaitable
 import tornado.web
 import tornado.httputil
@@ -22,7 +22,7 @@ class BaseHandlerWithExternModule(BaseJSONHandler, ABC):
     def __init__(self, application, request: tornado.httputil.HTTPServerRequest, **kwargs):
         super().__init__(application, request, **kwargs)
         if 'user_id' not in self.cookies:
-            self.set_secure_cookie('user_id', '234234')
+            self.set_secure_cookie('user_id', str(uuid.uuid4()))
         user_id = self.get_secure_cookie('user_id').decode()
         self.extern_wrapper = self.get_extern_module().get_wrapper(Context(user_id))
 
