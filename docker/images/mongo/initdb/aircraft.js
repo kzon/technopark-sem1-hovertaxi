@@ -64,6 +64,14 @@ db.aircraft.insert([
         direction: NumberInt(103),
         is_assigned: true
     },
+    {
+        model_id: "5063114bd386d8fadbd6b009",
+        number: "6b45d95",
+        position: {type: "Point", coordinates: [55.803592, 37.667587]},
+        speed: NumberInt(90),
+        direction: NumberInt(195),
+        is_assigned: true
+    },
 ]);
 
 db.aircraft.createIndex({position: "2dsphere"});

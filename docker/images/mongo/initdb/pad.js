@@ -3,7 +3,7 @@ db.pad.insert([
     {name: "Таганка", position: {type: "Point", coordinates: [55.738537, 37.655488]}},
     {name: "Сокол-1", position: {type: "Point", coordinates: [55.788572, 37.677854]}},
     {name: "Сокол-2", position: {type: "Point", coordinates: [55.787989, 37.680532]}},
-    {name: "Black Star", position: {type: "Point", coordinates: [55.751977, 37.593087]}},
+    {name: "Арбат", position: {type: "Point", coordinates: [55.751977, 37.593087]}},
     {name: "МИД", position: {type: "Point", coordinates: [55.748602, 37.583305]}},
     {name: "МГТУ", position: {type: "Point", coordinates: [55.765739, 37.685647]}},
     {name: "Атриум", position: {type: "Point", coordinates: [55.758105, 37.658550]}},
