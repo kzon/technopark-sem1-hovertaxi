@@ -11,10 +11,10 @@ cdef extern from "aircraft_controller.h" namespace "hovertaxi":
 cdef extern from "aircraft_controller.h" namespace "hovertaxi":
     cdef cppclass AircraftController:
         AircraftController(Context & context) except +
-        string LoadAircraftInCircle(pair[double, double] & center, int radius)
-        string LoadAircraftClasses()
-        string LoadCurrentOrderAircraft()
-        string LoadNearestPads(pair[double, double] & position)
+        string LoadAircraftInCircle(pair[double, double] & center, int radius) except +
+        string LoadAircraftClasses() except +
+        string LoadCurrentOrderAircraft() except +
+        string LoadNearestPads(pair[double, double] & position) except +
 
 
 cdef class AircraftControllerWrapper:

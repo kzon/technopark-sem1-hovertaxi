@@ -3,25 +3,23 @@
 namespace hovertaxi {
 
 std::string AircraftController::LoadAircraftInCircle(const std::pair<double, double> &center, int radius) {
-  auto aircraft_classes = AircraftComponent::LoadAircraftInCircle(GeoPoint{center.first, center.second}, radius);
-  return JSONConverter::ToJSON(aircraft_classes);
+  auto aircraft_classes = aircraft_component_.LoadAircraftInCircle(GeoPoint{center.first, center.second}, radius);
+  return JSON::ToJSON(aircraft_classes);
 }
 
 std::string AircraftController::LoadAircraftClasses() {
-  auto aircraft_classes = AircraftComponent::LoadAircraftClasses();
-  return JSONConverter::ToJSON(aircraft_classes);
+  auto aircraft_classes = aircraft_component_.LoadAircraftClasses();
+  return JSON::ToJSON(aircraft_classes);
 }
 
 std::string AircraftController::LoadCurrentOrderAircraft() {
-  auto result = ServiceLocator::GetDataManager().LoadAircraftById("5ccffc86a8ef5bdef367710f");
-  if (result)
-    return JSONConverter::ToJSON(result.value());
-  return "null";
+  auto aircraft = aircraft_component_.LoadCurrentOrderAircraft();
+  return JSON::ToJSON(aircraft);
 }
 
 std::string AircraftController::LoadNearestPads(const std::pair<double, double> &position) {
-  auto pads = AircraftComponent::LoadNearestPads(GeoPoint{position.first, position.second});
-  return JSONConverter::ToJSON(pads);
+  auto pads = aircraft_component_.LoadNearestPads(GeoPoint{position.first, position.second});
+  return JSON::ToJSON(pads);
 }
 
 }

@@ -1,8 +1,8 @@
-#include "json_converter.h"
+#include "json.h"
 
 namespace hovertaxi {
 
-std::string JSONConverter::ToJSON(const IJsonConvertable &object) {
+std::string JSON::ToJSON(const IJsonConvertable &object) {
   std::stringstream result;
   result << '{';
   bool is_first = true;
@@ -17,13 +17,13 @@ std::string JSONConverter::ToJSON(const IJsonConvertable &object) {
   return result.str();
 }
 
-std::string JSONConverter::ToJSON(GeoPoint point) {
+std::string JSON::ToJSON(GeoPoint point) {
   std::stringstream result;
   result << "[" << point.latitude << "," << point.longitude << "]";
   return result.str();
 }
 
-std::string JSONConverter::ToJSON(bool value) {
+std::string JSON::ToJSON(bool value) {
   return value ? "true" : "false";
 }
 

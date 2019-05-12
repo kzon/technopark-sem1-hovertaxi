@@ -2,9 +2,50 @@
 
 namespace hovertaxi {
 
-DataManager &hovertaxi::DataManager::GetInstance(const std::string &uri) {
-  static DataManager instance(uri);
+DataManager &DataManager::GetInstance() {
+  static DataManager instance;
   return instance;
+}
+
+template<typename T>
+Optional<T> DataManager::LoadObjectById(const std::string &id) const {
+  Optional<MongoDataObject> result = db_.LoadObjectById(T::GetSource(), id);
+  if (result) {
+    T model(result.value());
+    return Optional<T>(model);
+  }
+  return {};
+}
+
+template<typename T>
+Optional<T> DataManager::LoadObject(DataFilter &filter) const {
+  Optional<MongoDataObject> result = db_.LoadObject(T::GetSource(), filter);
+  if (result) {
+    T model(result.value());
+    return Optional<T>(model);
+  }
+  return {};
+}
+
+template<typename T>
+std::vector<std::unique_ptr<T>> DataManager::LoadObjects() const {
+  DataFilter empty_filter;
+  return LoadObjects<T>(empty_filter);
+}
+
+template<typename T>
+std::vector<std::unique_ptr<T>> DataManager::LoadObjects(DataFilter &filter) const {
+  std::vector<std::unique_ptr<MongoDataObject>> objects = db_.LoadObjects(T::GetSource(), filter);
+  std::vector<std::unique_ptr<T>> result;
+  result.reserve(objects.size());
+  for (const auto &object : objects)
+    result.push_back(std::unique_ptr<T>(new T(*object)));
+  return result;
+}
+
+template<typename T>
+bool DataManager::StoreObject(const T &object) const {
+  return db_.StoreObject(T::GetSource(), object.GetStorageObject());
 }
 
 Optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
@@ -31,30 +72,14 @@ std::vector<std::unique_ptr<Pad>> DataManager::LoadPadsInRadius(const GeoPoint &
   return LoadObjects<Pad>(filter);
 }
 
-template<typename T>
-Optional<T> DataManager::LoadObjectById(const std::string &id) const {
-  Optional<MongoDataObject> result = db_.LoadObjectById(T::GetSource(), id);
-  if (result) {
-    T model(result.value());
-    return Optional<T>(model);
-  }
-  return {};
+Optional<Order> DataManager::LoadOrderByUser(const std::string &user_id) const {
+  DataFilter filter;
+  DataFilterCondition::StringEquals(filter, "user_id", user_id);
+  return LoadObject<Order>(filter);
 }
 
-template<typename T>
-std::vector<std::unique_ptr<T>> DataManager::LoadObjects() const {
-  DataFilter empty_filter;
-  return LoadObjects<T>(empty_filter);
-}
-
-template<typename T>
-std::vector<std::unique_ptr<T>> DataManager::LoadObjects(DataFilter &filter) const {
-  std::vector<std::unique_ptr<MongoDataObject>> objects = db_.LoadObjects(T::GetSource(), filter);
-  std::vector<std::unique_ptr<T>> result;
-  result.reserve(objects.size());
-  for (const auto &object : objects)
-    result.push_back(std::unique_ptr<T>(new T(*object)));
-  return result;
+bool DataManager::StoreOrder(const Order &order) const {
+  return StoreObject(order);
 }
 
 }
