@@ -14,6 +14,7 @@ Optional<Order> OrderComponent::CreateOrder(const std::string &from_pad_id,
   if (context.user_id.empty())
     return {};
   Order order;
+  order.id = "1";
   order.user_id = context.user_id;
   order.from_pad_id = from_pad_id;
   order.to_pad_id = to_pad_id;
