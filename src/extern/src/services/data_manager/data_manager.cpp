@@ -56,6 +56,10 @@ Optional<AircraftModel> DataManager::LoadAircraftModelById(const std::string &id
   return LoadObjectById<AircraftModel>(id);
 }
 
+Optional<Pad> DataManager::LoadPadById(const std::string &id) const {
+  return LoadObjectById<Pad>(id);
+}
+
 std::vector<std::unique_ptr<AircraftClass>> DataManager::LoadAircraftClasses() const {
   return LoadObjects<AircraftClass>();
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <exception>
 
 #include "core/context_keeper.h"
 #include "cancel_order_result.h"

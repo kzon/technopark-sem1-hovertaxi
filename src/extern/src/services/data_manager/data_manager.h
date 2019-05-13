@@ -21,6 +21,8 @@ class DataManager {
 
   Optional<Aircraft> LoadAircraftById(const std::string &id) const;
   Optional<AircraftModel> LoadAircraftModelById(const std::string &id) const;
+  Optional<Pad> LoadPadById(const std::string &id) const;
+
   std::vector<std::unique_ptr<Aircraft>> LoadAircraftsInRadius(const GeoPoint &center, int radius) const;
   std::vector<std::unique_ptr<AircraftClass>> LoadAircraftClasses() const;
   void StoreAircraft(const Aircraft &aircraft) const;
