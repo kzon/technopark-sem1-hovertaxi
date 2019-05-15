@@ -4,6 +4,7 @@
 #include <exception>
 
 #include "core/context_keeper.h"
+#include "process_orders_result.h"
 #include "cancel_order_result.h"
 #include "models/order.h"
 #include "models/pre_order.h"
@@ -28,7 +29,7 @@ class OrderComponent : public ContextKeeper {
   Optional<Order> LoadCurrentOrder();
 
   /* Returns number of processed orders */
-  size_t ProcessOrders();
+  ProcessOrdersResult ProcessOrders();
 
   CancelOrderResult CancelOrder(const std::string &order_id);
 

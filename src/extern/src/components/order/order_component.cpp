@@ -44,8 +44,8 @@ Optional<Order> OrderComponent::LoadCurrentOrder() {
   return data_manager_.LoadOrderByUser(context.user_id);
 }
 
-size_t OrderComponent::ProcessOrders() {
-  size_t orders_processed = 0;
+ProcessOrdersResult OrderComponent::ProcessOrders() {
+  ProcessOrdersResult result{};
   auto orders = data_manager_.LoadUnprocessedOrders();
   for (const auto &order_pointer : orders) {
     Order order = *order_pointer;
@@ -54,9 +54,13 @@ size_t OrderComponent::ProcessOrders() {
       throw std::bad_exception();
     Pad from_pad = from_pad_result.value();
 
+    result.orders_processed++;
+
     auto aircraft_result = data_manager_.LoadNearestFreeAircraft(from_pad.position, order.aircraft_class_id);
-    if (!aircraft_result)
-      return 10;
+    if (!aircraft_result) {
+      result.no_suitable_aircraft++;
+      continue;
+    }
     Aircraft aircraft = aircraft_result.value();
 
     order.assigned_aircraft_id = aircraft.id;
@@ -66,9 +70,9 @@ size_t OrderComponent::ProcessOrders() {
     aircraft.is_assigned = true;
     data_manager_.StoreAircraft(aircraft);
 
-    orders_processed++;
+    result.aircrafts_assigned++;
   }
-  return orders_processed;
+  return result;
 }
 
 CancelOrderResult OrderComponent::CancelOrder(const std::string &order_id) {

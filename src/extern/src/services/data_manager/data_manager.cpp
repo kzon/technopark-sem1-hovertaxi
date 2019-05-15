@@ -91,13 +91,13 @@ Optional<Aircraft> DataManager::LoadNearestFreeAircraft(const GeoPoint &position
                                                         const std::string &aircraft_class_id) const {
   DataFilter filter;
   DataFilterBuilder::BoolEquals(filter, "is_assigned", false);
-  //DataFilterBuilder::GeoPointNear(filter, "position", position, 100000);
+  DataFilterBuilder::GeoPointNear(filter, "position", position, 100000);
 
-  //auto aircraft_models = LoadAircraftModelsByAircraftClass(aircraft_class_id);
-  //std::vector<std::string> aircraft_models_ids(aircraft_models.size());
-  //for (const auto &aircraft_model : aircraft_models)
-  //  aircraft_models_ids.push_back(aircraft_model->id);
-  //DataFilterBuilder::StringIn(filter, "model_id", aircraft_models_ids);
+  auto aircraft_models = LoadAircraftModelsByAircraftClass(aircraft_class_id);
+  std::vector<std::string> aircraft_models_ids(aircraft_models.size());
+  for (const auto &aircraft_model : aircraft_models)
+    aircraft_models_ids.push_back(aircraft_model->id);
+  DataFilterBuilder::StringIn(filter, "model_id", aircraft_models_ids);
 
   return LoadObject<Aircraft>(filter);
 }

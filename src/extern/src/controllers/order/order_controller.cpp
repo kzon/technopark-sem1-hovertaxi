@@ -17,8 +17,7 @@ std::string OrderController::CreateOrder(const std::string &from_pad_id,
 }
 
 std::string OrderController::ProcessOrders() {
-  size_t orders_processed = order_component_.ProcessOrders();
-  return std::to_string(orders_processed);
+  return JSON::ToJSON(order_component_.ProcessOrders());
 }
 
 std::string OrderController::LoadCurrentOrder() {
