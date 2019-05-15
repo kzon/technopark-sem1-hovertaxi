@@ -1,4 +1,4 @@
-import web
+import models
 from libcpp.string cimport string
 
 
@@ -12,6 +12,7 @@ cdef extern from "order_controller.h" namespace "hovertaxi":
         OrderController(Context & context) except +
         string GetPreOrderInfo(string & from_pad_id, string & to_pad_id, string & aircraft_class_id) except +
         string CreateOrder(string & from_pad_id, string & to_pad_id, string & aircraft_class_id) except +
+        string ProcessOrders() except +
         string LoadCurrentOrder() except +
         string CancelOrder() except +
 
@@ -33,11 +34,14 @@ cdef class OrderControllerWrapper:
     def create_order(self, from_pad_id: str, to_pad_id: str, aircraft_class_id: str) -> str:
         return self.controller.CreateOrder(from_pad_id.encode(), to_pad_id.encode(), aircraft_class_id.encode()).decode()
 
+    def process_orders(self) -> str:
+        return self.controller.ProcessOrders().decode()
+
     def load_current_order(self) -> str:
         return self.controller.LoadCurrentOrder().decode()
 
     def cancel_order(self) -> str:
         return self.controller.CancelOrder().decode()
 
-def get_wrapper(context: web.Context) -> OrderControllerWrapper:
+def get_wrapper(context: models.Context) -> OrderControllerWrapper:
     return OrderControllerWrapper(context.user_id.encode())

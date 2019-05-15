@@ -26,8 +26,9 @@ class MongoDataStorage {
   Optional<MongoDataObject> LoadObjectById(const std::string &collection, const std::string &id) const;
   Optional<MongoDataObject> LoadObject(const std::string &collection, DataFilter &filter) const;
   std::vector<std::unique_ptr<MongoDataObject>> LoadObjects(const std::string &collection,
-                                                            DataFilter &filter) const;
-  bool StoreObject(const std::string &collection, const MongoDataObject &object) const;
+                                                            DataFilter &filter, size_t limit = 0) const;
+  bool InsertObject(const std::string &collection, const MongoDataObject &object) const;
+  bool UpdateObject(const std::string &collection, const std::string &id, const MongoDataObject &object) const;
 
  private:
   explicit MongoDataStorage(const std::string &uri) :
@@ -38,7 +39,7 @@ class MongoDataStorage {
 
   mongocxx::collection GetCollection(const std::string &name) const;
 
-  mongocxx::instance& instance_;
+  mongocxx::instance &instance_;
   mongocxx::uri uri_;
   mongocxx::client client_;
   mongocxx::database db_;

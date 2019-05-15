@@ -20,6 +20,7 @@ class OrderController : public ContextKeeper {
   std::string CreateOrder(const std::string &from_pad_id,
                           const std::string &to_pad_id,
                           const std::string &aircraft_class_id);
+  std::string ProcessOrders();
   std::string LoadCurrentOrder();
   std::string CancelOrder();
  private:

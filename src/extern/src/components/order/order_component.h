@@ -26,7 +26,10 @@ class OrderComponent : public ContextKeeper {
                               const std::string &to_pad_id,
                               const std::string &aircraft_class_id);
   Optional<Order> LoadCurrentOrder();
-  Order ProcessOrdersFromQueue();
+
+  /* Returns number of processed orders */
+  size_t ProcessOrders();
+
   CancelOrderResult CancelOrder(const std::string &order_id);
 
  private:

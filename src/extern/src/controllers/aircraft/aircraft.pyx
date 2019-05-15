@@ -1,4 +1,4 @@
-import web
+import models
 from libcpp.string cimport string
 from libcpp.pair cimport pair
 
@@ -40,5 +40,5 @@ cdef class AircraftControllerWrapper:
     def load_nearest_pads(self, position: tuple) -> str:
         return self.controller.LoadNearestPads(position).decode()
 
-def get_wrapper(context: web.Context) -> AircraftControllerWrapper:
+def get_wrapper(context: models.Context) -> AircraftControllerWrapper:
     return AircraftControllerWrapper(context.user_id.encode())

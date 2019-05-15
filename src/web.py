@@ -3,12 +3,7 @@ from abc import ABC, abstractmethod
 from typing import Dict, Optional, Awaitable
 import tornado.web
 import tornado.httputil
-
-
-class Context:
-    def __init__(self, user_id: str):
-        self.user_id = user_id
-
+import models
 
 class BaseJSONHandler(tornado.web.RequestHandler):
     def set_default_headers(self, *args, **kwargs):
@@ -24,7 +19,7 @@ class BaseHandlerWithExternModule(BaseJSONHandler, ABC):
         if 'user_id' not in self.cookies:
             self.set_secure_cookie('user_id', str(uuid.uuid4()))
         user_id = self.get_secure_cookie('user_id').decode()
-        self.extern_wrapper = self.get_extern_module().get_wrapper(Context(user_id))
+        self.extern_wrapper = self.get_extern_module().get_wrapper(models.Context(user_id))
 
     def data_received(self, chunk: bytes) -> Optional[Awaitable[None]]:
         pass

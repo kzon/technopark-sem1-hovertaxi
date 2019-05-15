@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 
 #include "components/aircraft/aircraft_component.h"
