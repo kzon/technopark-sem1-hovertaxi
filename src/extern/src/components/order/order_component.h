@@ -1,8 +1,10 @@
 #pragma once
 
 #include <string>
+#include <exception>
 
 #include "core/context_keeper.h"
+#include "process_orders_result.h"
 #include "cancel_order_result.h"
 #include "models/order.h"
 #include "models/pre_order.h"
@@ -25,7 +27,10 @@ class OrderComponent : public ContextKeeper {
                               const std::string &to_pad_id,
                               const std::string &aircraft_class_id);
   Optional<Order> LoadCurrentOrder();
-  Order ProcessOrdersFromQueue();
+
+  /* Returns number of processed orders */
+  ProcessOrdersResult ProcessOrders();
+
   CancelOrderResult CancelOrder(const std::string &order_id);
 
  private:

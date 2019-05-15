@@ -43,6 +43,18 @@ class Aircraft : public MongoDataMapper {
     fields["is_assigned"] = JSON::ToJSON(is_assigned);
     return fields;
   }
+
+  MongoDataObject GetStorageObject() const override {
+    auto object = bsoncxx::builder::stream::document{}
+        << "model_id" << model_id
+        << "number" << number
+        //<< "position" << position
+        << "speed" << speed
+        << "direction" << direction
+        << "is_assigned" << is_assigned
+        << bsoncxx::builder::stream::finalize;
+    return object;
+  }
 };
 
 }

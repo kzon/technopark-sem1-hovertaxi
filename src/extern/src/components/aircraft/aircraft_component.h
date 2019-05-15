@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+#include <string>
 #include <vector>
 #include "core/context_keeper.h"
 #include "models/aircraft.h"

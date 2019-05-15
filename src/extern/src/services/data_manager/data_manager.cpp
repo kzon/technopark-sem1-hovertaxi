@@ -45,15 +45,14 @@ std::vector<std::unique_ptr<T>> DataManager::LoadObjects(DataFilter &filter) con
 
 template<typename T>
 bool DataManager::StoreObject(const T &object) const {
-  return db_.StoreObject(T::GetSource(), object.GetStorageObject());
+  if (object.id.empty())
+    return db_.InsertObject(T::GetSource(), object.GetStorageObject());
+  else
+    return db_.UpdateObject(T::GetSource(), object.id, object.GetStorageObject());
 }
 
-Optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
-  return LoadObjectById<Aircraft>(id);
-}
-
-Optional<AircraftModel> DataManager::LoadAircraftModelById(const std::string &id) const {
-  return LoadObjectById<AircraftModel>(id);
+Optional<Pad> DataManager::LoadPadById(const std::string &id) const {
+  return LoadObjectById<Pad>(id);
 }
 
 std::vector<std::unique_ptr<AircraftClass>> DataManager::LoadAircraftClasses() const {
@@ -62,24 +61,55 @@ std::vector<std::unique_ptr<AircraftClass>> DataManager::LoadAircraftClasses() c
 
 std::vector<std::unique_ptr<Aircraft>> DataManager::LoadAircraftsInRadius(const GeoPoint &center, int radius) const {
   DataFilter filter;
-  DataFilterCondition::GeoPointInRadius(filter, "position", center, radius);
+  DataFilterBuilder::GeoPointNear(filter, "position", center, radius);
   return LoadObjects<Aircraft>(filter);
 }
 
 std::vector<std::unique_ptr<Pad>> DataManager::LoadPadsInRadius(const GeoPoint &center, int radius) const {
   DataFilter filter;
-  DataFilterCondition::GeoPointInRadius(filter, "position", center, radius);
+  DataFilterBuilder::GeoPointNear(filter, "position", center, radius);
   return LoadObjects<Pad>(filter);
 }
 
 Optional<Order> DataManager::LoadOrderByUser(const std::string &user_id) const {
   DataFilter filter;
-  DataFilterCondition::StringEquals(filter, "user_id", user_id);
+  DataFilterBuilder::StringEquals(filter, "user_id", user_id);
   return LoadObject<Order>(filter);
 }
 
 bool DataManager::StoreOrder(const Order &order) const {
   return StoreObject(order);
+}
+
+std::vector<std::unique_ptr<Order>> DataManager::LoadUnprocessedOrders() const {
+  DataFilter filter;
+  DataFilterBuilder::StringEquals(filter, "status", Order::STATUS_NEW);
+  return LoadObjects<Order>(filter);
+}
+
+Optional<Aircraft> DataManager::LoadNearestFreeAircraft(const GeoPoint &position,
+                                                        const std::string &aircraft_class_id) const {
+  DataFilter filter;
+  DataFilterBuilder::BoolEquals(filter, "is_assigned", false);
+  DataFilterBuilder::GeoPointNear(filter, "position", position, 100000);
+
+  auto aircraft_models = LoadAircraftModelsByAircraftClass(aircraft_class_id);
+  std::vector<std::string> aircraft_models_ids(aircraft_models.size());
+  for (const auto &aircraft_model : aircraft_models)
+    aircraft_models_ids.push_back(aircraft_model->id);
+  DataFilterBuilder::StringIn(filter, "model_id", aircraft_models_ids);
+
+  return LoadObject<Aircraft>(filter);
+}
+
+std::vector<std::unique_ptr<AircraftModel>> DataManager::LoadAircraftModelsByAircraftClass(const std::string &aircraft_class_id) const {
+  DataFilter filter;
+  DataFilterBuilder::StringEquals(filter, "class_id", aircraft_class_id);
+  return LoadObjects<AircraftModel>(filter);
+}
+
+bool DataManager::StoreAircraft(const Aircraft &aircraft) const {
+  return StoreObject(aircraft);
 }
 
 }

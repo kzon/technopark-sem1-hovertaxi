@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 #include "core/macros.h"
 #include "models/aircraft.h"
 #include "models/aircraft_model.h"
@@ -9,7 +10,7 @@
 #include "models/order.h"
 #include "services/data_manager/data_storage/mongo_data_storage.h"
 #include "services/data_manager/data_storage/data_filter.h"
-#include "services/data_manager/data_storage/data_filter_condition.h"
+#include "services/data_manager/data_storage/data_filter_builder.h"
 
 namespace hovertaxi {
 
@@ -19,12 +20,18 @@ class DataManager {
 
   static DataManager &GetInstance();
 
-  Optional<Aircraft> LoadAircraftById(const std::string &id) const;
-  Optional<AircraftModel> LoadAircraftModelById(const std::string &id) const;
   std::vector<std::unique_ptr<Aircraft>> LoadAircraftsInRadius(const GeoPoint &center, int radius) const;
+  Optional<Aircraft> LoadNearestFreeAircraft(const GeoPoint &position, const std::string &aircraft_class_id) const;
+  bool StoreAircraft(const Aircraft &aircraft) const;
+
   std::vector<std::unique_ptr<AircraftClass>> LoadAircraftClasses() const;
-  void StoreAircraft(const Aircraft &aircraft) const;
+
+  std::vector<std::unique_ptr<AircraftModel>> LoadAircraftModelsByAircraftClass(const std::string &aircraft_class_id) const;
+
+  Optional<Pad> LoadPadById(const std::string &id) const;
   std::vector<std::unique_ptr<Pad>> LoadPadsInRadius(const GeoPoint &center, int radius) const;
+
+  std::vector<std::unique_ptr<Order>> LoadUnprocessedOrders() const;
   Optional<Order> LoadOrderByUser(const std::string &user_id) const;
   bool StoreOrder(const Order &order) const;
   size_t CountOrdersInRadius(const GeoPoint &center, int radius) const;

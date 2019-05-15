@@ -14,7 +14,7 @@ class PreOrder : public IJsonConvertable {
 
   std::map<std::string, std::string> GetJsonFields() const override {
     std::map<std::string, std::string> fields;
-    fields["route"] = JSON::ToJSON(route);
+    fields["route"] = JSON::ToJSON(route, true);
     fields["price"] = std::to_string(price);
     return fields;
   }
