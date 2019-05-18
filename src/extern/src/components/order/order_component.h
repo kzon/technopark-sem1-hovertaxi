@@ -12,6 +12,7 @@
 #include "models/geo_point.h"
 #include "models/aircraft_class.h"
 #include "services/data_manager/data_manager.h"
+#include "price_service/price_service.h"
 
 namespace hovertaxi {
 
