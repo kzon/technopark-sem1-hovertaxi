@@ -7,7 +7,6 @@
 #include "core/optional.h"
 #include "models/i_json_convertable.h"
 #include "models/geo_point.h"
-#include "models/order.h"
 
 namespace hovertaxi {
 

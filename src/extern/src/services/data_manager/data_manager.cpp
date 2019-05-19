@@ -79,8 +79,7 @@ std::vector<std::unique_ptr<Pad>> DataManager::LoadPadsInRadius(const GeoPoint &
   return LoadObjects<Pad>(filter);
 }
 
-Optional<Order> DataManager::LoadOrderByUser(const std::string &user_id) const {
-  DataFilter filter;
+Optional<Order> DataManager::LoadOrderByUserAndFilter(const std::string &user_id, DataFilter &filter) const {
   DataFilterBuilder::StringEquals(filter, "user_id", user_id);
   return LoadObject<Order>(filter);
 }
@@ -118,6 +117,18 @@ std::vector<std::unique_ptr<AircraftModel>> DataManager::LoadAircraftModelsByAir
 
 bool DataManager::StoreAircraft(const Aircraft &aircraft) const {
   return StoreObject(aircraft);
+}
+
+Optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
+  return LoadObjectById<Aircraft>(id);
+}
+
+Optional<AircraftClass> DataManager::LoadAircraftClassById(const std::string &id) const {
+  return LoadObjectById<AircraftClass>(id);
+}
+
+Optional<AircraftModel> DataManager::LoadAircraftModelById(const std::string &id) const {
+  return LoadObjectById<AircraftModel>(id);
 }
 
 }

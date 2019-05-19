@@ -11,4 +11,4 @@ command = sys.argv[1]
 extern_wrapper = order.get_wrapper(models.Context(''))
 if command == 'process_orders':
     orders_processed = extern_wrapper.process_orders()
-    print('Processed', orders_processed, 'orders')
+    print(orders_processed)

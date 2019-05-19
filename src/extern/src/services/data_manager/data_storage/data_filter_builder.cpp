@@ -6,6 +6,12 @@ void DataFilterBuilder::StringEquals(DataFilter &filter, const std::string &fiel
   filter << field << value;
 }
 
+void DataFilterBuilder::StringNotEquals(DataFilter &filter, const std::string &field, const std::string &value) {
+  filter << field << bsoncxx::builder::stream::open_document
+         << "$ne" << value
+         << bsoncxx::builder::stream::close_document;
+}
+
 void DataFilterBuilder::GeoPointNear(DataFilter &filter,
                                      const std::string &field,
                                      const GeoPoint &center,
@@ -33,7 +39,7 @@ void DataFilterBuilder::StringIn(DataFilter &filter,
                                  const std::vector<std::string> &values) {
   filter << field << bsoncxx::builder::stream::open_document;
   auto in_array = filter << "$in" << bsoncxx::builder::stream::open_array;
-  for (const auto & value : values)
+  for (const auto &value : values)
     in_array = in_array << value;
   auto after_array = in_array << bsoncxx::builder::stream::close_array;
   after_array << bsoncxx::builder::stream::close_document;

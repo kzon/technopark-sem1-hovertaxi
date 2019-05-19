@@ -1,5 +1,6 @@
 #pragma once
 
+#include "route.h"
 #include "mongo_data_mapper.h"
 
 namespace hovertaxi {
@@ -11,7 +12,7 @@ class Order : public MongoDataMapper {
   std::string from_pad_id, to_pad_id;
   std::string aircraft_class_id;
   std::string assigned_aircraft_id;
-  std::string route_id;
+  Route route{};
   int price{};
 
   static constexpr const char *STATUS_NEW = "new";
@@ -30,8 +31,14 @@ class Order : public MongoDataMapper {
     to_pad_id = object.view()["to_pad_id"].get_utf8().value.to_string();
     aircraft_class_id = object.view()["aircraft_class_id"].get_utf8().value.to_string();
     assigned_aircraft_id = object.view()["assigned_aircraft_id"].get_utf8().value.to_string();
-    route_id = object.view()["route_id"].get_utf8().value.to_string();
-    price = object.view()["price"].get_int32().value;
+
+    auto route_document = object.view()["route"].get_document().view();
+    route.time = route_document["time"].get_int32();
+    auto route_points = route_document["points"].get_array().value;
+    for (const auto &point : route_points)
+      route.points.push_back(GeoPoint{point[0].get_double(), point[1].get_double()});
+
+    price = object.view()["price"].get_int32();
   }
 
   static std::string GetSource() { return "order"; }
@@ -44,23 +51,32 @@ class Order : public MongoDataMapper {
     fields["to_pad_id"] = to_pad_id;
     fields["aircraft_class_id"] = aircraft_class_id;
     fields["assigned_aircraft_id"] = assigned_aircraft_id;
-    fields["route_id"] = route_id;
+    fields["route"] = JSON::ToJSON(route, true);
     fields["price"] = std::to_string(price);
     return fields;
   }
 
   MongoDataObject GetStorageObject() const override {
-    auto object = bsoncxx::builder::stream::document{}
-        << "user_id" << user_id
-        << "status" << status
-        << "from_pad_id" << from_pad_id
-        << "to_pad_id" << to_pad_id
-        << "aircraft_class_id" << aircraft_class_id
-        << "assigned_aircraft_id" << assigned_aircraft_id
-        << "route_id" << route_id
-        << "price" << price
-        << bsoncxx::builder::stream::finalize;
-    return object;
+    auto object = bsoncxx::builder::stream::document{};
+    object << "user_id" << user_id
+           << "status" << status
+           << "from_pad_id" << from_pad_id
+           << "to_pad_id" << to_pad_id
+           << "aircraft_class_id" << aircraft_class_id
+           << "assigned_aircraft_id" << assigned_aircraft_id;
+
+    object << "route" << bsoncxx::builder::stream::open_document
+           << "time" << route.time;
+    auto in_array = object << "points" << bsoncxx::builder::stream::open_array;
+    for (const auto &point : route.points)
+      in_array = in_array << bsoncxx::builder::stream::open_array
+                          << point.latitude << point.longitude
+                          << bsoncxx::builder::stream::close_array;
+    auto after_array = in_array << bsoncxx::builder::stream::close_array;
+    after_array << bsoncxx::builder::stream::close_document;
+
+    after_array << "price" << price;
+    return after_array << bsoncxx::builder::stream::finalize;
   }
 };
 
