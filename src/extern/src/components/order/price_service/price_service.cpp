@@ -2,14 +2,12 @@
 
 namespace hovertaxi {
 
-int PriceService::GetPrice(const Order &order) {
+int PriceService::GetPrice(const Order &order) const{
   return 0;
 }
 
 // cancelPrice = (current distance / total distance  * price) / 2
-int PriceService::GetCancelPrice(const Order &order) {
-
-  DataManager &data_manager_ = DataManager::GetInstance();
+int PriceService::GetCancelPrice(const Order &order) const{
 
   Optional<Pad> from_pad_result = data_manager_.LoadPadById(order.from_pad_id),
       to_pad_result = data_manager_.LoadPadById(order.to_pad_id);
@@ -33,31 +31,20 @@ int PriceService::GetCancelPrice(const Order &order) {
   return cancelPrice;
 }
 
-int PriceService::GetTimeFlight(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model) {
-
-  double distance = Geo::DistanceEarth(p1, p2);
-  int speed = model.cruise_speed;
-  int time = (int)std::round(distance / speed * 60);
-
-  return time;
-}
-
 // price = ( (s / v) * 60 ) * coef(aircraft_class)
-int PriceService::GetPrice(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model) {
-
-  DataManager &data_manager_ = DataManager::GetInstance();
+int PriceService::GetPrice(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model) const{
 
   Optional<AircraftClass> aircraft_class_result = data_manager_.LoadAircraftClassById(model.class_id);
   if (!aircraft_class_result)
     throw std::bad_exception();
   AircraftClass aircraft_class = aircraft_class_result.value();
 
-  int time = GetTimeFlight(p1, p2, model);
+  int time = route_service_.GetTimeFlight(p1, p2, model);
   int cost = time * aircraft_class.cost;
   return cost;
 }
 
-int PriceService::GetCancelPrice(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model) {
+int PriceService::GetCancelPrice(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model) const{
   return 0;
 }
 

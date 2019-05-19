@@ -28,10 +28,10 @@ PreOrder OrderComponent::GetPreOrderInfo(const std::string &from_pad_id,
   Route route;
   route.points.push_back(from_pad.position);
   route.points.push_back(to_pad.position);
-  route.time = PriceService::GetTimeFlight(from_pad.position, to_pad.position, model);
+  route.time = route_service_.GetTimeFlight(from_pad.position, to_pad.position, model);
   pre_order.route = route;
 
-  pre_order.price = PriceService::GetPrice(from_pad.position, to_pad.position, model);
+  pre_order.price = price_service_.GetPrice(from_pad.position, to_pad.position, model);
 
   return pre_order;
 }
@@ -68,7 +68,7 @@ Optional<Order> OrderComponent::CreateOrder(const std::string &from_pad_id,
   order.aircraft_class_id = aircraft_class_id;
 
   order.assigned_aircraft_id = aircraft_result.value().id;
-  order.price = PriceService::GetPrice(from_pad.position, to_pad.position, model);
+  order.price = price_service_.GetPrice(from_pad.position, to_pad.position, model);
 
   if (data_manager_.StoreOrder(order))
     return {order};

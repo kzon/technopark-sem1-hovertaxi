@@ -1,6 +1,7 @@
 #pragma once
 
 #include "services/data_manager/data_manager.h"
+#include "../route_service/route_service.h"
 #include "services/geo/geo.h"
 #include "models/aircraft_class.h"
 #include "models/aircraft_model.h"
@@ -11,13 +12,17 @@ namespace hovertaxi {
 
 class PriceService {
  public:
-  static int GetPrice(const Order &order);
-  static int GetCancelPrice(const Order &order);
+  PriceService(): data_manager_(DataManager::GetInstance()) {}
 
-  //returns time in minutes
-  static int GetTimeFlight(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model);
-  static int GetPrice(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model);
-  static int GetCancelPrice(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model);
+  int GetPrice(const Order &order) const;
+  int GetCancelPrice(const Order &order) const;
+
+  int GetPrice(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model) const;
+  int GetCancelPrice(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model) const;
+
+ private:
+  RouteService route_service_;
+  const DataManager &data_manager_;
 };
 
 }

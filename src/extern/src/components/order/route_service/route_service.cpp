@@ -23,4 +23,13 @@ int RouteService::GetTimeToArrival(const Order &order) const {
   return 0;
 }
 
+int RouteService::GetTimeFlight(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model) const {
+
+  double distance = Geo::DistanceEarth(p1, p2);
+  int speed = model.cruise_speed;
+  int time = (int)std::round(distance / speed * 60);
+
+  return time;
+}
+
 }

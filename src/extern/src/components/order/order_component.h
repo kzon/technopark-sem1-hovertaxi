@@ -40,6 +40,7 @@ class OrderComponent : public ContextKeeper {
  private:
   const DataManager &data_manager_;
   RouteService route_service_;
+  PriceService price_service_;
 };
 
 }
