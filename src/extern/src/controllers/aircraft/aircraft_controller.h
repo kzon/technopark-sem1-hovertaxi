@@ -3,6 +3,7 @@
 #include <string>
 
 #include "components/aircraft/aircraft_component.h"
+#include "services/data_manager/data_manager.h"
 #include "core/context_keeper.h"
 #include "models/geo_point.h"
 #include "services/json/json.h"

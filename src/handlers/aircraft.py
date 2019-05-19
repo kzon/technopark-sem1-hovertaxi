@@ -31,6 +31,11 @@ class LoadAircraftClassesHandler(BaseAircraftHandler):
         self.write(self.extern_wrapper.load_aircraft_classes())
 
 
+class LoadAircraftHandler(BaseAircraftHandler):
+    def get(self, aircraft_id):
+        self.write(self.extern_wrapper.load_aircraft_by_id(aircraft_id))
+
+
 class LoadNearestPadsHandler(BaseAircraftHandler):
     def post(self):
         try:

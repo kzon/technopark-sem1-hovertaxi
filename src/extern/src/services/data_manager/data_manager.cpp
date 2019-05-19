@@ -115,4 +115,12 @@ Optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
   return LoadObjectById<Aircraft>(id);
 }
 
+Optional<AircraftClass> DataManager::LoadAircraftClassById(const std::string &id) const {
+  return LoadObjectById<AircraftClass>(id);
+}
+
+Optional<AircraftModel> DataManager::LoadAircraftModelById(const std::string &id) const {
+  return LoadObjectById<AircraftModel>(id);
+}
+
 }
