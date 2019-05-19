@@ -48,7 +48,6 @@ class Aircraft : public MongoDataMapper {
     auto object = bsoncxx::builder::stream::document{}
         << "model_id" << model_id
         << "number" << number
-        //<< "position" << position
         << "speed" << speed
         << "direction" << direction
         << "is_assigned" << is_assigned

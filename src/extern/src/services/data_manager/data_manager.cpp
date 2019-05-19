@@ -111,4 +111,8 @@ bool DataManager::StoreAircraft(const Aircraft &aircraft) const {
   return StoreObject(aircraft);
 }
 
+Optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
+  return LoadObjectById<Aircraft>(id);
+}
+
 }

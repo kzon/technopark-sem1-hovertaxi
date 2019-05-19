@@ -20,6 +20,7 @@ class DataManager {
 
   static DataManager &GetInstance();
 
+  Optional<Aircraft> LoadAircraftById(const std::string & id) const;
   std::vector<std::unique_ptr<Aircraft>> LoadAircraftsInRadius(const GeoPoint &center, int radius) const;
   Optional<Aircraft> LoadNearestFreeAircraft(const GeoPoint &position, const std::string &aircraft_class_id) const;
   bool StoreAircraft(const Aircraft &aircraft) const;

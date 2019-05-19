@@ -2,8 +2,6 @@
 
 #include <chrono>
 #include <vector>
-
-#include "mongo_data_mapper.h"
 #include "geo_point.h"
 #include "services/json/json.h"
 

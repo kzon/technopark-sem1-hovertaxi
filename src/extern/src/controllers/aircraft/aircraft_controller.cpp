@@ -22,4 +22,9 @@ std::string AircraftController::LoadNearestPads(const std::pair<double, double> 
   return JSON::ToJSON(pads);
 }
 
+std::string AircraftController::LoadAircraftById(const std::string &id) {
+  auto aircraft = data_manager_.LoadAircraftById(id);
+  return aircraft ? JSON::ToJSON(aircraft.value()) : JSON::Empty();
+}
+
 }
