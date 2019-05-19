@@ -42,11 +42,14 @@ std::unique_ptr<ApiOrder> OrderController::ConvertOrderToApi(const Order &order)
   api_order->to_pad = data_manager_.LoadPadById(order.to_pad_id).value();
   if (!order.aircraft_class_id.empty())
     api_order->aircraft_class = data_manager_.LoadAircraftClassById(order.aircraft_class_id).value();
+
   if (!order.assigned_aircraft_id.empty()) {
     api_order->assigned_aircraft = data_manager_.LoadAircraftById(order.assigned_aircraft_id).value();
     api_order->assigned_aircraft_model =
         data_manager_.LoadAircraftModelById(api_order->assigned_aircraft.model_id).value();
+    api_order->time_to_arrival = order_component_.GetTimeToArrival(order);
   }
+
   api_order->route = order.route;
   api_order->price = order.price;
   return api_order;

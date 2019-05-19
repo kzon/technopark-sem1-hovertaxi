@@ -15,8 +15,9 @@ class ApiOrder : public IJsonConvertable {
   AircraftClass aircraft_class;
   Aircraft assigned_aircraft;
   AircraftModel assigned_aircraft_model;
-  Route route{};
-  int price{};
+  int time_to_arrival;
+  Route route;
+  int price;
 
   std::map<std::string, std::string> GetJsonFields() const override {
     std::map<std::string, std::string> fields;
@@ -26,6 +27,7 @@ class ApiOrder : public IJsonConvertable {
     fields["aircraft_class"] = JSON::ToJSON(aircraft_class, true);
     fields["assigned_aircraft"] = JSON::ToJSON(assigned_aircraft, true);
     fields["assigned_aircraft_model"] = JSON::ToJSON(assigned_aircraft_model, true);
+    fields["time_to_arrival"] = std::to_string(time_to_arrival);
     fields["route"] = JSON::ToJSON(route, true);
     fields["price"] = std::to_string(price);
     return fields;

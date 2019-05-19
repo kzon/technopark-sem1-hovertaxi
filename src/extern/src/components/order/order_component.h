@@ -12,6 +12,7 @@
 #include "models/geo_point.h"
 #include "models/aircraft_class.h"
 #include "services/data_manager/data_manager.h"
+#include "./route_service/route_service.h"
 
 namespace hovertaxi {
 
@@ -22,19 +23,22 @@ class OrderComponent : public ContextKeeper {
 
   PreOrder GetPreOrderInfo(const std::string &from_pad_id,
                            const std::string &to_pad_id,
-                           const std::string &aircraft_class_id);
+                           const std::string &aircraft_class_id) const;
   Optional<Order> CreateOrder(const std::string &from_pad_id,
                               const std::string &to_pad_id,
-                              const std::string &aircraft_class_id);
-  Optional<Order> LoadCurrentOrder();
+                              const std::string &aircraft_class_id) const;
+  Optional<Order> LoadCurrentOrder() const;
+
+  int GetTimeToArrival(const Order &order) const;
 
   /* Returns number of processed orders */
-  ProcessOrdersResult ProcessOrders();
+  ProcessOrdersResult ProcessOrders() const;
 
-  CancelOrderResult CancelOrder(const std::string &order_id);
+  CancelOrderResult CancelOrder(const std::string &order_id) const;
 
  private:
-  DataManager &data_manager_;
+  const DataManager &data_manager_;
+  RouteService route_service_;
 };
 
 }

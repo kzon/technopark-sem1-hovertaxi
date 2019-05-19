@@ -4,7 +4,7 @@ namespace hovertaxi {
 
 PreOrder OrderComponent::GetPreOrderInfo(const std::string &from_pad_id,
                                          const std::string &to_pad_id,
-                                         const std::string &aircraft_class_id) {
+                                         const std::string &aircraft_class_id) const {
   PreOrder pre_order;
 
   Optional<Pad> from_pad_result = data_manager_.LoadPadById(from_pad_id),
@@ -26,7 +26,7 @@ PreOrder OrderComponent::GetPreOrderInfo(const std::string &from_pad_id,
 
 Optional<Order> OrderComponent::CreateOrder(const std::string &from_pad_id,
                                             const std::string &to_pad_id,
-                                            const std::string &aircraft_class_id) {
+                                            const std::string &aircraft_class_id) const {
   if (context.user_id.empty())
     return {};
   Order order;
@@ -40,14 +40,14 @@ Optional<Order> OrderComponent::CreateOrder(const std::string &from_pad_id,
   return {};
 }
 
-Optional<Order> OrderComponent::LoadCurrentOrder() {
+Optional<Order> OrderComponent::LoadCurrentOrder() const {
   DataFilter filter;
   DataFilterBuilder::StringNotEquals(filter, "status", Order::STATUS_FINISHED);
   DataFilterBuilder::StringNotEquals(filter, "status", Order::STATUS_CANCELED);
   return data_manager_.LoadOrderByUserAndFilter(context.user_id, filter);
 }
 
-ProcessOrdersResult OrderComponent::ProcessOrders() {
+ProcessOrdersResult OrderComponent::ProcessOrders() const {
   ProcessOrdersResult result{};
   auto orders = data_manager_.LoadUnprocessedOrders();
   for (const auto &order_pointer : orders) {
@@ -78,8 +78,12 @@ ProcessOrdersResult OrderComponent::ProcessOrders() {
   return result;
 }
 
-CancelOrderResult OrderComponent::CancelOrder(const std::string &order_id) {
+CancelOrderResult OrderComponent::CancelOrder(const std::string &order_id) const {
   return {};
+}
+
+int OrderComponent::GetTimeToArrival(const Order &order) const {
+  return route_service_.GetTimeToArrival(order);
 }
 
 }
