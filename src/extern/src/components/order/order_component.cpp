@@ -1,4 +1,3 @@
-#include <components/order/price_service/price_service.h>
 #include "order_component.h"
 
 namespace hovertaxi {

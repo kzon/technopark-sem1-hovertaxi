@@ -27,9 +27,6 @@ class DataManager {
   Optional<Aircraft> LoadNearestFreeAircraft(const GeoPoint &position, const std::string &aircraft_class_id) const;
   bool StoreAircraft(const Aircraft &aircraft) const;
 
-  Optional<AircraftModel> LoadAircraftModelById(const std::string &aircraft_model_id) const;
-
-  Optional<AircraftClass> LoadAircraftClassById(const std::string &aircraft_class_id) const;
   std::vector<std::unique_ptr<AircraftClass>> LoadAircraftClasses() const;
 
   std::vector<std::unique_ptr<AircraftModel>> LoadAircraftModelsByAircraftClass(const std::string &aircraft_class_id) const;
