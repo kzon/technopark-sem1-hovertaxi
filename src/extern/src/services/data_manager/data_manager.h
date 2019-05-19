@@ -32,7 +32,7 @@ class DataManager {
   std::vector<std::unique_ptr<Pad>> LoadPadsInRadius(const GeoPoint &center, int radius) const;
 
   std::vector<std::unique_ptr<Order>> LoadUnprocessedOrders() const;
-  Optional<Order> LoadOrderByUser(const std::string &user_id) const;
+  Optional<Order> LoadOrderByUserAndFilter(const std::string &user_id, DataFilter &filter) const;
   bool StoreOrder(const Order &order) const;
   size_t CountOrdersInRadius(const GeoPoint &center, int radius) const;
 

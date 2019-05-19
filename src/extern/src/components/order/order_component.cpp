@@ -41,7 +41,10 @@ Optional<Order> OrderComponent::CreateOrder(const std::string &from_pad_id,
 }
 
 Optional<Order> OrderComponent::LoadCurrentOrder() {
-  return data_manager_.LoadOrderByUser(context.user_id);
+  DataFilter filter;
+  DataFilterBuilder::StringNotEquals(filter, "status", Order::STATUS_FINISHED);
+  DataFilterBuilder::StringNotEquals(filter, "status", Order::STATUS_CANCELED);
+  return data_manager_.LoadOrderByUserAndFilter(context.user_id, filter);
 }
 
 ProcessOrdersResult OrderComponent::ProcessOrders() {
