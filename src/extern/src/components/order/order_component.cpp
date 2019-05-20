@@ -31,7 +31,11 @@ PreOrder OrderComponent::GetPreOrderInfo(const std::string &from_pad_id,
   pre_order.route = route;
 
   pre_order.price = price_service_.GetPrice(from_pad.position, to_pad.position, model);
+  pre_order.user_id = context.user_id;
+  pre_order.date = time(nullptr);
 
+  if(!data_manager_.StorePreOrder(pre_order))
+    throw std::bad_exception();
   return pre_order;
 }
 
@@ -40,6 +44,12 @@ Optional<Order> OrderComponent::CreateOrder(const std::string &from_pad_id,
                                             const std::string &aircraft_class_id) const {
   if (context.user_id.empty())
     return {};
+
+  DataFilter filter;
+  Optional<PreOrder> pre_order_result = data_manager_.LoadPreOrderByUserAndFilter(context.user_id, filter);
+  if(!pre_order_result)
+    throw std::bad_exception();
+  PreOrder pre_order = pre_order_result.value();
 
   Optional<Pad> from_pad_result = data_manager_.LoadPadById(from_pad_id),
       to_pad_result = data_manager_.LoadPadById(to_pad_id);
@@ -67,7 +77,7 @@ Optional<Order> OrderComponent::CreateOrder(const std::string &from_pad_id,
   order.aircraft_class_id = aircraft_class_id;
 
   order.assigned_aircraft_id = aircraft_result.value().id;
-  order.price = price_service_.GetPrice(from_pad.position, to_pad.position, model);
+  order.price = pre_order.price;
 
   if (data_manager_.StoreOrder(order))
     return {order};

@@ -88,6 +88,10 @@ bool DataManager::StoreOrder(const Order &order) const {
   return StoreObject(order);
 }
 
+bool DataManager::StorePreOrder(const PreOrder &pre_order) const {
+  return StoreObject(pre_order);
+}
+
 std::vector<std::unique_ptr<Order>> DataManager::LoadUnprocessedOrders() const {
   DataFilter filter;
   DataFilterBuilder::StringEquals(filter, "status", Order::STATUS_NEW);
@@ -121,6 +125,11 @@ bool DataManager::StoreAircraft(const Aircraft &aircraft) const {
 
 Optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
   return LoadObjectById<Aircraft>(id);
+}
+
+Optional<PreOrder> DataManager::LoadPreOrderByUserAndFilter(const std::string &user_id, DataFilter &filter) const {
+  DataFilterBuilder::StringEquals(filter, "user_id", user_id);
+  return LoadObject<PreOrder>(filter);
 }
 
 }
