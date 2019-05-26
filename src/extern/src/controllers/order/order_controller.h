@@ -17,12 +17,16 @@ class OrderController : public ContextKeeper {
   explicit OrderController(const Context &context)
       : ContextKeeper(context), order_component_(context), data_manager_(DataManager::GetInstance()) {}
 
-  std::string GetPreOrderInfo(const std::string &from_pad_id,
-                              const std::string &to_pad_id,
-                              const std::string &aircraft_class_id);
-  std::string CreateOrder(const std::string &from_pad_id,
-                          const std::string &to_pad_id,
-                          const std::string &aircraft_class_id);
+  std::string GetPreOrderInfo(
+      const std::string &from_pad_id,
+      const std::string &to_pad_id,
+      const std::string &aircraft_class_id
+  );
+  std::string CreateOrder(
+      const std::string &from_pad_id,
+      const std::string &to_pad_id,
+      const std::string &aircraft_class_id
+  );
   std::string ProcessOrders();
   std::string LoadCurrentOrder();
   std::string CancelOrder();
@@ -30,7 +34,7 @@ class OrderController : public ContextKeeper {
   OrderComponent order_component_;
   const DataManager &data_manager_;
 
-  std::unique_ptr<ApiOrder> ConvertOrderToApi(const Order & order) const;
+  std::unique_ptr<ApiOrder> ConvertOrderToApi(const Order &order) const;
 };
 
 }
