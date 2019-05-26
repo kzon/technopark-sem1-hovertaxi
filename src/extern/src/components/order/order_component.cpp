@@ -10,7 +10,7 @@ PreOrder OrderComponent::GetPreOrderInfo(const std::string &from_pad_id,
   Optional<Pad> from_pad_result = data_manager_.LoadPadById(from_pad_id),
       to_pad_result = data_manager_.LoadPadById(to_pad_id);
   if (!from_pad_result || !to_pad_result)
-    throw std::bad_exception();
+    throw std::runtime_error("Error loading pads");
   Pad from_pad = from_pad_result.value(),
       to_pad = to_pad_result.value();
 
@@ -18,12 +18,7 @@ PreOrder OrderComponent::GetPreOrderInfo(const std::string &from_pad_id,
   if (!aircraft_result)
     throw std::runtime_error("No free aircrafts of given class");
   Aircraft aircraft = aircraft_result.value();
-
-  Optional<AircraftModel> model_result = data_manager_.LoadAircraftModelById(aircraft.model_id);
-  if (!model_result)
-    throw std::runtime_error("Can not load aircraft model with id=" + aircraft.model_id);
-  AircraftModel model = model_result.value();
-
+  AircraftModel model = data_manager_.LoadAircraftModelById(aircraft.model_id).value();
   Route route;
   route.points.push_back(from_pad.position);
   route.points.push_back(to_pad.position);
@@ -55,6 +50,17 @@ Optional<Order> OrderComponent::CreateOrder(const std::string &from_pad_id,
   order.to_pad_id = to_pad_id;
   order.aircraft_class_id = aircraft_class_id;
   order.price = pre_order.price;
+
+  Pad from_pad = data_manager_.LoadPadById(from_pad_id).value(), to_pad = data_manager_.LoadPadById(to_pad_id).value();
+  Aircraft aircraft = data_manager_.LoadNearestFreeAircraft(from_pad.position, aircraft_class_id).value();
+  AircraftModel model = data_manager_.LoadAircraftModelById(aircraft.model_id).value();
+  Route route;
+  route.points.push_back(from_pad.position);
+  route.points.push_back(to_pad.position);
+  route.time = route_service_.GetTimeBetweenPointsInMinutes(from_pad.position, to_pad.position, model);
+
+  order.route = route;
+
   if (data_manager_.StoreOrder(order))
     return {order};
   return {};
