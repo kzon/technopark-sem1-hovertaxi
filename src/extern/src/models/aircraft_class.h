@@ -9,14 +9,14 @@ class AircraftClass : public MongoDataMapper {
   std::string name;
   int min_range{};
   int max_range{};
-  int cost;
+  int cost{};
 
   AircraftClass() = default;
   explicit AircraftClass(const MongoDataObject &object) : MongoDataMapper(object) {
-    this->name = object.view()["name"].get_utf8().value.to_string();
-    this->min_range = object.view()["min_range"].get_int32().value;
-    this->max_range = object.view()["max_range"].get_int32().value;
-    this->cost = object.view()["cost"].get_int32().value;
+    name = object.view()["name"].get_utf8().value.to_string();
+    min_range = object.view()["min_range"].get_int32().value;
+    max_range = object.view()["max_range"].get_int32().value;
+    cost = object.view()["cost"].get_int32().value;
   }
 
   static std::string GetSource() { return "aircraft_class"; }

@@ -14,11 +14,8 @@ class PriceService {
  public:
   PriceService(): data_manager_(DataManager::GetInstance()) {}
 
-  int GetPrice(const Order &order) const;
-  int GetCancelPrice(const Order &order) const;
-
   int GetPrice(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model) const;
-  int GetCancelPrice(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model) const;
+  int GetCancelPrice(const Order &order) const;
 
  private:
   RouteService route_service_;

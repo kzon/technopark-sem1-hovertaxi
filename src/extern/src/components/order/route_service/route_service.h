@@ -17,7 +17,7 @@ class RouteService {
   int GetTimeToArrival(const Order &order) const;
 
   // Returns time in minutes
-  int GetTimeBetweenPoints(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model) const;
+  int GetTimeBetweenPointsInMinutes(const GeoPoint &p1, const GeoPoint &p2, const AircraftModel &model) const;
  private:
   const DataManager &data_manager_;
 };

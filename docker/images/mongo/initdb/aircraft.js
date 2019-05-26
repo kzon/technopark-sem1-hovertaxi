@@ -1,7 +1,7 @@
 db.aircraft_class.insert([
-    {_id: ObjectId("5063114bd386d8fadbd6b004"), name: "Вертолет", max_range: NumberInt(100), min_range: NumberInt(2), cost: NumberInt(400)},
-    {_id: ObjectId("5063114bd386d8fadbd6b005"), name: "Мультикоптер", max_range: NumberInt(50), min_range: NumberInt(1), cost: NumberInt(300)},
-    {_id: ObjectId("5063114bd386d8fadbd6b006"), name: "Хавербайк", max_range: NumberInt(20), min_range: NumberInt(0), cost: NumberInt(200)},
+    {_id: ObjectId("5063114bd386d8fadbd6b004"), name: "Вертолет", max_range: NumberInt(100), min_range: NumberInt(2), cost: NumberInt(6)},
+    {_id: ObjectId("5063114bd386d8fadbd6b005"), name: "Мультикоптер", max_range: NumberInt(50), min_range: NumberInt(1), cost: NumberInt(3)},
+    {_id: ObjectId("5063114bd386d8fadbd6b006"), name: "Хавербайк", max_range: NumberInt(20), min_range: NumberInt(0), cost: NumberInt(1)},
 ]);
 
 db.aircraft_model.insert([
@@ -9,25 +9,25 @@ db.aircraft_model.insert([
         _id: ObjectId("5063114bd386d8fadbd6b007"),
         name: "Uber T-1",
         class_id: "5063114bd386d8fadbd6b005",
-        cruise_speed: NumberInt(150)
+        cruise_speed: NumberInt(100)
     },
     {
         _id: ObjectId("5063114bd386d8fadbd6b008"),
         name: "Uber T-2",
         class_id: "5063114bd386d8fadbd6b005",
-        cruise_speed: NumberInt(180)
+        cruise_speed: NumberInt(110)
     },
     {
         _id: ObjectId("5063114bd386d8fadbd6b009"),
         name: "Airbus CityLift",
         class_id: "5063114bd386d8fadbd6b004",
-        cruise_speed: NumberInt(140)
+        cruise_speed: NumberInt(120)
     },
     {
         _id: ObjectId("5063114bd386d8fadbd6b010"),
         name: "Columbus Majesty",
         class_id: "5063114bd386d8fadbd6b006",
-        cruise_speed: NumberInt(80)
+        cruise_speed: NumberInt(50)
     },
 ]);
 

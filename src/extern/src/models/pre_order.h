@@ -12,9 +12,8 @@ namespace hovertaxi {
 class PreOrder : public MongoDataMapper {
  public:
   std::string user_id;
-  time_t date{};
-  Route route;
   int price{};
+  Route route;
 
   PreOrder() = default;
   explicit PreOrder(const MongoDataObject &object) : MongoDataMapper(object) {
@@ -25,11 +24,8 @@ class PreOrder : public MongoDataMapper {
   std::map<std::string, std::string> GetJsonFields() const override {
     std::map<std::string, std::string> fields;
     fields["user_id"] = user_id;
-    fields["route"] = JSON::ToJSON(route, true);
     fields["price"] = std::to_string(price);
-    auto date_str = std::string(ctime(&date));
-    date_str.erase(date_str.length() - 1, 1); //remove new line
-    fields["date"] = date_str;
+    fields["route"] = JSON::ToJSON(route, true);
     return fields;
   }
 
@@ -38,7 +34,6 @@ class PreOrder : public MongoDataMapper {
   MongoDataObject GetStorageObject() const override {
     auto object = bsoncxx::builder::stream::document{}
         << "user_id" << user_id
-        << "date" << date
         << "price" << price
         << bsoncxx::builder::stream::finalize;
     return object;
