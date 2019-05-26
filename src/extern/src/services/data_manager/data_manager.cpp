@@ -55,6 +55,14 @@ Optional<Pad> DataManager::LoadPadById(const std::string &id) const {
   return LoadObjectById<Pad>(id);
 }
 
+Optional<AircraftModel> DataManager::LoadAircraftModelById(const std::string &aircraft_model_id) const {
+  return LoadObjectById<AircraftModel>(aircraft_model_id);
+}
+
+Optional<AircraftClass> DataManager::LoadAircraftClassById(const std::string &aircraft_class_id) const {
+  return LoadObjectById<AircraftClass>(aircraft_class_id);
+}
+
 std::vector<std::unique_ptr<AircraftClass>> DataManager::LoadAircraftClasses() const {
   return LoadObjects<AircraftClass>();
 }
@@ -78,6 +86,10 @@ Optional<Order> DataManager::LoadOrderByUserAndFilter(const std::string &user_id
 
 bool DataManager::StoreOrder(const Order &order) const {
   return StoreObject(order);
+}
+
+bool DataManager::StorePreOrder(const PreOrder &pre_order) const {
+  return StoreObject(pre_order);
 }
 
 std::vector<std::unique_ptr<Order>> DataManager::LoadUnprocessedOrders() const {
@@ -115,12 +127,10 @@ Optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
   return LoadObjectById<Aircraft>(id);
 }
 
-Optional<AircraftClass> DataManager::LoadAircraftClassById(const std::string &id) const {
-  return LoadObjectById<AircraftClass>(id);
-}
-
-Optional<AircraftModel> DataManager::LoadAircraftModelById(const std::string &id) const {
-  return LoadObjectById<AircraftModel>(id);
+Optional<PreOrder> DataManager::LoadPreOrderByUser(const std::string &user_id) const {
+  DataFilter filter;
+  DataFilterBuilder::StringEquals(filter, "user_id", user_id);
+  return LoadObject<PreOrder>(filter);
 }
 
 }

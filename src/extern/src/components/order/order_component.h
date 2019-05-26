@@ -12,6 +12,7 @@
 #include "models/geo_point.h"
 #include "models/aircraft_class.h"
 #include "services/data_manager/data_manager.h"
+#include "price_service/price_service.h"
 #include "./route_service/route_service.h"
 
 namespace hovertaxi {
@@ -39,6 +40,7 @@ class OrderComponent : public ContextKeeper {
  private:
   const DataManager &data_manager_;
   RouteService route_service_;
+  PriceService price_service_;
 };
 
 }

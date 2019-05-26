@@ -14,13 +14,27 @@ PreOrder OrderComponent::GetPreOrderInfo(const std::string &from_pad_id,
   Pad from_pad = from_pad_result.value(),
       to_pad = to_pad_result.value();
 
+  Optional<Aircraft> aircraft_result = data_manager_.LoadNearestFreeAircraft(from_pad.position, aircraft_class_id);
+  if (!aircraft_result)
+    throw std::runtime_error("No free aircrafts of given class");
+  Aircraft aircraft = aircraft_result.value();
+
+  Optional<AircraftModel> model_result = data_manager_.LoadAircraftModelById(aircraft.model_id);
+  if (!model_result)
+    throw std::runtime_error("Can not load aircraft model with id=" + aircraft.model_id);
+  AircraftModel model = model_result.value();
+
   Route route;
   route.points.push_back(from_pad.position);
   route.points.push_back(to_pad.position);
-  route.time = 8;
-
+  route.time = route_service_.GetTimeBetweenPointsInMinutes(from_pad.position, to_pad.position, model);
   pre_order.route = route;
-  pre_order.price = 755;
+
+  pre_order.price = price_service_.GetPrice(from_pad.position, to_pad.position, model);
+  pre_order.user_id = context.user_id;
+
+  if (!data_manager_.StorePreOrder(pre_order))
+    throw std::runtime_error("Failed to store pre order");
   return pre_order;
 }
 
@@ -29,12 +43,18 @@ Optional<Order> OrderComponent::CreateOrder(const std::string &from_pad_id,
                                             const std::string &aircraft_class_id) const {
   if (context.user_id.empty())
     return {};
+
+  Optional<PreOrder> pre_order_result = data_manager_.LoadPreOrderByUser(context.user_id);
+  if (!pre_order_result)
+    throw std::bad_exception();
+  PreOrder pre_order = pre_order_result.value();
   Order order;
   order.user_id = context.user_id;
   order.status = Order::STATUS_NEW;
   order.from_pad_id = from_pad_id;
   order.to_pad_id = to_pad_id;
   order.aircraft_class_id = aircraft_class_id;
+  order.price = pre_order.price;
   if (data_manager_.StoreOrder(order))
     return {order};
   return {};
