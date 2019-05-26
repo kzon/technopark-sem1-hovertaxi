@@ -88,6 +88,70 @@ db.aircraft.insert([
         direction: NumberInt(345),
         is_assigned: true
     },
+    {
+        model_id: "5063114bd386d8fadbd6b009",
+        number: "1a55d97",
+        position: {type: "Point", coordinates: [55.738058, 37.615031]},
+        speed: NumberInt(70),
+        direction: NumberInt(345),
+        is_assigned: false
+    },
+    {
+        model_id: "5063114bd386d8fadbd6b010",
+        number: "2z55d95",
+        position: {type: "Point", coordinates: [55.714149, 37.599648]},
+        speed: NumberInt(100),
+        direction: NumberInt(160),
+        is_assigned: true
+    },
+    {
+        model_id: "5063114bd386d8fadbd6b010",
+        number: "2z55d97",
+        position: {type: "Point", coordinates: [55.784775, 37.622725]},
+        speed: NumberInt(110),
+        direction: NumberInt(120),
+        is_assigned: false
+    },
+    {
+        model_id: "5063114bd386d8fadbd6b010",
+        number: "2z55d98",
+        position: {type: "Point", coordinates: [55.707741, 37.602296]},
+        speed: NumberInt(0),
+        direction: NumberInt(0),
+        is_assigned: false
+    },
+    {
+        model_id: "5063114bd386d8fadbd6b009",
+        number: "2a58z98",
+        position: {type: "Point", coordinates: [55.769636, 37.654124]},
+        speed: NumberInt(0),
+        direction: NumberInt(0),
+        is_assigned: false
+    },
+    {
+        model_id: "5063114bd386d8fadbd6b009",
+        number: "2a58z99",
+        position: {type: "Point", coordinates: [55.764944, 37.652611]},
+        speed: NumberInt(100),
+        direction: NumberInt(200),
+        is_assigned: true
+    },
+    {
+        model_id: "5063114bd386d8fadbd6b009",
+        number: "2a58z00",
+        position: {type: "Point", coordinates: [55.781364, 37.686281]},
+        speed: NumberInt(110),
+        direction: NumberInt(200),
+        is_assigned: true
+    },
+    {
+        model_id: "5063114bd386d8fadbd6b009",
+        number: "2a58z01",
+        position: {type: "Point", coordinates: [55.774114, 37.695738]},
+        speed: NumberInt(30),
+        direction: NumberInt(290),
+        is_assigned: false
+    },
 ]);
 
 db.aircraft.createIndex({position: "2dsphere"});

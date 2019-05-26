@@ -13,6 +13,17 @@ db.pad.insert([
     {name: "Планетарий", position: {type: "Point", coordinates: [55.760940, 37.583357]}},
     {name: "Киев", position: {type: "Point", coordinates: [55.745877, 37.569459]}},
     {name: "Добрынинская", position: {type: "Point", coordinates: [55.730164, 37.624789]}},
+    {name: "Турчанинов", position: {type: "Point", coordinates: [55.737336, 37.596799]}},
+    {name: "Арена", position: {type: "Point", coordinates: [55.718744, 37.551085]}},
+    {name: "Белая", position: {type: "Point", coordinates: [55.776248, 37.576235]}},
+    {name: "Мир", position: {type: "Point", coordinates: [55.812363, 37.637928]}},
+    {name: "Менделеев", position: {type: "Point", coordinates: [55.780756, 37.598344]}},
+    {name: "Достоевский", position: {type: "Point", coordinates: [55.784589, 37.615525]}},
+    {name: "Электрозавод", position: {type: "Point", coordinates: [55.777682, 37.706153]}},
+    {name: "Серп", position: {type: "Point", coordinates: [55.748267, 37.679341]}},
+    {name: "Ярославль", position: {type: "Point", coordinates: [55.774175, 37.659620]}},
+    {name: "Хамовники", position: {type: "Point", coordinates: [55.732411, 37.580994]}},
+    {name: "Волгоградский", position: {type: "Point", coordinates: [55.724808, 37.683809]}},
 ]);
 
 db.pad.createIndex({position: "2dsphere"});
