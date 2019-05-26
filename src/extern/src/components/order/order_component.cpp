@@ -14,13 +14,28 @@ PreOrder OrderComponent::GetPreOrderInfo(const std::string &from_pad_id,
   Pad from_pad = from_pad_result.value(),
       to_pad = to_pad_result.value();
 
+  Optional<Aircraft> aircraft_result  = data_manager_.LoadNearestFreeAircraft(from_pad.position, aircraft_class_id);
+  if(!aircraft_result)
+    throw std::bad_exception();
+  Aircraft aircraft = aircraft_result.value();
+
+  Optional<AircraftModel> model_result  = data_manager_.LoadAircraftModelById(aircraft.model_id);
+  if(!model_result)
+    throw std::bad_exception();
+  AircraftModel model = model_result.value();
+
   Route route;
   route.points.push_back(from_pad.position);
   route.points.push_back(to_pad.position);
-  route.time = 8;
-
+  route.time = route_service_.GetTimeFlight(from_pad.position, to_pad.position, model);
   pre_order.route = route;
-  pre_order.price = 755;
+
+  pre_order.price = price_service_.GetPrice(from_pad.position, to_pad.position, model);
+  pre_order.user_id = context.user_id;
+  pre_order.date = time(nullptr);
+
+  if(!data_manager_.StorePreOrder(pre_order))
+    throw std::bad_exception();
   return pre_order;
 }
 
@@ -29,12 +44,41 @@ Optional<Order> OrderComponent::CreateOrder(const std::string &from_pad_id,
                                             const std::string &aircraft_class_id) const {
   if (context.user_id.empty())
     return {};
+
+  DataFilter filter;
+  Optional<PreOrder> pre_order_result = data_manager_.LoadPreOrderByUserAndFilter(context.user_id, filter);
+  if(!pre_order_result)
+    throw std::bad_exception();
+  PreOrder pre_order = pre_order_result.value();
+
+  Optional<Pad> from_pad_result = data_manager_.LoadPadById(from_pad_id),
+      to_pad_result = data_manager_.LoadPadById(to_pad_id);
+  if (!from_pad_result || !to_pad_result)
+    throw std::bad_exception();
+  Pad from_pad = from_pad_result.value(),
+      to_pad = to_pad_result.value();
+
+  Optional<Aircraft> aircraft_result  = data_manager_.LoadNearestFreeAircraft(from_pad.position, aircraft_class_id);
+  if(!aircraft_result)
+    throw std::bad_exception();
+  Aircraft aircraft = aircraft_result.value();
+
+  Optional<AircraftModel> model_result  = data_manager_.LoadAircraftModelById(aircraft.model_id);
+  if(!model_result)
+    throw std::bad_exception();
+  AircraftModel model = model_result.value();
+
+
   Order order;
   order.user_id = context.user_id;
   order.status = Order::STATUS_NEW;
   order.from_pad_id = from_pad_id;
   order.to_pad_id = to_pad_id;
   order.aircraft_class_id = aircraft_class_id;
+
+  order.assigned_aircraft_id = aircraft_result.value().id;
+  order.price = pre_order.price;
+
   if (data_manager_.StoreOrder(order))
     return {order};
   return {};

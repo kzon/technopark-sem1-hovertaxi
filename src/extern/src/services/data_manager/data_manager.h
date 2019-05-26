@@ -8,6 +8,7 @@
 #include "models/aircraft_class.h"
 #include "models/pad.h"
 #include "models/order.h"
+#include "models/pre_order.h"
 #include "services/data_manager/data_storage/mongo_data_storage.h"
 #include "services/data_manager/data_storage/data_filter.h"
 #include "services/data_manager/data_storage/data_filter_builder.h"
@@ -35,8 +36,10 @@ class DataManager {
   std::vector<std::unique_ptr<Pad>> LoadPadsInRadius(const GeoPoint &center, int radius) const;
 
   std::vector<std::unique_ptr<Order>> LoadUnprocessedOrders() const;
+  Optional<PreOrder> LoadPreOrderByUserAndFilter(const std::string &user_id, DataFilter &filter) const;
   Optional<Order> LoadOrderByUserAndFilter(const std::string &user_id, DataFilter &filter) const;
   bool StoreOrder(const Order &order) const;
+  bool StorePreOrder(const PreOrder &pre_order) const;
   size_t CountOrdersInRadius(const GeoPoint &center, int radius) const;
 
  private:
