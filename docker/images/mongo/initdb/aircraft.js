@@ -2,6 +2,7 @@ db.aircraft_class.insert([
     {_id: ObjectId("5063114bd386d8fadbd6b004"), name: "Вертолет", max_range: NumberInt(100), min_range: NumberInt(2)},
     {_id: ObjectId("5063114bd386d8fadbd6b005"), name: "Мультикоптер", max_range: NumberInt(50), min_range: NumberInt(1)},
     {_id: ObjectId("5063114bd386d8fadbd6b006"), name: "Хавербайк", max_range: NumberInt(20), min_range: NumberInt(0)},
+    {_id: ObjectId("5063114bd386d8fadbd6b007"), name: "Электроджет", max_range: NumberInt(70), min_range: NumberInt(2)},
 ]);
 
 db.aircraft_model.insert([
@@ -28,6 +29,12 @@ db.aircraft_model.insert([
         name: "Columbus Majesty",
         class_id: "5063114bd386d8fadbd6b006",
         cruise_speed: NumberInt(80)
+    },
+    {
+        _id: ObjectId("5063114bd386d8fadbd6b011"),
+        name: "Lilium Jet 3",
+        class_id: "5063114bd386d8fadbd6b007",
+        cruise_speed: NumberInt(160)
     },
 ]);
 
@@ -150,6 +157,14 @@ db.aircraft.insert([
         position: {type: "Point", coordinates: [55.774114, 37.695738]},
         speed: NumberInt(30),
         direction: NumberInt(290),
+        is_assigned: false
+    },
+    {
+        model_id: "5063114bd386d8fadbd6b011",
+        number: "3b58z02",
+        position: {type: "Point", coordinates: [55.891214, 37.368445]},
+        speed: NumberInt(150),
+        direction: NumberInt(175),
         is_assigned: false
     },
 ]);
