@@ -127,7 +127,8 @@ Optional<Aircraft> DataManager::LoadAircraftById(const std::string &id) const {
   return LoadObjectById<Aircraft>(id);
 }
 
-Optional<PreOrder> DataManager::LoadPreOrderByUserAndFilter(const std::string &user_id, DataFilter &filter) const {
+Optional<PreOrder> DataManager::LoadPreOrderByUser(const std::string &user_id) const {
+  DataFilter filter;
   DataFilterBuilder::StringEquals(filter, "user_id", user_id);
   return LoadObject<PreOrder>(filter);
 }

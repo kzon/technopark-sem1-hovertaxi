@@ -36,7 +36,7 @@ class DataManager {
   std::vector<std::unique_ptr<Pad>> LoadPadsInRadius(const GeoPoint &center, int radius) const;
 
   std::vector<std::unique_ptr<Order>> LoadUnprocessedOrders() const;
-  Optional<PreOrder> LoadPreOrderByUserAndFilter(const std::string &user_id, DataFilter &filter) const;
+  Optional<PreOrder> LoadPreOrderByUser(const std::string &user_id) const;
   Optional<Order> LoadOrderByUserAndFilter(const std::string &user_id, DataFilter &filter) const;
   bool StoreOrder(const Order &order) const;
   bool StorePreOrder(const PreOrder &pre_order) const;

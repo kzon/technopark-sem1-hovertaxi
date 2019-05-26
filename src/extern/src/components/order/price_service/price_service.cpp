@@ -39,7 +39,7 @@ int PriceService::GetPrice(const GeoPoint &p1, const GeoPoint &p2, const Aircraf
     throw std::bad_exception();
   AircraftClass aircraft_class = aircraft_class_result.value();
 
-  int time = route_service_.GetTimeFlight(p1, p2, model);
+  int time = route_service_.GetTimeBetweenPoints(p1, p2, model);
   int cost = time * aircraft_class.cost;
   return cost;
 }
